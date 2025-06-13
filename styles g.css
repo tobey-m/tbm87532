@@ -1,0 +1,11 @@
+/* styles g.css */
+
+/* สไตล์เฉพาะสำหรับรูปภาพใน Carousel */
+.carousel-item img {
+    object-fit: cover;
+    width: 100%;
+    /* แก้ปัญหา 100vh บนมือถือ */
+    height: var(--app-height, 100vh); /* ใช้ตัวแปร --app-height, ถ้าเบราว์เซอร์ไม่รองรับให้ใช้ 100vh */
+}
+
+/* ถ้ามีสไตล์อื่นๆ ที่เป็นของหน้า Gallery โดยเฉพาะ ให้ใส่ที่นี่ */

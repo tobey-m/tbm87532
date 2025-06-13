@@ -1,42 +1,41 @@
 /* social.css */
 
-/* ทำให้ container ของเนื้อหาทั้งหมดเต็มจอและจัดกึ่งกลาง */
+/* สไตล์เริ่มต้นสำหรับหน้าจอ Desktop */
 .social-content-container {
-    display: flex; /* จัดเรียง QR code และข้อความแนวนอน (ค่าเริ่มต้นสำหรับ Desktop) */
-    justify-content: center; /* จัดกึ่งกลางแนวนอน */
-    align-items: center; /* จัดกึ่งกลางแนวตั้ง */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     
-    /* *** ส่วนที่แก้ไขสำหรับ Desktop *** */
-    /* เดิม: height: var(--app-height, 100vh); width: 100vw; */
-    /* เปลี่ยนเป็น: */
-    height: 100vh; /* ใช้ 100vh เพื่อให้แน่ใจว่าครอบคลุมความสูงของหน้าจอ */
-    width: 100%; /* กว้าง 100% แต่เราจะจำกัดด้วย max-width ด้านล่าง */
-    max-width: 1200px; /* *** เพิ่ม: กำหนดความกว้างสูงสุดของ Container บน Desktop *** */
-    max-height: 800px; /* *** เพิ่ม: กำหนดความสูงสูงสุดของ Container บน Desktop (ปรับตามความเหมาะสม) *** */
-    margin: auto; /* *** เพิ่ม: จัดกึ่งกลาง Container ในแนวนอนเมื่อมี max-width *** */
-    /* ***************************** */
+    /* ******** ส่วนที่แก้ไขสำหรับ Desktop ************ */
+    height: 100vh; /* ให้ container สูงเต็ม viewport */
+    width: 100vw; /* ให้ container กว้างเต็ม viewport */
+    max-width: 1200px; /* กำหนดความกว้างสูงสุดบน Desktop (ปรับค่าได้) */
+    max-height: 700px; /* กำหนดความสูงสูงสุดบน Desktop (ปรับค่าได้) */
+    margin: auto; /* จัดกึ่งกลาง container บน Desktop */
+    /* ********************************************* */
 
-    overflow: hidden; /* ซ่อนส่วนที่ล้น */
+    overflow: hidden;
     background-color: black;
     position: relative;
     z-index: 0;
-    gap: 40px; /* ระยะห่างระหว่างรูป QR กับข้อความ (แนวนอน) */
+    gap: 40px;
     padding: 20px;
-    box-sizing: border-box; /* สำคัญ: รวม padding และ border ในการคำนวณความกว้าง/สูง */
+    box-sizing: border-box; /* สำคัญ: รวม padding และ border ในการคำนวณขนาด */
 }
 
-/* สไตล์สำหรับรูปภาพ QR Code */
+/* สไตล์สำหรับรูปภาพ QR Code (Desktop) */
 .qr-image {
-    max-height: 61.2vh; /* ขนาด QR Code สำหรับ Desktop */
+    max-height: 61.2vh; 
+    max-width: 40%; /* จำกัดความกว้างสูงสุดของรูป QR บน Desktop */
     width: auto;
     height: auto;
     object-fit: contain;
 }
 
-/* สไตล์สำหรับ Wrapper ของข้อความ */
+/* สไตล์สำหรับ Wrapper ของข้อความ (Desktop) */
 .social-text-wrapper {
     color: white;
-    text-align: left; /* จัดข้อความชิดซ้าย (สำหรับ Desktop) */
+    text-align: left;
     font-size: 1.5em;
     line-height: 1.6;
     max-width: 500px;
@@ -60,50 +59,49 @@
     text-decoration: underline;
 }
 
-/* *** ส่วนที่สำคัญสำหรับการแสดงผลบนมือถือ (หน้า Social) *** */
+/* *** Responsive Design สำหรับ Mobile/Tablet *** */
 
-/* สำหรับหน้าจอขนาดแท็บเล็ตและเล็กกว่า */
-@media (max-width: 768px) {
+@media (max-width: 768px) { /* สำหรับหน้าจอขนาดแท็บเล็ตและเล็กกว่า */
     .social-content-container {
-        flex-direction: column !important; /* *** เพิ่ม !important เพื่อบังคับใช้ *** */
+        flex-direction: column !important; /* บังคับให้เรียงแนวตั้งบนมือถือ */
         justify-content: flex-start; /* เริ่มจากด้านบน */
         align-items: center; /* จัดกึ่งกลางแนวนอน */
-        gap: 30px; /* ระยะห่างแนวตั้งระหว่างรูปกับข้อความ */
+        gap: 30px; /* ระยะห่างแนวตั้ง */
         padding: 20px 10px;
         box-sizing: border-box;
 
-        /* บนมือถือ ให้มันกลับมาเต็มจอเหมือนเดิม */
-        max-width: none; /* ยกเลิก max-width สำหรับ Desktop */
-        max-height: none; /* ยกเลิก max-height สำหรับ Desktop */
-        width: 100vw; /* กลับไปใช้ 100vw บนมือถือ */
-        height: var(--app-height, 100vh); /* กลับไปใช้ var(--app-height) บนมือถือ */
+        /* ******** ยกเลิกการจำกัดขนาด Desktop บนมือถือ ************ */
+        max-width: none; /* ยกเลิก max-width */
+        max-height: none; /* ยกเลิก max-height */
+        width: 100vw; /* กลับไปใช้ 100vw */
+        height: var(--app-height, 100vh); /* กลับไปใช้ 100vh หรือ var(--app-height) */
         margin: 0; /* ยกเลิก margin auto */
+        /* ********************************************* */
     }
 
     .qr-image {
         max-height: 40vh;
-        width: 75%; /* ปรับขนาดให้เล็กลงแต่ยังพอเห็นได้ */
+        width: 75%; /* ปรับขนาดรูป QR */
         height: auto;
-        margin-top: 60px; /* เพิ่มระยะห่างจากด้านบนมากขึ้น */
+        margin-top: 60px; /* ระยะห่างจากด้านบน (หรือ Navbar) */
     }
 
     .social-text-wrapper {
-        text-align: center; /* จัดข้อความให้อยู่กึ่งกลาง */
+        text-align: center;
         font-size: 1.2em;
         max-width: 90%;
-        padding-bottom: 20px; /* เพิ่ม padding ด้านล่าง */
+        padding-bottom: 20px;
     }
 }
 
-/* สำหรับหน้าจอขนาดโทรศัพท์มือถือที่เล็กกว่า */
-@media (max-width: 576px) {
+@media (max-width: 576px) { /* สำหรับหน้าจอโทรศัพท์มือถือที่เล็กกว่า */
     .social-content-container {
-        gap: 25px; /* ลดระยะห่างแนวตั้งลงอีก */
+        gap: 25px;
     }
     .qr-image {
         max-height: 35vh;
         width: 85%;
-        margin-top: 50px; /* ปรับ margin-top ลงเล็กน้อย */
+        margin-top: 50px;
     }
 
     .social-text-wrapper {
@@ -112,15 +110,14 @@
     }
 }
 
-/* ถ้ายังคงมีปัญหาบน iPhone ที่เล็กมากๆ */
-@media (max-width: 375px) {
+@media (max-width: 375px) { /* สำหรับ iPhone ที่เล็กมากๆ */
     .social-content-container {
-        gap: 20px; /* ลดระยะห่างแนวตั้งลงอีก */
+        gap: 20px;
     }
     .qr-image {
         max-height: 30vh;
         width: 90%;
-        margin-top: 40px; /* ปรับ margin-top ลงอีก */
+        margin-top: 40px;
     }
 
     .social-text-wrapper {

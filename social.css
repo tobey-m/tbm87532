@@ -2,53 +2,111 @@
 
 /* ทำให้ container ของเนื้อหาทั้งหมดเต็มจอและจัดกึ่งกลาง */
 .social-content-container {
-    display: flex; /* จัดเรียง QR code และข้อความแนวนอน */
+    display: flex; /* จัดเรียง QR code และข้อความแนวนอน (ค่าเริ่มต้นสำหรับ Desktop) */
     justify-content: center; /* จัดกึ่งกลางแนวนอน */
     align-items: center; /* จัดกึ่งกลางแนวตั้ง */
-    /* แก้ปัญหา 100vh บนมือถือ */
     height: var(--app-height, 100vh); /* ใช้ตัวแปร --app-height, ถ้าเบราว์เซอร์ไม่รองรับให้ใช้ 100vh */
-    width: 100vw; /* เต็มจอแนวนอน */
-    overflow: hidden;
-    background-color: black; /* พื้นหลังสีดำตามรูปตัวอย่าง */
-    position: relative; /* สำหรับ z-index กับ Navbar */
+    width: 100vw;
+    overflow: hidden; /* ซ่อนส่วนที่ล้น */
+    background-color: black;
+    position: relative;
     z-index: 0;
-    gap: 40px; /* ระยะห่างระหว่างรูป QR กับข้อความ */
-    padding: 20px; /* ขอบด้านใน */
+    gap: 40px; /* ระยะห่างระหว่างรูป QR กับข้อความ (แนวนอน) */
+    padding: 20px;
 }
 
 /* สไตล์สำหรับรูปภาพ QR Code */
 .qr-image {
-    /* ปรับขนาดรูป QR Code ลงอีก 15% จากขนาดล่าสุด */
-    max-height: 61.2vh; /* เดิม 72vh, ลดลง 15% เหลือ 61.2vh */
-    width: auto; /* รักษาอัตราส่วน */
-    height: auto; /* รักษาอัตราส่วน */
-    object-fit: contain; /* รูปภาพจะพอดีกับพื้นที่โดยไม่ถูกตัด แต่จะมีขอบดำถ้าสัดส่วนไม่ตรง */
+    max-height: 61.2vh; /* ขนาด QR Code สำหรับ Desktop */
+    width: auto;
+    height: auto;
+    object-fit: contain;
 }
 
 /* สไตล์สำหรับ Wrapper ของข้อความ */
 .social-text-wrapper {
-    color: white; /* สีข้อความให้เป็นสีขาวตามรูปตัวอย่าง */
-    text-align: left; /* จัดข้อความชิดซ้าย */
-    font-size: 1.5em; /* ขนาดฟอนต์ */
-    line-height: 1.6; /* ระยะห่างระหว่างบรรทัด */
-    /* Optional: เพิ่ม max-width เพื่อจำกัดความกว้างของข้อความ */
+    color: white;
+    text-align: left; /* จัดข้อความชิดซ้าย (สำหรับ Desktop) */
+    font-size: 1.5em;
+    line-height: 1.6;
     max-width: 500px;
 }
 
 /* สไตล์สำหรับแต่ละย่อหน้าในข้อความ */
 .social-text-wrapper p {
-    margin-bottom: 10px; /* ระยะห่างระหว่างแต่ละย่อหน้าของข้อความ */
+    margin-bottom: 10px;
 }
 
 /* สไตล์สำหรับลิงก์ "Just lightly tap thisss ~~" */
 .tap-link {
-    color: #ADD8E6; /* สีฟ้าอ่อนสำหรับลิงก์ */
-    text-decoration: none; /* ไม่มีขีดเส้นใต้ */
+    color: #ADD8E6;
+    text-decoration: none;
     font-weight: bold;
     transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
 .tap-link:hover {
-    color: #87CEEB; /* สีฟ้าเข้มขึ้นเมื่อเมาส์ชี้ */
-    text-decoration: underline; /* มีขีดเส้นใต้เมื่อเมาส์ชี้ */
+    color: #87CEEB;
+    text-decoration: underline;
+}
+
+/* *** ส่วนที่สำคัญสำหรับการแสดงผลบนมือถือ (หน้า Social) *** */
+
+/* สำหรับหน้าจอขนาดแท็บเล็ตและเล็กกว่า */
+@media (max-width: 768px) {
+    .social-content-container {
+        flex-direction: column; /* *** ต้องเป็น column เพื่อเรียงแนวตั้ง *** */
+        justify-content: flex-start; /* เริ่มจากด้านบน */
+        align-items: center; /* จัดกึ่งกลางแนวนอน */
+        gap: 30px; /* เพิ่มระยะห่างแนวตั้งระหว่างรูปกับข้อความ (ปรับให้เห็นชัดๆ) */
+        padding: 20px 10px;
+        box-sizing: border-box;
+    }
+
+    .qr-image {
+        max-height: 40vh;
+        width: 75%; /* ปรับขนาดให้เล็กลงแต่ยังพอเห็นได้ */
+        height: auto;
+        margin-top: 60px; /* *** เพิ่มระยะห่างจากด้านบนมากขึ้น *** */
+    }
+
+    .social-text-wrapper {
+        text-align: center; /* จัดข้อความให้อยู่กึ่งกลาง */
+        font-size: 1.2em;
+        max-width: 90%;
+        padding-bottom: 20px; /* เพิ่ม padding ด้านล่าง เพื่อไม่ให้ติดขอบจอเกินไป */
+    }
+}
+
+/* สำหรับหน้าจอขนาดโทรศัพท์มือถือที่เล็กกว่า */
+@media (max-width: 576px) {
+    .social-content-container {
+        gap: 25px; /* ลดระยะห่างแนวตั้งลงอีก */
+    }
+    .qr-image {
+        max-height: 35vh;
+        width: 85%;
+        margin-top: 50px; /* ปรับ margin-top ลงเล็กน้อย */
+    }
+
+    .social-text-wrapper {
+        font-size: 1em;
+        max-width: 95%;
+    }
+}
+
+/* ถ้ายังคงมีปัญหาบน iPhone ที่เล็กมากๆ */
+@media (max-width: 375px) {
+    .social-content-container {
+        gap: 20px; /* ลดระยะห่างแนวตั้งลงอีก */
+    }
+    .qr-image {
+        max-height: 30vh;
+        width: 90%;
+        margin-top: 40px; /* ปรับ margin-top ลงอีก */
+    }
+
+    .social-text-wrapper {
+        font-size: 0.9em;
+    }
 }

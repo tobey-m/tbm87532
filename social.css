@@ -5,7 +5,8 @@
     display: flex; /* จัดเรียง QR code และข้อความแนวนอน */
     justify-content: center; /* จัดกึ่งกลางแนวนอน */
     align-items: center; /* จัดกึ่งกลางแนวตั้ง */
-    height: 100vh; /* เต็มจอแนวตั้ง */
+    /* แก้ปัญหา 100vh บนมือถือ */
+    height: var(--app-height, 100vh); /* ใช้ตัวแปร --app-height, ถ้าเบราว์เซอร์ไม่รองรับให้ใช้ 100vh */
     width: 100vw; /* เต็มจอแนวนอน */
     overflow: hidden;
     background-color: black; /* พื้นหลังสีดำตามรูปตัวอย่าง */

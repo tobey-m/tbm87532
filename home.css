@@ -7,14 +7,17 @@ body {
     background-position: center;
     background-attachment: fixed;
     filter: brightness(0.3); /* ทำให้รูปมืดลง */
+    /* แก้ปัญหา 100vh บนมือถือ */
+    height: var(--app-height, 100vh); /* ใช้ตัวแปร --app-height, ถ้าเบราว์เซอร์ไม่รองรับให้ใช้ 100vh */
 }
 
-/* Wrapper สำหรับเนื้อหาหลักในหน้า Home (h1) เพื่อจัดกึ่งกลาง */
+/* Wrapper สำหรับเนื้อหาหลักในหน้า Home เพื่อจัดให้อยู่กึ่งกลาง */
 .home-content-wrapper {
     display: flex;
     justify-content: center; /* จัดแนวนอนกึ่งกลาง */
     align-items: center; /* จัดแนวตั้งกึ่งกลาง */
-    height: 100vh; /* ทำให้ Wrapper มีความสูงเต็ม viewport */
+    /* แก้ปัญหา 100vh บนมือถือ */
+    height: var(--app-height, 100vh); /* ใช้ตัวแปร --app-height, ถ้าเบราว์เซอร์ไม่รองรับให้ใช้ 100vh */
     width: 100vw;  /* ทำให้ Wrapper กว้างเต็ม viewport */
     position: absolute; /* วาง Wrapper แบบ absolute เพื่อไม่ให้กระทบ Navbar */
     top: 0;

@@ -5,14 +5,24 @@
     display: flex; /* จัดเรียง QR code และข้อความแนวนอน (ค่าเริ่มต้นสำหรับ Desktop) */
     justify-content: center; /* จัดกึ่งกลางแนวนอน */
     align-items: center; /* จัดกึ่งกลางแนวตั้ง */
-    height: var(--app-height, 100vh); /* ใช้ตัวแปร --app-height, ถ้าเบราว์เซอร์ไม่รองรับให้ใช้ 100vh */
-    width: 100vw;
+    
+    /* *** ส่วนที่แก้ไขสำหรับ Desktop *** */
+    /* เดิม: height: var(--app-height, 100vh); width: 100vw; */
+    /* เปลี่ยนเป็น: */
+    height: 100vh; /* ใช้ 100vh เพื่อให้แน่ใจว่าครอบคลุมความสูงของหน้าจอ */
+    width: 100%; /* กว้าง 100% แต่เราจะจำกัดด้วย max-width ด้านล่าง */
+    max-width: 1200px; /* *** เพิ่ม: กำหนดความกว้างสูงสุดของ Container บน Desktop *** */
+    max-height: 800px; /* *** เพิ่ม: กำหนดความสูงสูงสุดของ Container บน Desktop (ปรับตามความเหมาะสม) *** */
+    margin: auto; /* *** เพิ่ม: จัดกึ่งกลาง Container ในแนวนอนเมื่อมี max-width *** */
+    /* ***************************** */
+
     overflow: hidden; /* ซ่อนส่วนที่ล้น */
     background-color: black;
     position: relative;
     z-index: 0;
     gap: 40px; /* ระยะห่างระหว่างรูป QR กับข้อความ (แนวนอน) */
     padding: 20px;
+    box-sizing: border-box; /* สำคัญ: รวม padding และ border ในการคำนวณความกว้าง/สูง */
 }
 
 /* สไตล์สำหรับรูปภาพ QR Code */
@@ -55,26 +65,33 @@
 /* สำหรับหน้าจอขนาดแท็บเล็ตและเล็กกว่า */
 @media (max-width: 768px) {
     .social-content-container {
-        flex-direction: column; /* *** ต้องเป็น column เพื่อเรียงแนวตั้ง *** */
+        flex-direction: column !important; /* *** เพิ่ม !important เพื่อบังคับใช้ *** */
         justify-content: flex-start; /* เริ่มจากด้านบน */
         align-items: center; /* จัดกึ่งกลางแนวนอน */
-        gap: 30px; /* เพิ่มระยะห่างแนวตั้งระหว่างรูปกับข้อความ (ปรับให้เห็นชัดๆ) */
+        gap: 30px; /* ระยะห่างแนวตั้งระหว่างรูปกับข้อความ */
         padding: 20px 10px;
         box-sizing: border-box;
+
+        /* บนมือถือ ให้มันกลับมาเต็มจอเหมือนเดิม */
+        max-width: none; /* ยกเลิก max-width สำหรับ Desktop */
+        max-height: none; /* ยกเลิก max-height สำหรับ Desktop */
+        width: 100vw; /* กลับไปใช้ 100vw บนมือถือ */
+        height: var(--app-height, 100vh); /* กลับไปใช้ var(--app-height) บนมือถือ */
+        margin: 0; /* ยกเลิก margin auto */
     }
 
     .qr-image {
         max-height: 40vh;
         width: 75%; /* ปรับขนาดให้เล็กลงแต่ยังพอเห็นได้ */
         height: auto;
-        margin-top: 60px; /* *** เพิ่มระยะห่างจากด้านบนมากขึ้น *** */
+        margin-top: 60px; /* เพิ่มระยะห่างจากด้านบนมากขึ้น */
     }
 
     .social-text-wrapper {
         text-align: center; /* จัดข้อความให้อยู่กึ่งกลาง */
         font-size: 1.2em;
         max-width: 90%;
-        padding-bottom: 20px; /* เพิ่ม padding ด้านล่าง เพื่อไม่ให้ติดขอบจอเกินไป */
+        padding-bottom: 20px; /* เพิ่ม padding ด้านล่าง */
     }
 }
 

@@ -15,12 +15,19 @@
     /* ********************************************* */
 
     overflow: hidden;
-    background-color: black;
+    /* *** เพิ่ม/แก้ไข สไตล์พื้นหลังรูปภาพ *** */
+    background-image: url('images/S__11395135.jpg'); /* ระบุที่อยู่ไฟล์รูปภาพ */
+    background-size: cover; /* ทำให้รูปภาพคลุมพื้นที่ทั้งหมด */
+    background-position: center; /* จัดรูปภาพให้อยู่กึ่งกลาง */
+    background-repeat: no-repeat; /* ไม่ให้รูปภาพซ้ำ */
+    background-color: #000; /* สีสำรองถ้าโหลดรูปไม่ขึ้น */
+    /* ************************************* */
+    
     position: relative;
     z-index: 0;
     gap: 40px;
     padding: 20px;
-    box-sizing: border-box; /* สำคัญ: รวม padding และ border ในการคำนวณขนาด */
+    box-sizing: border-box; 
 }
 
 /* สไตล์สำหรับรูปภาพ QR Code (Desktop) */
@@ -77,6 +84,11 @@
         height: var(--app-height, 100vh); /* กลับไปใช้ 100vh หรือ var(--app-height) */
         margin: 0; /* ยกเลิก margin auto */
         /* ********************************************* */
+
+        /* *** สไตล์พื้นหลังสำหรับมือถือ (ปรับได้หากต้องการให้ต่างจาก Desktop) *** */
+        background-size: cover; /* อาจจะยังใช้ cover เหมือนเดิม */
+        background-position: center; /* อาจจะยังใช้ center เหมือนเดิม */
+        /* ************************************************************* */
     }
 
     .qr-image {

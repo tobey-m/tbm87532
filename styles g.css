@@ -1,0 +1,10 @@
+/* styles g.css */
+
+/* สไตล์เฉพาะสำหรับรูปภาพใน Carousel */
+.carousel-item img {
+    object-fit: cover;
+    width: 100%;
+    height: 100vh;
+}
+
+/* ถ้ามีสไตล์อื่นๆ ที่เป็นของหน้า Gallery โดยเฉพาะ ให้ใส่ที่นี่ */

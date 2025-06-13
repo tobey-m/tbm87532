@@ -1,0 +1,53 @@
+/* social.css */
+
+/* ทำให้ container ของเนื้อหาทั้งหมดเต็มจอและจัดกึ่งกลาง */
+.social-content-container {
+    display: flex; /* จัดเรียง QR code และข้อความแนวนอน */
+    justify-content: center; /* จัดกึ่งกลางแนวนอน */
+    align-items: center; /* จัดกึ่งกลางแนวตั้ง */
+    height: 100vh; /* เต็มจอแนวตั้ง */
+    width: 100vw; /* เต็มจอแนวนอน */
+    overflow: hidden;
+    background-color: black; /* พื้นหลังสีดำตามรูปตัวอย่าง */
+    position: relative; /* สำหรับ z-index กับ Navbar */
+    z-index: 0;
+    gap: 40px; /* ระยะห่างระหว่างรูป QR กับข้อความ */
+    padding: 20px; /* ขอบด้านใน */
+}
+
+/* สไตล์สำหรับรูปภาพ QR Code */
+.qr-image {
+    /* ปรับขนาดรูป QR Code ลงอีก 15% จากขนาดล่าสุด */
+    max-height: 61.2vh; /* เดิม 72vh, ลดลง 15% เหลือ 61.2vh */
+    width: auto; /* รักษาอัตราส่วน */
+    height: auto; /* รักษาอัตราส่วน */
+    object-fit: contain; /* รูปภาพจะพอดีกับพื้นที่โดยไม่ถูกตัด แต่จะมีขอบดำถ้าสัดส่วนไม่ตรง */
+}
+
+/* สไตล์สำหรับ Wrapper ของข้อความ */
+.social-text-wrapper {
+    color: white; /* สีข้อความให้เป็นสีขาวตามรูปตัวอย่าง */
+    text-align: left; /* จัดข้อความชิดซ้าย */
+    font-size: 1.5em; /* ขนาดฟอนต์ */
+    line-height: 1.6; /* ระยะห่างระหว่างบรรทัด */
+    /* Optional: เพิ่ม max-width เพื่อจำกัดความกว้างของข้อความ */
+    max-width: 500px;
+}
+
+/* สไตล์สำหรับแต่ละย่อหน้าในข้อความ */
+.social-text-wrapper p {
+    margin-bottom: 10px; /* ระยะห่างระหว่างแต่ละย่อหน้าของข้อความ */
+}
+
+/* สไตล์สำหรับลิงก์ "Just lightly tap thisss ~~" */
+.tap-link {
+    color: #ADD8E6; /* สีฟ้าอ่อนสำหรับลิงก์ */
+    text-decoration: none; /* ไม่มีขีดเส้นใต้ */
+    font-weight: bold;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.tap-link:hover {
+    color: #87CEEB; /* สีฟ้าเข้มขึ้นเมื่อเมาส์ชี้ */
+    text-decoration: underline; /* มีขีดเส้นใต้เมื่อเมาส์ชี้ */
+}

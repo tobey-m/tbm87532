@@ -1,0 +1,36 @@
+/* global.css */
+
+/* สไตล์พื้นฐานของ body ที่ใช้กับทุกหน้า */
+body {
+    margin: 0;
+    /* กำหนดฟอนต์และสีตัวอักษรพื้นฐานที่นี่ เพื่อให้เหมือนกันทุกหน้า */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* ตัวอย่างฟอนต์ */
+    color: #E0E0E0; /* ตัวอย่างสีตัวอักษรพื้นฐาน เช่น สีเทาอ่อน */
+
+    /* สำหรับเอฟเฟกต์ fade out/in ระหว่างเปลี่ยนหน้า (สำคัญ!) */
+    transition: opacity 0.5s ease-out;
+}
+
+/* สไตล์สำหรับ Navbar (เหมือนกันทุกหน้า) */
+.navbar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 20px;
+    z-index: 999; /* ทำให้ Navbar อยู่เหนือองค์ประกอบอื่นๆ เสมอ */
+}
+
+.navbar a {
+    text-decoration: none;
+    font-size: 1.2em;
+    color: white; /* ตัวหนังสือ Navbar สีขาวเสมอ */
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0); /* พื้นหลังโปร่งใส */
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}

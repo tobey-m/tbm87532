@@ -1,0 +1,32 @@
+/* home.css */
+
+/* สไตล์สำหรับ body ของหน้า Home เท่านั้น (ไม่จัด flexbox ให้ body ตรงๆ แล้ว) */
+body {
+    background-image: url('images/S__11395131.jpg'); /* **สำคัญ: เปลี่ยน Path รูปภาพเป็น Relative Path** */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: brightness(0.3); /* ทำให้รูปมืดลง */
+}
+
+/* Wrapper สำหรับเนื้อหาหลักในหน้า Home (h1) เพื่อจัดกึ่งกลาง */
+.home-content-wrapper {
+    display: flex;
+    justify-content: center; /* จัดแนวนอนกึ่งกลาง */
+    align-items: center; /* จัดแนวตั้งกึ่งกลาง */
+    height: 100vh; /* ทำให้ Wrapper มีความสูงเต็ม viewport */
+    width: 100vw;  /* ทำให้ Wrapper กว้างเต็ม viewport */
+    position: absolute; /* วาง Wrapper แบบ absolute เพื่อไม่ให้กระทบ Navbar */
+    top: 0;
+    left: 0;
+    z-index: 1; /* จัดวาง Wrapper ให้อยู่ข้างใต้ Navbar (Navbar มี z-index: 999) */
+}
+
+/* สไตล์สำหรับ h1 ของหน้า Home */
+h1 {
+    font-size: 3em;
+    color: white; /* กำหนดสีขาวเฉพาะ h1 ของหน้านี้ */
+    font-weight: bold;
+    opacity: 0; /* เริ่มต้นโปร่งใส */
+    transition: opacity 2s ease-in-out; /* ค่อยๆ ชัดขึ้น */
+}

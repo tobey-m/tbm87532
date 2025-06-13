@@ -3,11 +3,8 @@
 /* สไตล์พื้นฐานของ body ที่ใช้กับทุกหน้า */
 body {
     margin: 0;
-    /* กำหนดฟอนต์และสีตัวอักษรพื้นฐานที่นี่ เพื่อให้เหมือนกันทุกหน้า */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* ตัวอย่างฟอนต์ */
-    color: #E0E0E0; /* ตัวอย่างสีตัวอักษรพื้นฐาน เช่น สีเทาอ่อน */
-
-    /* สำหรับเอฟเฟกต์ fade out/in ระหว่างเปลี่ยนหน้า (สำคัญ!) */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #E0E0E0;
     transition: opacity 0.5s ease-out;
 }
 
@@ -18,19 +15,54 @@ body {
     right: 20px;
     display: flex;
     gap: 20px;
-    z-index: 999; /* ทำให้ Navbar อยู่เหนือองค์ประกอบอื่นๆ เสมอ */
+    z-index: 999;
+    flex-wrap: nowrap; /* ป้องกันการขึ้นบรรทัดใหม่ของลิงก์ใน Navbar */
 }
 
 .navbar a {
     text-decoration: none;
     font-size: 1.2em;
-    color: white; /* ตัวหนังสือ Navbar สีขาวเสมอ */
+    color: white;
     padding: 10px 20px;
-    background-color: rgba(0, 0, 0, 0); /* พื้นหลังโปร่งใส */
+    background-color: rgba(0, 0, 0, 0);
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    white-space: nowrap; /* ป้องกันข้อความในลิงก์ไม่ให้ขึ้นบรรทัดใหม่ */
 }
 
 .navbar a:hover {
     background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* *** ส่วนที่เพิ่มใหม่สำหรับ Responsive Design (Navbar) *** */
+@media (max-width: 768px) { /* สำหรับหน้าจอขนาดแท็บเล็ตและเล็กกว่า */
+    .navbar {
+        top: 15px;
+        right: 15px;
+        gap: 15px; /* ลดระยะห่างระหว่างลิงก์ */
+    }
+
+    .navbar a {
+        font-size: 1em; /* ลดขนาดตัวอักษรของลิงก์ */
+        padding: 8px 15px; /* ลด padding */
+    }
+}
+
+@media (max-width: 480px) { /* สำหรับหน้าจอขนาดโทรศัพท์มือถือที่เล็กกว่า */
+    .navbar {
+        top: 10px;
+        right: 10px;
+        gap: 8px; /* ลดระยะห่างระหว่างลิงก์ลงอีก */
+        /* อาจจะปรับให้ Navbar มาอยู่ตรงกลางด้านบน หรือจัดเป็นคอลัมน์ ถ้าลิงก์เยอะเกินไป */
+        /* ตัวอย่าง:
+        justify-content: center;
+        width: 100%;
+        right: auto;
+        left: 0; */
+    }
+
+    .navbar a {
+        font-size: 0.8em; /* ลดขนาดตัวอักษรลงอีก */
+        padding: 6px 10px; /* ลด padding ลงอีก */
+    }
 }

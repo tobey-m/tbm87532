@@ -50,38 +50,54 @@
     text-decoration: underline;
 }
 
-/* *** ส่วนที่เพิ่มใหม่สำหรับ Responsive Design (หน้า Social) *** */
-@media (max-width: 768px) { /* สำหรับหน้าจอขนาดแท็บเล็ตและเล็กกว่า */
+/* *** ส่วนที่เพิ่ม/ปรับปรุงสำหรับ Responsive Design (หน้า Social) *** */
+
+/* สำหรับหน้าจอขนาดแท็บเล็ตและเล็กกว่า */
+@media (max-width: 768px) {
     .social-content-container {
-        flex-direction: column; /* เปลี่ยนเป็นจัดเรียงแนวตั้ง (รูปอยู่บน ข้อความอยู่ล่าง) */
-        gap: 20px; /* ลดระยะห่างแนวตั้ง */
-        padding: 20px 10px; /* ลด padding ด้านข้าง */
-        justify-content: flex-start; /* จัดให้เนื้อหาเริ่มต้นจากด้านบน (ไม่กึ่งกลางทั้งหมด) */
-        align-items: center; /* จัดกึ่งกลางแนวนอน */
+        flex-direction: column; /* *** สำคัญ: เปลี่ยนเป็นจัดเรียงแนวตั้ง *** */
+        justify-content: flex-start; /* จัดให้เนื้อหาเริ่มต้นจากด้านบนของ Container */
+        align-items: center; /* จัดกึ่งกลางแนวนอนขององค์ประกอบภายใน */
+        gap: 20px; /* ระยะห่างแนวตั้งระหว่างรูปกับข้อความ */
+        padding: 20px 10px;
+        box-sizing: border-box; /* ให้ padding และ border รวมในการคำนวณความกว้าง/สูง */
     }
 
     .qr-image {
-        max-height: 45vh; /* ลดขนาด QR code ลงอีก */
-        width: 70%; /* ให้ QR code กว้าง 70% ของหน้าจอ */
+        max-height: 40vh; /* ลดขนาด QR code ลงอีก */
+        width: 80%; /* ให้ QR code กว้าง 80% ของพื้นที่ */
         height: auto;
-        margin-top: 50px; /* เพิ่มระยะห่างจาก Navbar ด้านบน */
+        margin-top: 50px; /* เพิ่มระยะห่างจากขอบบน (หรือ Navbar) */
     }
 
     .social-text-wrapper {
         text-align: center; /* จัดข้อความให้อยู่กึ่งกลางบนมือถือ */
-        font-size: 1.2em; /* ลดขนาดฟอนต์ของข้อความ */
-        max-width: 80%; /* กำหนดความกว้างสูงสุดของข้อความ */
+        font-size: 1.2em;
+        max-width: 90%; /* กำหนดความกว้างสูงสุดของข้อความ */
     }
 }
 
-@media (max-width: 480px) { /* สำหรับหน้าจอขนาดโทรศัพท์มือถือที่เล็กกว่า */
+/* สำหรับหน้าจอขนาดโทรศัพท์มือถือที่เล็กกว่า (เช่น iPhone) */
+@media (max-width: 576px) {
     .qr-image {
-        max-height: 40vh; /* ลดขนาด QR code ลงอีกสำหรับจอเล็ก */
-        width: 80%; /* ให้ QR code กว้าง 80% ของหน้าจอที่เล็กมากๆ */
+        max-height: 35vh; /* ลดขนาด QR code ลงอีกสำหรับจอเล็กมาก */
+        width: 85%; /* ให้ QR code กว้าง 85% ของพื้นที่ */
     }
 
     .social-text-wrapper {
         font-size: 1em; /* ลดขนาดฟอนต์ของข้อความลงอีก */
-        max-width: 90%; /* กำหนดความกว้างสูงสุดของข้อความ */
+        max-width: 95%; /* กำหนดความกว้างสูงสุดของข้อความ */
+    }
+}
+
+/* ถ้ายังคงมีปัญหาบน iPhone ที่เล็กมากๆ (เช่น iPhone SE, iPhone 5) */
+@media (max-width: 375px) {
+    .qr-image {
+        max-height: 30vh; /* ลดขนาด QR code ลงอีก */
+        width: 90%; /* ให้ QR code กว้าง 90% ของพื้นที่ */
+    }
+
+    .social-text-wrapper {
+        font-size: 0.9em; /* ลดขนาดฟอนต์ลงอีก */
     }
 }

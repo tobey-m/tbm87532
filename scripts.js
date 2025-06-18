@@ -43,3 +43,19 @@ if (menuToggle && navDropdown) {
         });
     });
 }
+
+// --- NEW CODE ADDED HERE ---
+// Ensures the body opacity is reset when navigating back (from browser cache)
+window.addEventListener('pageshow', function(event) {
+    // Check if the page is loaded from the browser's back/forward cache
+    if (event.persisted) {
+        document.body.style.opacity = 1; // Reset opacity to 1
+        document.body.style.transition = 'opacity 0.5s ease-in-out'; // Add a fade-in effect if desired
+    }
+});
+
+// Optionally, ensure initial opacity is 1 when loaded normally
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.style.opacity = 1;
+    document.body.style.transition = 'opacity 0.5s ease-in-out'; // Optional: smooth fade-in on initial load
+});

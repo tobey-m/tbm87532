@@ -1,204 +1,458 @@
 /* about.css */
 
+/* Base styles for body */
 body {
-    background-color: black; /* ตั้งค่าพื้นหลังเป็นสีดำตามรูป */
-    /* ไม่ต้องกำหนด height: 100vh; ที่นี่ เพราะ global.css จัดการแล้ว */
-    display: flex; /* ใช้ flexbox เพื่อจัดตำแหน่ง content-container */
-    flex-direction: column; /* ให้เนื้อหาหลักเรียงลงมา */
-    justify-content: flex-start; /* จัดเนื้อหาหลักจากด้านบน */
-    align-items: center; /* จัดเนื้อหาหลักแนวนอนกึ่งกลาง */
-    min-height: var(--app-height, 100vh); /* ใช้ min-height เพื่อให้เนื้อหายาวได้ */
-    padding-top: 60px; /* เพิ่ม padding ด้านบน เพื่อไม่ให้ทับ Navbar */
-    box-sizing: border-box; /* ให้ padding นับรวมในขนาดองค์ประกอบ */
+    background-color: black; /* Solid black background for the entire page */
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white; /* Default text color for this page */
+    overflow: hidden; /* Prevent unwanted scrollbars */
+    min-height: var(--app-height, 100vh); /* Ensure body takes at least full viewport height */
+    display: flex; /* Make body a flex container to center about-page-wrapper */
+    flex-direction: column; /* Stack about-page-wrapper vertically */
 }
 
-.about-container {
+/* Hide the old main site navbar if it's not part of this page's design */
+.main-site-navbar {
+    display: none;
+}
+
+/* Main Wrapper for the About Page */
+.about-page-wrapper {
     display: flex;
-    align-items: center; /* จัดแนวตั้งกึ่งกลาง */
-    justify-content: center; /* จัดแนวนอนกึ่งกลาง */
-    width: 100%;
-    max-width: 1200px; /* กำหนดความกว้างสูงสุด */
-    padding: 20px;
-    box-sizing: border-box;
-    gap: 50px; /* ระยะห่างระหว่างฝั่งซ้ายกับขวา */
-    flex-wrap: wrap; /* ให้ขึ้นบรรทัดใหม่เมื่อหน้าจอเล็ก */
-    position: relative; /* เพื่อให้สามารถจัดตำแหน่งองค์ประกอบภายในได้ */
-    z-index: 1; /* ให้เนื้อหาอยู่ด้านบน Navbar ที่เป็น absolute (ถ้ามี) */
+    flex-direction: column; /* Arrange top-bar, main-content, bottom-bar vertically */
+    height: var(--app-height, 100vh); /* Make this wrapper take full viewport height */
+    width: 100vw; /* Make this wrapper take full viewport width */
+    overflow: hidden; /* Hide overflowing content */
+    position: relative; /* For absolute positioning of internal elements */
+    box-sizing: border-box; /* Include padding/border in element's total width and height */
 }
 
-.content-left {
-    flex: 1; /* ให้ใช้พื้นที่ที่เหลือ */
-    min-width: 300px; /* ความกว้างขั้นต่ำ */
+/* --- Top Bar --- */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px; /* Horizontal padding */
+    color: #BBBBBB; /* Color for contact info */
+    z-index: 10; /* Ensure it's above main content */
+    flex-shrink: 0; /* Prevent shrinking when space is limited */
+    background-color: transparent; /* Transparent background */
+    position: relative; /* For dropdown positioning */
+}
+
+.top-bar-left .logo {
+    font-size: 2em;
+    font-weight: bold;
+    color: white; /* Logo color */
+}
+
+.top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.top-bar-right .contact-info {
+    font-size: 0.9em;
+    white-space: nowrap; /* Prevent text wrapping */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Menu Icon (visible on desktop and mobile) */
+.menu-icon {
+    font-size: 1.8em;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0 10px;
+    /* This rule makes it visible on desktop. No specific "display: block;" needed here */
+}
+
+/* Dropdown Menu Styles */
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px); /* Position 10px below top-bar */
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background */
+    border-radius: 8px;
+    padding: 15px 20px;
+    display: none; /* Hidden by default, toggled by JS */
+    flex-direction: column;
+    gap: 10px;
+    z-index: 100; /* Ensure it's above other elements */
+    min-width: 180px; /* Minimum width for the dropdown */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+    transform-origin: top right;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition */
+    transform: scaleY(0); /* Start hidden */
+    opacity: 0; /* Start invisible */
+}
+
+.dropdown-menu.is-open {
+    display: flex; /* Show when open */
+    transform: scaleY(1); /* Scale to full size */
+    opacity: 1; /* Fade in */
+}
+
+.dropdown-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+    padding: 8px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --- Main Content Area (Red Background with Text, and Image overlapping) --- */
+.about-main-content {
+    display: flex;
+    flex-grow: 1; /* Allow to grow and fill remaining vertical space */
+    position: relative; /* For image positioning */
+    overflow: hidden; /* Hide any overflowing content */
+}
+
+.content-left-red {
+    background-color: #E22B29; /* Red background as per image */
+    flex: 0 0 60%; /* Make this take about 60% width to leave space for image overlap */
+    display: flex;
+    justify-content: flex-start; /* Align text to the start (left) */
+    align-items: center;
+    padding: 40px;
+    box-sizing: border-box;
+    position: relative; /* Essential for text-block z-index */
+    z-index: 2; /* Ensures red section is above potential shared background */
+}
+
+.text-block {
+    max-width: 450px; /* Max width for text block to leave space for image */
     color: white;
     text-align: left;
-    padding-left: 20px; /* เพิ่มระยะห่างจากขอบซ้าย */
-}
-
-.content-right {
-    flex: 1; /* ให้ใช้พื้นที่ที่เหลือ */
-    display: flex;
-    justify-content: center; /* จัดรูปภาพกึ่งกลาง */
-    align-items: center;
-    min-width: 300px; /* ความกว้างขั้นต่ำ */
-}
-
-.profile-image {
-    max-width: 100%; /* ทำให้รูปภาพไม่ล้นขอบ */
-    height: auto;
-    max-height: 80vh; /* จำกัดความสูงของรูปภาพ */
-    object-fit: contain; /* ปรับขนาดรูปให้พอดีโดยรักษาสัดส่วน */
+    margin-left: 50px; /* Push text from the left edge */
+    z-index: 5; /* Ensure text is above the image */
+    position: relative; /* Make sure z-index works */
 }
 
 .small-text {
-    font-size: 0.9em;
-    color: #BBBBBB;
+    font-size: 1.1em;
+    color: rgba(255, 255, 255, 0.8);
     margin-bottom: 5px;
-    display: block; /* ทำให้เป็นบล็อกเพื่อขึ้นบรรทัดใหม่ */
+    display: block;
 }
 
 h2 {
-    font-size: 3.5em;
+    font-size: 4em; /* Slightly smaller for compactness */
     font-weight: bold;
     color: white;
     margin-top: 0;
-    margin-bottom: 30px;
-    line-height: 1.2;
+    margin-bottom: 25px; /* Reduced margin for compactness */
+    line-height: 1.1; /* Adjust line-height */
 }
 
 .stats-grid {
     display: flex;
-    gap: 40px; /* ระยะห่างระหว่างตัวเลขสถิติ */
-    margin-bottom: 30px;
+    gap: 30px; /* Reduced gap for compactness */
+    margin-bottom: 25px; /* Reduced margin for compactness */
 }
 
 .stat-item {
-    text-align: left;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent black background */
+    padding: 8px 15px; /* Reduced padding for compactness */
+    border-radius: 5px;
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 .stat-item .number {
-    font-size: 2.5em;
+    font-size: 1.8em; /* Slightly smaller for compactness */
     font-weight: bold;
     color: white;
-    display: block; /* ทำให้เป็นบล็อกเพื่อขึ้นบรรทัดใหม่ */
+    display: block;
 }
 
 .stat-item .label {
-    font-size: 0.8em;
-    color: #BBBBBB;
+    font-size: 0.65em; /* Slightly smaller for compactness */
+    color: rgba(255, 255, 255, 0.7);
     text-transform: uppercase;
-    white-space: nowrap; /* ป้องกันการขึ้นบรรทัดใหม่ */
+    white-space: nowrap;
 }
 
 .watch-resume {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-top: 40px;
+    margin-top: 30px; /* Reduced margin for compactness */
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .watch-resume hr {
-    flex-grow: 1; /* ทำให้เส้นขยายเต็มพื้นที่ */
+    flex-grow: 1;
     border: none;
-    border-top: 1px solid white;
-    max-width: 50px; /* จำกัดความยาวของเส้น */
+    border-top: 2px solid white; /* Thicker line */
+    max-width: 60px; /* Shorter line for compactness */
     margin: 0;
 }
 
 .watch-resume span {
-    font-size: 1.1em;
-    color: white;
-    text-decoration: none; /* ไม่มีขีดเส้นใต้ */
-    cursor: pointer;
+    font-size: 1em; /* Slightly smaller for compactness */
+    text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .watch-resume span:hover {
-    color: #BBBBBB;
+    color: rgba(255, 255, 255, 0.7);
 }
 
-/* Responsive Design สำหรับหน้า About */
+/* Right Section: Contains the profile image (social icons removed) */
+.content-right-image {
+    flex: 1; /* Takes the remaining space */
+    background-color: black; /* Solid black background for this section */
+    display: flex;
+    justify-content: flex-end; /* Align content to the right */
+    align-items: flex-end; /* Align content to the bottom */
+    position: relative; /* For positioning profile image */
+    overflow: hidden; /* Hide image overflow */
+}
 
-/* สำหรับหน้าจอขนาดแท็บเล็ตและเล็กกว่า */
-@media (max-width: 992px) {
-    .about-container {
-        flex-direction: column; /* เปลี่ยนเป็นเรียงแนวตั้ง */
-        text-align: center; /* จัดข้อความกึ่งกลาง */
-        gap: 30px;
-        padding-top: 80px; /* เพิ่ม padding-top เพื่อ Navbar */
+/* Profile Image positioned within the right section, overlapping left */
+.profile-image {
+    position: absolute; /* Position absolutely within content-right-image */
+    bottom: 0; /* Align to bottom */
+    left: -8%; /* Adjust overlap, slightly less than -15% for compactness */
+    height: 100%; /* Make image fill the height of its parent */
+    width: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Cover the area, cropping if needed */
+    z-index: 3; /* Place above the red section */
+    max-height: 90%; /* Further limit height for compactness */
+}
+
+/* Social Media Icons Vertical - REMOVED AS PER REQUEST */
+/* .social-vertical styles removed */
+
+
+/* --- Bottom Bar --- */
+.bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    color: #BBBBBB;
+    font-size: 0.8em;
+    flex-shrink: 0; /* Prevent shrinking */
+    z-index: 10; /* Ensure it's above main content */
+    background-color: transparent; /* Transparent background */
+}
+
+.copyright {
+    /* Style for copyright text */
+}
+
+.scroll-arrow {
+    cursor: pointer;
+    font-size: 1.5em; /* Size of the arrow icon */
+    color: white; /* Color of the arrow */
+    transition: transform 0.3s ease;
+}
+
+.scroll-arrow:hover {
+    transform: translateY(5px); /* Small hover effect */
+}
+
+/* --- Responsive Design --- */
+
+/* For medium screens (tablets) */
+@media (max-width: 1024px) {
+    .top-bar, .bottom-bar {
+        padding: 15px 25px;
     }
 
-    .content-left {
-        padding-left: 0; /* ลบ padding-left เมื่อเรียงแนวตั้ง */
-        text-align: center; /* จัดข้อความซ้ายกึ่งกลาง */
+    .top-bar-right .contact-info {
+        font-size: 0.8em;
+    }
+
+    .content-left-red {
+        flex: 0 0 55%; /* Adjust width slightly */
+        padding: 30px;
+    }
+
+    .text-block {
+        margin-left: 30px;
+        max-width: 350px; /* Make text block more compact */
     }
 
     h2 {
-        font-size: 2.8em;
-        margin-bottom: 20px;
-    }
-
-    .stats-grid {
-        justify-content: center; /* จัดสถิติให้อยู่กึ่งกลาง */
-        margin-bottom: 20px;
-    }
-
-    .stat-item .number {
-        font-size: 2em;
-    }
-
-    .stat-item .label {
-        font-size: 0.7em;
-    }
-
-    .watch-resume {
-        justify-content: center; /* จัดลิงก์ให้อยู่กึ่งกลาง */
-        margin-top: 20px;
+        font-size: 3em;
     }
 
     .profile-image {
-        max-height: 60vh; /* ลดขนาดรูปภาพลง */
+        left: -5%; /* Adjust overlap */
+        max-width: 65%; /* Adjust max width for tablet */
     }
+
+    /* social-vertical styles removed */
 }
 
-/* สำหรับหน้าจอขนาดโทรศัพท์มือถือที่เล็กกว่า */
-@media (max-width: 576px) {
-    .about-container {
-        padding-top: 70px;
-        gap: 20px;
+/* For small screens (mobile) */
+@media (max-width: 768px) {
+    .top-bar {
+        flex-direction: column; /* Stack top-bar items vertically */
+        align-items: flex-start; /* Align to the left */
+        gap: 10px;
+        padding: 15px 20px;
     }
+
+    .top-bar-right {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        width: 100%; /* Make it full width */
+        position: relative; /* For menu icon positioning */
+    }
+    /* Hide contact info on small screens to save space */
+    .top-bar-right .contact-info {
+         display: none;
+    }
+
+    .menu-icon {
+        display: block; /* Ensure menu icon is visible on mobile */
+        position: absolute; /* Position absolute within top-bar-right */
+        top: 10px;
+        right: 10px;
+    }
+
+    /* Adjust dropdown menu position and size for mobile */
+    .dropdown-menu {
+        top: 60px; /* Position below top-bar */
+        right: 50%; /* Align to center */
+        left: auto; /* Remove left value */
+        transform: translateX(50%) scaleY(0); /* Center and scale from center */
+        transform-origin: top center; /* Change transform origin */
+        max-width: 200px; /* Smaller max-width for mobile */
+        width: 70%; /* Smaller percentage width */
+        padding: 10px 15px; /* Smaller padding */
+    }
+    .dropdown-menu.is-open {
+        transform: translateX(50%) scaleY(1); /* Show and scale */
+    }
+    .dropdown-menu a {
+        font-size: 0.95em; /* Slightly smaller font for compactness */
+    }
+
+    .about-main-content {
+        flex-direction: column; /* Stack sections vertically */
+        height: auto; /* Auto height to fit content */
+        justify-content: center; /* Center content vertically */
+        align-items: center; /* Center content horizontally */
+    }
+
+    .content-left-red {
+        flex: none; /* Remove flex-basis */
+        width: 100%; /* Full width */
+        min-height: 40vh; /* Minimum height for red section */
+        padding: 30px 20px;
+        justify-content: center; /* Center text block horizontally */
+        align-items: center; /* Center text block vertically */
+        position: relative; /* Ensure relative positioning for image if inside */
+        order: 2; /* Text below image on mobile */
+    }
+
+    .text-block {
+        padding-right: 0;
+        max-width: 100%;
+        text-align: center; /* Center text on mobile */
+        margin-left: 0; /* Remove left margin */
+    }
+
     h2 {
-        font-size: 2em;
+        font-size: 2.5em; /* Smaller H2 on mobile */
         margin-bottom: 15px;
     }
 
     .stats-grid {
-        flex-direction: column; /* เรียงสถิติเป็นคอลัมน์ */
-        gap: 15px;
+        flex-direction: column; /* Stack stats vertically */
+        align-items: center; /* Center stats */
+        gap: 10px; /* Smaller gap on mobile */
+    }
+
+    .stat-item {
+        padding: 6px 12px; /* Smaller padding on mobile */
     }
 
     .stat-item .number {
-        font-size: 1.8em;
+        font-size: 1.5em; /* Smaller number on mobile */
     }
 
     .stat-item .label {
-        font-size: 0.6em;
+        font-size: 0.6em; /* Smaller label on mobile */
+    }
+
+    .watch-resume {
+        justify-content: center;
+        margin-top: 20px; /* Smaller margin on mobile */
+    }
+    .watch-resume hr {
+        max-width: 40px; /* Shorter line on mobile */
+    }
+    .watch-resume span {
+        font-size: 0.9em; /* Smaller font on mobile */
+    }
+
+
+    .content-right-image {
+        flex: none; /* Remove flex-basis */
+        width: 100%; /* Full width */
+        min-height: 50vh; /* Minimum height for image section */
+        display: flex;
+        justify-content: center; /* Center image horizontally */
+        align-items: flex-end; /* Align image to bottom */
+        order: 1; /* Image above text on mobile */
+        padding-bottom: 0; /* Remove padding */
     }
 
     .profile-image {
-        max-height: 50vh; /* ลดขนาดรูปภาพลงอีก */
-        width: 90%; /* ให้รูปกว้างขึ้น */
+        position: relative; /* Change to relative for normal flow on mobile */
+        width: 70%; /* Make image fit better on mobile */
+        height: auto;
+        bottom: auto;
+        left: auto;
+        transform: none; /* Remove transform */
+        max-width: 70%; /* Keep max width */
+        max-height: 45vh; /* Limit height for smaller screens */
+        object-fit: contain; /* Ensure full image is visible */
+        margin-bottom: 15px; /* Add some space below image */
+    }
+
+    /* social-vertical styles removed */
+
+    .bottom-bar {
+        flex-direction: column-reverse; /* Swap copyright and arrow */
+        gap: 10px;
+        padding: 10px 20px;
     }
 }
 
-/* ถ้ายังมีปัญหาบน iPhone ที่เล็กมากๆ */
-@media (max-width: 375px) {
-    .about-container {
-        padding-top: 60px;
-    }
+/* For very small screens */
+@media (max-width: 480px) {
     h2 {
-        font-size: 1.8em;
+        font-size: 2em; /* Smaller H2 */
+    }
+    .top-bar-left .logo {
+        font-size: 1.3em; /* Smaller logo */
     }
     .profile-image {
-        max-height: 40vh;
+        max-height: 35vh; /* Further limit image height */
+    }
+    .dropdown-menu {
+        max-width: 180px; /* Even smaller dropdown */
+        width: 90%;
     }
 }

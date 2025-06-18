@@ -220,6 +220,39 @@ h2 {
     max-height: 90%;
 }
 
+/* Social Media Icons Vertical */
+.social-vertical {
+    position: absolute; /* Position absolutely within about-main-content */
+    right: 40px; /* Adjust distance from the right edge */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%) rotate(90deg); /* Rotate for vertical text */
+    transform-origin: right center; /* Rotate around the right center point */
+    display: flex;
+    gap: 30px; /* Space between social links */
+    color: #BBBBBB;
+    font-size: 1.1em;
+    font-weight: bold;
+    z-index: 4; /* Ensure it's above other content if needed */
+    white-space: nowrap; /* Prevent wrapping of text */
+}
+
+.social-vertical .social-link {
+    text-decoration: none;
+    color: inherit; /* Inherit color from parent */
+    display: flex; /* Allow content to be flexible */
+    align-items: center; /* Center items vertically if needed */
+    transition: color 0.3s ease;
+}
+
+.social-vertical .social-link:hover {
+    color: white; /* Change color on hover */
+}
+
+.social-vertical .social-text {
+    display: block; /* Ensures text behaves as a block for rotation */
+    /* No rotation needed here, as parent already rotates */
+}
+
 
 /* --- Bottom Bar --- */
 .bottom-bar {
@@ -278,6 +311,12 @@ h2 {
     .profile-image-in-red {
         right: -5%; /* Adjust overlap */
         max-width: 65%; /* Adjust max width for tablet */
+    }
+
+    .social-vertical {
+        right: 20px; /* Adjust position for tablets */
+        font-size: 1em; /* Slightly smaller font */
+        gap: 20px; /* Reduce gap */
     }
 }
 
@@ -419,6 +458,10 @@ h2 {
         object-fit: contain; /* Ensure full image is visible */
         margin-bottom: 15px; /* Add some space below image */
         order: 1; /* Image above text on mobile (within .about-main-content) */
+    }
+
+    .social-vertical {
+        display: none; /* Hide social vertical links on mobile */
     }
 
     .bottom-bar {

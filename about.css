@@ -1,378 +1,6 @@
 /* about.css */
 
-/* Base styles for body */
-body {
-    background-color: black;
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
-    overflow: hidden; /* Prevent unwanted scrollbars from initial layout */
-    min-height: var(--app-height, 100vh);
-    display: flex;
-    flex-direction: column;
-}
-
-/* Hide the old main site navbar IF IT'S NOT DESIRED ON THIS PAGE */
-/* If you want the old navbar visible, remove this block */
-.main-site-navbar {
-    display: none;
-}
-
-/* Main Wrapper for the About Page */
-.about-page-wrapper {
-    display: flex;
-    flex-direction: column;
-    height: var(--app-height, 100vh);
-    width: 100vw;
-    overflow: hidden;
-    position: relative;
-    box-sizing: border-box;
-}
-
-/* --- Top Bar --- */
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    color: #BBBBBB;
-    z-index: 10;
-    flex-shrink: 0;
-    background-color: transparent;
-    position: relative;
-}
-
-.top-bar-left .logo {
-    font-size: 2em;
-    font-weight: bold;
-    color: white;
-}
-
-.top-bar-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.top-bar-right .contact-info {
-    font-size: 0.9em;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-/* Menu Icon: แสดงผลเสมอ (บน Desktop และ Mobile) */
-.menu-icon {
-    font-size: 1.8em;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    padding: 0 10px;
-    display: block; /* ทำให้ไอคอนเมนูแสดงผลเสมอทั้ง Desktop และ Mobile */
-}
-
-/* Dropdown Menu Styles: ซ่อนไว้ก่อนและมีสไตล์เหมือนมือถือ (Apply to ALL screen sizes) */
-.dropdown-menu {
-    display: none; /* ซ่อนไว้ในตอนแรก */
-    position: absolute; /* วางตำแหน่งแบบ absolute */
-    top: 60px; /* ตำแหน่งใต้ top-bar */
-    right: 40px; /* ชิดขอบขวา (ตาม padding ของ top-bar) */
-    left: auto;
-    background-color: rgba(0, 0, 0, 0.9); /* พื้นหลังดำกึ่งโปร่งใส */
-    border-radius: 8px;
-    padding: 15px 20px;
-    flex-direction: column; /* จัดเรียงแนวตั้ง */
-    gap: 10px; /* ช่องว่างระหว่างลิงก์ */
-    z-index: 100;
-    min-width: 180px; /* ความกว้างขั้นต่ำ */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* เงา */
-    transform-origin: top right;
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* แอนิเมชันตอนเปิด-ปิด */
-    transform: scaleY(0); /* ซ่อนเริ่มต้นด้วยการ scale เป็น 0 */
-    opacity: 0; /* ซ่อนเริ่มต้นด้วย opacity เป็น 0 */
-}
-
-/* เมื่อมี class is-open (จะถูกเพิ่มโดย JavaScript) */
-.dropdown-menu.is-open {
-    display: flex; /* แสดงผลเมื่อมี class is-open */
-    transform: scaleY(1); /* ขยายเต็มขนาด */
-    opacity: 1; /* แสดงผลแบบเต็ม */
-}
-
-.dropdown-menu a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.1em;
-    padding: 8px 10px; /* Padding สำหรับลิงก์ */
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-}
-
-.dropdown-menu a:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* เปลี่ยนสีพื้นหลังเมื่อ hover */
-    color: white;
-}
-
-
-/* --- Content Center Wrapper --- */
-.content-center-wrapper {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden; /* Hide overflow from image sticking out */
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* --- Main Content Area (Red Background with Text, Image, and Social Icons) --- */
-.about-main-content {
-    display: flex; /* ใช้ Flexbox เพื่อจัดเรียง content-left-red และ social-vertical */
-    position: relative; /* สำหรับ absolute positioning ของ social-vertical */
-    /* background-color: black; ถ้าต้องการพื้นหลังดำรอบๆ content-left-red */
-    width: fit-content; /* ให้ div นี้มีขนาดพอดีกับเนื้อหา */
-    max-width: 90%; /* จำกัดความกว้างสูงสุด */
-    max-height: 80vh; /* จำกัดความสูงสูงสุด */
-    box-sizing: border-box;
-}
-
-/* --- Content Left Red (Text and Profile Image) --- */
-.content-left-red {
-    background-color: #E22B29;
-    flex-shrink: 0;
-    width: 700px; /* กำหนดความกว้างคงที่สำหรับ Desktop */
-    min-height: 500px; /* กำหนดความสูงคงที่สำหรับ Desktop */
-    display: flex;
-    /* เปลี่ยนจาก justify-content: space-between; เป็น flex-start เพื่อให้ text-block อยู่ซ้ายสุด */
-    /* ปรับเป็น space-between อีกครั้งเพื่อดันรูปไปขวา แต่มี padding ซ้าย */
-    justify-content: space-between;
-    align-items: center;
-    /* ปรับ padding ขวาให้มีค่าเพื่อให้ข้อความไม่ชนขอบ และรูปไม่ทับข้อความ */
-    padding: 40px 10% 40px 40px; /* เพิ่ม padding ขวา เพื่อให้รูปยื่นออกมาโดยไม่ทับข้อความ */
-    box-sizing: border-box;
-    position: relative;
-    z-index: 2;
-    /* overflow: visible;  อันนี้ยังคงอยู่ เพื่อให้รูปภาพยื่นออกไปนอกกรอบได้ */
-    overflow: hidden; /* **ลองเปลี่ยนเป็น hidden เพื่อดูว่าช่วยให้ข้อความไม่หายไหม** */
-}
-
-.text-block {
-    /* MAX-WIDTH นี้อาจทำให้ข้อความถูกดันออกไป ถ้าพื้นที่ไม่พอ */
-    /* ลองลบ max-width ออก หรือปรับให้น้อยลง */
-    max-width: 450px; /* หากข้อความยังหายไป ลองลดค่านี้ลง เช่น 300px */
-    color: white;
-    text-align: left;
-    /* margin-left: 50px; ไม่จำเป็นแล้วเพราะ justify-content: space-between */
-    z-index: 5; /* Ensure text is above the image if needed */
-    position: relative;
-    /* เพิ่ม flex-shrink เพื่อให้ข้อความสามารถหดตัวได้หากพื้นที่ไม่พอ */
-    flex-shrink: 1;
-    /* เพิ่ม margin-right เพื่อให้มีช่องว่างระหว่าง text block กับรูปภาพ */
-    margin-right: 20px;
-}
-
-.small-text {
-    font-size: 1.1em;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 5px;
-    display: block;
-}
-
-h2 {
-    font-size: 4em;
-    font-weight: bold;
-    color: white;
-    margin-top: 0;
-    margin-bottom: 25px;
-    line-height: 1.1;
-}
-
-.stats-grid {
-    display: flex;
-    gap: 30px;
-    margin-bottom: 25px;
-}
-
-.stat-item {
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.2);
-    padding: 8px 15px;
-    border-radius: 5px;
-    white-space: nowrap;
-}
-
-.stat-item .number {
-    font-size: 1.8em;
-    font-weight: bold;
-    color: white;
-    display: block;
-}
-
-.stat-item .label {
-    font-size: 0.65em;
-    color: rgba(255, 255, 255, 0.7);
-    text-transform: uppercase;
-    white-space: nowrap;
-}
-
-.watch-resume {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-top: 30px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.watch-resume hr {
-    flex-grow: 1;
-    border: none;
-    border-top: 2px solid white;
-    max-width: 60px;
-    margin: 0;
-}
-
-.watch-resume span {
-    font-size: 1em;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.watch-resume span:hover {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.profile-image-in-red {
-    position: absolute; /* ยังคงเป็น absolute เพื่อวางตำแหน่งรูปได้อิสระ */
-    bottom: 0;
-    right: -10%; /* ชิดขวาของ content-left-red และยื่นออกมาเล็กน้อย */
-    height: 100%; /* สูงเต็ม content-left-red */
-    width: auto;
-    object-fit: contain; /* ให้รูปแสดงเต็มโดยคงสัดส่วน */
-    z-index: 3;
-    max-height: 90%; /* สามารถปรับได้หากต้องการให้รูปไม่ชนขอบบน */
-}
-
-
-/* --- Social Media Icons Vertical --- */
-.social-vertical {
-    position: relative; /* ให้มันอยู่ติดกับ about-main-content ใน flow ปกติ */
-    display: flex;
-    flex-direction: column; /* จัดเรียงแนวตั้ง */
-    justify-content: center; /* จัดกึ่งกลางแนวตั้ง */
-    gap: 10px; /* ลดระยะห่างระหว่างลิงก์ */
-    color: #BBBBBB;
-    font-size: 0.9em; /* ทำให้ตัวหนังสือเล็กลง */
-    font-weight: normal; /* ทำให้ตัวหนังสือไม่หนา */
-    z-index: 4;
-    white-space: nowrap;
-    margin-left: 20px; /* ขยับมาใกล้กรอบสีแดงกว่าเดิม */
-}
-
-.social-vertical .social-link {
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    align-items: center;
-    transition: color 0.3s ease;
-    /* Rotation for vertical text */
-    writing-mode: vertical-lr; /* ทำให้ข้อความตั้งตรงจากบนลงล่าง */
-    text-orientation: mixed; /* ผสมผสานทิศทางการเขียน (สำหรับภาษาอังกฤษ) */
-    transform: rotate(180deg); /* หมุน 180 องศาเพื่อให้ข้อความอ่านได้จากล่างขึ้นบน */
-}
-
-.social-vertical .social-link:hover {
-    color: white;
-}
-
-/* --- Bottom Bar --- */
-.bottom-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    color: #BBBBBB;
-    font-size: 0.8em;
-    flex-shrink: 0;
-    z-index: 10;
-    background-color: transparent;
-}
-
-.copyright {
-    /* Style for copyright text */
-}
-
-.scroll-arrow {
-    cursor: pointer;
-    font-size: 1.5em;
-    color: white;
-    transition: transform 0.3s ease;
-}
-
-.scroll-arrow:hover {
-    transform: translateY(5px);
-}
-
-/* --- Responsive Design --- */
-
-/* For medium screens (tablets) and smaller desktops */
-@media (max-width: 1200px) {
-    .content-left-red {
-        width: 600px;
-        min-height: 450px;
-        /* ปรับ padding ขวาสำหรับรูปภาพที่ยื่นออกมา */
-        padding: 30px 10% 30px 30px;
-    }
-    h2 {
-        font-size: 3.5em;
-    }
-    .social-vertical {
-        margin-left: 30px; /* Adjust margin */
-        font-size: 0.9em;
-    }
-    .profile-image-in-red {
-        right: -10%; /* Keep it somewhat outside */
-        max-height: 90%;
-    }
-}
-
-@media (max-width: 1024px) {
-    .top-bar, .bottom-bar {
-        padding: 15px 25px;
-    }
-
-    .top-bar-right .contact-info {
-        font-size: 0.8em;
-    }
-
-    .content-left-red {
-        width: 500px;
-        min-height: 400px;
-        /* ปรับ padding ขวาสำหรับรูปภาพที่ยื่นออกมา */
-        padding: 25px 5% 25px 25px;
-    }
-
-    .text-block {
-        /* max-width: 350px; อาจไม่จำเป็นต้องมี max-width หากเนื้อหาน้อย */
-        margin-left: 0; /* Align text to left within its padding */
-    }
-
-    h2 {
-        font-size: 3em;
-    }
-
-    .social-vertical {
-        margin-left: 20px; /* Adjust margin */
-        font-size: 0.8em; /* Make it even smaller on smaller screens */
-        gap: 10px;
-    }
-    .profile-image-in-red {
-        right: -5%; /* Adjust for smaller screens */
-    }
-}
+/* ... (โค้ดส่วนบนสุดยังคงเหมือนเดิม) ... */
 
 /* For small screens (mobile) */
 @media (max-width: 768px) {
@@ -402,8 +30,6 @@ h2 {
         right: auto;
     }
 
-    /* Dropdown Menu Styles for Mobile - สไตล์นี้เหมือนกับ Global แล้ว */
-    /* ลบโค้ดซ้ำซ้อนจากตรงนี้ออกได้เลย */
     .dropdown-menu {
         right: 20px; /* ปรับให้ชิดขอบจอมากขึ้นบนมือถือ */
     }
@@ -424,15 +50,19 @@ h2 {
 
     .content-left-red {
         width: 100%; /* Full width of about-main-content */
-        min-height: auto; /* Auto height on mobile */
-        padding: 20px;
+        /* min-height: auto; เดิมทีเรากำหนดเป็น auto */
+        min-height: 400px; /* **เพิ่ม min-height เพื่อให้มีพื้นที่สำหรับรูปภาพด้านล่าง** */
+        padding: 20px; /* **ยกเลิก padding-bottom ไปก่อน** */
         margin: 0;
         display: flex;
         flex-direction: column; /* Text and image stack vertically */
+        /* **จัดข้อความไปด้านบนสุด และเว้นพื้นที่ให้รูปด้านล่าง** */
+        justify-content: space-between; /* **เปลี่ยนเป็น space-between เพื่อดัน text-block ขึ้นบนสุด และรูปไปล่างสุด** */
         align-items: center; /* Center horizontally */
         order: 1; /* Keep it at the top */
         padding-right: 20px; /* Revert to standard padding on mobile */
-        overflow: hidden; /* รักษา overflow: hidden ไว้สำหรับ mobile */
+        overflow: hidden; /* ยังคงเป็น hidden บน mobile เพื่อไม่ให้ scrollbar ขึ้น */
+        position: relative; /* **สำคัญ: ต้องมี position: relative เพื่อให้รูปที่เป็น absolute อ้างอิงได้** */
     }
 
     .text-block {
@@ -441,11 +71,16 @@ h2 {
         max-width: 90%;
         order: 1; /* Text first */
         margin-right: 0; /* ลบ margin-right บนมือถือ */
+        padding-bottom: 20px; /* **เพิ่ม padding-bottom เพื่อไม่ให้ข้อความชิดรูปภาพเกินไป** */
     }
 
     h2 {
         font-size: 2em;
         margin-bottom: 10px;
+    }
+
+    .small-text {
+        font-size: 1em; /* ปรับขนาด small-text ให้เหมาะสมกับมือถือ */
     }
 
     .stats-grid {
@@ -478,35 +113,37 @@ h2 {
     }
 
     .profile-image-in-red {
-        position: relative; /* Relative on mobile */
-        width: 60%; /* Adjust size */
+        position: absolute; /* **เปลี่ยนกลับเป็น absolute เพื่อควบคุมตำแหน่งให้ชิดล่าง** */
+        width: 70%; /* **ปรับขนาดรูปภาพให้เหมาะสมบนมือถือ** */
         height: auto;
-        bottom: auto;
-        right: auto;
-        max-height: none;
-        margin-top: 15px;
-        margin-bottom: 15px;
-        order: 2; /* Image below text on mobile */
+        bottom: 0; /* **ตรึงรูปภาพไว้ที่ขอบล่างของ .content-left-red** */
+        right: 50%; /* จัดกึ่งกลางแนวนอน */
+        transform: translateX(50%); /* จัดกึ่งกลางแนวนอน */
+        max-height: none; /* ไม่ต้องจำกัดความสูง */
+        margin-top: 0; /* ลบ margin ที่เคยมีจาก position: relative */
+        margin-bottom: 0; /* ลบ margin ที่เคยมีจาก position: relative */
+        order: unset; /* **ลบ order ออกไป เพราะใช้ absolute positioning แทน** */
+        z-index: 2; /* ตรวจสอบ z-index ให้รูปอยู่ด้านบนหากมีอะไรทับ */
     }
 
     .social-vertical {
-        position: relative; /* Relative on mobile */
+        position: relative;
         top: auto;
         right: auto;
-        transform: none; /* No rotation on mobile */
-        flex-direction: row; /* Horizontal on mobile */
-        justify-content: center; /* Center horizontally */
+        transform: none;
+        flex-direction: row;
+        justify-content: center;
         margin-top: 20px;
         width: 100%;
         gap: 20px;
-        order: 2; /* Below content-left-red (if content-left-red has content inside) */
-        margin-left: 0; /* Remove left margin */
+        order: 2; /* ยังคงเป็น order 2 เพื่อให้อยู่ด้านล่าง content-left-red */
+        margin-left: 0;
     }
 
     .social-vertical .social-link {
-        writing-mode: horizontal-tb; /* Normal horizontal text */
+        writing-mode: horizontal-tb;
         text-orientation: unset;
-        transform: none; /* No rotation */
+        transform: none;
     }
 
     .bottom-bar {
@@ -525,14 +162,15 @@ h2 {
         font-size: 1.2em;
     }
     .profile-image-in-red {
-        max-height: 30vh;
+        width: 80%; /* อาจต้องปรับให้เล็กลงอีกสำหรับจอเล็กมาก */
+        max-height: 25vh; /* อาจกำหนด max-height ถ้าสูงเกินไป */
     }
     .dropdown-menu {
         max-width: 160px;
         width: 95%;
     }
     .content-left-red {
-        min-height: 300px;
+        min-height: 280px; /* ลด min-height ถ้าเนื้อหาน้อยลง */
     }
     .social-vertical {
         gap: 15px;

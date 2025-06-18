@@ -62,7 +62,7 @@ body {
     gap: 5px;
 }
 
-/* Menu Icon: Initially hidden on desktop, shown on mobile. */
+/* Menu Icon: Now shown by default on all screens */
 .menu-icon {
     font-size: 1.8em;
     background: none;
@@ -70,40 +70,48 @@ body {
     color: white;
     cursor: pointer;
     padding: 0 10px;
-    display: none; /* Hide by default on larger screens (desktop) */
+    display: block; /* Show by default on all screens for dropdown functionality */
 }
 
-/* Dropdown Menu Styles: Hidden by default (for mobile), shown on desktop if no menu-icon */
+/* Dropdown Menu Styles: Hidden by default, toggled by JS */
 .dropdown-menu {
-    display: flex; /* Default: flex for horizontal links on desktop */
-    flex-direction: row;
-    gap: 20px;
-    position: static; /* Let it flow normally on desktop */
-    top: auto;
-    right: auto;
-    background-color: transparent;
-    border-radius: 0;
-    padding: 0;
+    display: none; /* Hidden by default, will be toggled by JS */
+    position: absolute; /* Absolute position for dropdown */
+    top: 60px; /* Position below top-bar (adjust as needed) */
+    right: 40px; /* Align to the right edge (match top-bar padding) */
+    left: auto;
+    background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background */
+    border-radius: 8px;
+    padding: 15px 20px;
+    flex-direction: column; /* Stack vertically */
+    gap: 10px;
     z-index: 100;
-    min-width: auto;
-    box-shadow: none;
-    transform: none;
-    opacity: 1; /* Always visible on desktop */
-    transition: none; /* No transitions on desktop */
+    min-width: 180px; /* Minimum width for the dropdown */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+    transform-origin: top right;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition */
+    transform: scaleY(0); /* Start hidden */
+    opacity: 0; /* Start invisible */
+}
+
+.dropdown-menu.is-open {
+    display: flex; /* Show when open (JS will add this class) */
+    transform: scaleY(1); /* Scale to full size */
+    opacity: 1; /* Fade in */
 }
 
 .dropdown-menu a {
     color: white;
     text-decoration: none;
     font-size: 1.1em;
-    padding: 0;
-    border-radius: 0;
-    transition: color 0.3s ease;
+    padding: 8px 10px; /* Padding for links */
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
 }
 
 .dropdown-menu a:hover {
-    background-color: transparent;
-    color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.1); /* Background change on hover */
+    color: white; /* Ensure text color remains white or slightly lighter */
 }
 
 
@@ -355,7 +363,7 @@ h2 {
     }
 }
 
-/* For small screens (mobile) */
+/* For small screens (mobile) and all screens now for dropdown behavior */
 @media (max-width: 768px) {
     .top-bar {
         flex-direction: row;
@@ -373,52 +381,16 @@ h2 {
     }
 
     .top-bar-right .contact-info {
-         display: none; /* Hide contact info on mobile */
+        display: none; /* Hide contact info on mobile */
     }
 
-    .menu-icon {
-        display: block; /* Show menu icon on mobile */
-        position: static;
-        top: auto;
-        right: auto;
-    }
+    /* .menu-icon is already display: block; from general styles now */
 
-    /* Dropdown Menu Styles for Mobile */
-    .dropdown-menu {
-        display: none; /* Hidden by default, toggled by JS */
-        position: absolute; /* Absolute position for dropdown */
-        top: 60px; /* Position below top-bar */
-        right: 20px; /* Align to the right edge */
-        left: auto;
-        background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background */
-        border-radius: 8px;
-        padding: 15px 20px;
-        flex-direction: column; /* Stack vertically on mobile */
-        gap: 10px;
-        z-index: 100;
-        min-width: 180px; /* Minimum width for the dropdown */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
-        transform-origin: top right;
-        transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition */
-        transform: scaleY(0); /* Start hidden */
-        opacity: 0; /* Start invisible */
-    }
-
-    .dropdown-menu.is-open {
-        display: flex; /* Show when open */
-        transform: scaleY(1); /* Scale to full size */
-        opacity: 1; /* Fade in */
-    }
-
-    .dropdown-menu a {
-        padding: 8px 10px; /* Padding for mobile links */
-        border-radius: 4px;
-        transition: background-color 0.3s ease;
-    }
-
-    .dropdown-menu a:hover {
-        background-color: rgba(255, 255, 255, 0.1); /* Background change on hover for mobile */
-    }
+    /* Dropdown Menu Styles for Mobile - these are now the default for all screens */
+    /* .dropdown-menu is already defined with these properties globally,
+       so no specific mobile adjustments are strictly needed here unless you
+       want slightly different values for small screens.
+       I'll keep the top/right relative to the screen size in the global class. */
 
     .content-center-wrapper {
         padding: 10px; /* Reduce padding on mobile */

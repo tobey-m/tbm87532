@@ -2,14 +2,14 @@
 
 /* Base styles for body */
 body {
-    background-color: black; /* Solid black background for the entire page */
+    background-color: black;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white; /* Default text color for this page */
-    overflow: hidden; /* Prevent unwanted scrollbars */
-    min-height: var(--app-height, 100vh); /* Ensure body takes at least full viewport height */
-    display: flex; /* Make body a flex container to center about-page-wrapper */
-    flex-direction: column; /* Stack about-page-wrapper vertically */
+    color: white;
+    overflow: hidden;
+    min-height: var(--app-height, 100vh);
+    display: flex;
+    flex-direction: column;
 }
 
 /* Hide the old main site navbar if it's not part of this page's design */
@@ -20,12 +20,12 @@ body {
 /* Main Wrapper for the About Page */
 .about-page-wrapper {
     display: flex;
-    flex-direction: column; /* Arrange top-bar, main-content, bottom-bar vertically */
-    height: var(--app-height, 100vh); /* Make this wrapper take full viewport height */
-    width: 100vw; /* Make this wrapper take full viewport width */
-    overflow: hidden; /* Hide overflowing content */
-    position: relative; /* For absolute positioning of internal elements */
-    box-sizing: border-box; /* Include padding/border in element's total width and height */
+    flex-direction: column;
+    height: var(--app-height, 100vh);
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
 }
 
 /* --- Top Bar --- */
@@ -33,18 +33,18 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px; /* Horizontal padding */
-    color: #BBBBBB; /* Color for contact info */
-    z-index: 10; /* Ensure it's above main content */
-    flex-shrink: 0; /* Prevent shrinking when space is limited */
-    background-color: transparent; /* Transparent background */
-    position: relative; /* For dropdown positioning */
+    padding: 20px 40px;
+    color: #BBBBBB;
+    z-index: 10;
+    flex-shrink: 0;
+    background-color: transparent;
+    position: relative;
 }
 
 .top-bar-left .logo {
     font-size: 2em;
     font-weight: bold;
-    color: white; /* Logo color */
+    color: white;
 }
 
 .top-bar-right {
@@ -55,8 +55,8 @@ body {
 
 .top-bar-right .contact-info {
     font-size: 0.9em;
-    white-space: nowrap; /* Prevent text wrapping */
-    display: flex; /* Show by default on desktop */
+    white-space: nowrap;
+    display: flex;
     align-items: center;
     gap: 5px;
 }
@@ -74,66 +74,83 @@ body {
 
 /* Dropdown Menu Styles for Desktop (visible by default) */
 .dropdown-menu {
-    position: static; /* Let it flow with the document on desktop */
+    position: static;
     top: auto;
     right: auto;
-    background-color: transparent; /* Transparent background */
+    background-color: transparent;
     border-radius: 0;
     padding: 0;
-    display: flex; /* Always display on desktop */
-    flex-direction: row; /* Arrange links horizontally */
-    gap: 20px; /* Space between links */
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
     z-index: 100;
     min-width: auto;
-    box-shadow: none; /* No shadow on desktop */
+    box-shadow: none;
     transform-origin: center;
-    transition: none; /* No transitions on desktop */
-    transform: none; /* No transformation */
-    opacity: 1; /* Always visible */
+    transition: none;
+    transform: none;
+    opacity: 1;
 }
 
 .dropdown-menu a {
     color: white;
     text-decoration: none;
     font-size: 1.1em;
-    padding: 0; /* No padding */
+    padding: 0;
     border-radius: 0;
-    transition: color 0.3s ease; /* Only color transition */
+    transition: color 0.3s ease;
 }
 
 .dropdown-menu a:hover {
-    background-color: transparent; /* No background change on hover */
-    color: rgba(255, 255, 255, 0.7); /* Subtle color change on hover */
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.7);
 }
 
-
-/* --- Main Content Area (Red Background with Text, and Image overlapping) --- */
-.about-main-content {
+/* --- Content Center Wrapper --- */
+/* ทำหน้าที่จัด about-main-content ให้อยู่กึ่งกลางหน้าจอในแนวตั้งและแนวนอน */
+.content-center-wrapper {
+    flex-grow: 1; /* ให้ใช้พื้นที่ที่เหลือทั้งหมด */
     display: flex;
-    flex-grow: 1; /* Allow to grow and fill remaining vertical space */
-    position: relative; /* For image positioning */
-    overflow: hidden; /* Hide any overflowing content */
+    justify-content: center; /* จัดกึ่งกลางแนวนอน */
+    align-items: center; /* จัดกึ่งกลางแนวตั้ง */
+    overflow: hidden; /* ป้องกันการล้นของเนื้อหา */
+    padding: 20px; /* เพิ่ม padding เล็กน้อยเพื่อป้องกันเนื้อหาชนขอบ */
+    box-sizing: border-box;
 }
+
+/* --- Main Content Area (Red Background with Text, Image, and Social Icons) --- */
+.about-main-content {
+    display: flex; /* ใช้ Flexbox เพื่อจัดเรียง content-left-red และ social-vertical */
+    position: relative; /* สำหรับ absolute positioning ของ social-vertical */
+    background-color: black; /* กำหนดพื้นหลังหลักของกลุ่มนี้เป็นสีดำ (ถ้ามีช่องว่างนอก content-left-red) */
+    width: fit-content; /* ให้ div นี้มีขนาดพอดีกับเนื้อหา */
+    max-width: 90%; /* จำกัดความกว้างสูงสุด */
+    max-height: 80vh; /* จำกัดความสูงสูงสุด */
+    box-sizing: border-box;
+}
+
 
 .content-left-red {
-    background-color: #E22B29; /* Red background as per image */
-    flex: 0 0 60%; /* Make this take about 60% width to leave space for image overlap */
+    background-color: #E22B29;
+    flex-shrink: 0; /* ไม่ให้หดตัว */
+    width: 600px; /* กำหนดความกว้างคงที่สำหรับ Desktop */
+    min-height: 500px; /* กำหนดความสูงคงที่สำหรับ Desktop */
     display: flex;
-    justify-content: flex-start; /* Align text to the start (left) */
+    justify-content: flex-start;
     align-items: center;
     padding: 40px;
     box-sizing: border-box;
-    position: relative; /* Essential for text-block z-index */
-    z-index: 2; /* Ensures red section is above potential shared background */
+    position: relative;
+    z-index: 2;
 }
 
 .text-block {
-    max-width: 450px; /* Max width for text block to leave space for image */
+    max-width: 450px;
     color: white;
     text-align: left;
-    margin-left: 50px; /* Push text from the left edge */
-    z-index: 5; /* Ensure text is above the image */
-    position: relative; /* Make sure z-index works */
+    margin-left: 50px;
+    z-index: 5;
+    position: relative;
 }
 
 .small-text {
@@ -144,37 +161,37 @@ body {
 }
 
 h2 {
-    font-size: 4em; /* Slightly smaller for compactness */
+    font-size: 4em;
     font-weight: bold;
     color: white;
     margin-top: 0;
-    margin-bottom: 25px; /* Reduced margin for compactness */
-    line-height: 1.1; /* Adjust line-height */
+    margin-bottom: 25px;
+    line-height: 1.1;
 }
 
 .stats-grid {
     display: flex;
-    gap: 30px; /* Reduced gap for compactness */
-    margin-bottom: 25px; /* Reduced margin for compactness */
+    gap: 30px;
+    margin-bottom: 25px;
 }
 
 .stat-item {
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent black background */
-    padding: 8px 15px; /* Reduced padding for compactness */
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 8px 15px;
     border-radius: 5px;
-    white-space: nowrap; /* Prevent text wrapping */
+    white-space: nowrap;
 }
 
 .stat-item .number {
-    font-size: 1.8em; /* Slightly smaller for compactness */
+    font-size: 1.8em;
     font-weight: bold;
     color: white;
     display: block;
 }
 
 .stat-item .label {
-    font-size: 0.65em; /* Slightly smaller for compactness */
+    font-size: 0.65em;
     color: rgba(255, 255, 255, 0.7);
     text-transform: uppercase;
     white-space: nowrap;
@@ -184,7 +201,7 @@ h2 {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-top: 30px; /* Reduced margin for compactness */
+    margin-top: 30px;
     color: white;
     font-weight: bold;
     cursor: pointer;
@@ -193,13 +210,13 @@ h2 {
 .watch-resume hr {
     flex-grow: 1;
     border: none;
-    border-top: 2px solid white; /* Thicker line */
-    max-width: 60px; /* Shorter line for compactness */
+    border-top: 2px solid white;
+    max-width: 60px;
     margin: 0;
 }
 
 .watch-resume span {
-    font-size: 1em; /* Slightly smaller for compactness */
+    font-size: 1em;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -208,7 +225,6 @@ h2 {
     color: rgba(255, 255, 255, 0.7);
 }
 
-/* Profile Image positioned within the red section, overlapping */
 .profile-image-in-red {
     position: absolute;
     bottom: 0;
@@ -222,37 +238,37 @@ h2 {
 
 /* Social Media Icons Vertical */
 .social-vertical {
-    position: absolute; /* Position absolutely within about-main-content */
-    right: 40px; /* Adjust distance from the right edge */
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%) rotate(90deg); /* Rotate for vertical text */
-    transform-origin: right center; /* Rotate around the right center point */
+    position: absolute;
+    top: 50%;
+    /* จัดกึ่งกลางแนวตั้งของ social-vertical เทียบกับ content-left-red */
+    transform: translateY(-50%);
+    right: -50px; /* ตำแหน่งจากขอบขวาของ content-left-red */
+    /* เนื่องจากมันถูกหมุนไปแล้ว, right: -50px หมายถึงเลื่อนออกไปทางขวา 50px */
     display: flex;
-    gap: 30px; /* Space between social links */
+    flex-direction: column; /* จัดเรียงแนวตั้ง */
+    gap: 15px; /* ระยะห่างระหว่างลิงก์ */
     color: #BBBBBB;
     font-size: 1.1em;
     font-weight: bold;
-    z-index: 4; /* Ensure it's above other content if needed */
-    white-space: nowrap; /* Prevent wrapping of text */
+    z-index: 4;
+    white-space: nowrap;
 }
 
 .social-vertical .social-link {
     text-decoration: none;
-    color: inherit; /* Inherit color from parent */
-    display: flex; /* Allow content to be flexible */
-    align-items: center; /* Center items vertically if needed */
+    color: inherit;
+    display: flex;
+    align-items: center;
     transition: color 0.3s ease;
+    writing-mode: vertical-lr; /* ทำให้ข้อความตั้งตรงจากบนลงล่าง */
+    text-orientation: mixed; /* ผสมผสานทิศทางการเขียน (สำหรับภาษาอังกฤษ) */
+    transform: rotate(180deg); /* หมุน 180 องศาเพื่อให้ข้อความอ่านได้จากล่างขึ้นบน */
 }
+
 
 .social-vertical .social-link:hover {
-    color: white; /* Change color on hover */
+    color: white;
 }
-
-.social-vertical .social-text {
-    display: block; /* Ensures text behaves as a block for rotation */
-    /* No rotation needed here, as parent already rotates */
-}
-
 
 /* --- Bottom Bar --- */
 .bottom-bar {
@@ -262,9 +278,9 @@ h2 {
     padding: 20px 40px;
     color: #BBBBBB;
     font-size: 0.8em;
-    flex-shrink: 0; /* Prevent shrinking */
-    z-index: 10; /* Ensure it's above main content */
-    background-color: transparent; /* Transparent background */
+    flex-shrink: 0;
+    z-index: 10;
+    background-color: transparent;
 }
 
 .copyright {
@@ -273,18 +289,32 @@ h2 {
 
 .scroll-arrow {
     cursor: pointer;
-    font-size: 1.5em; /* Size of the arrow icon */
-    color: white; /* Color of the arrow */
+    font-size: 1.5em;
+    color: white;
     transition: transform 0.3s ease;
 }
 
 .scroll-arrow:hover {
-    transform: translateY(5px); /* Small hover effect */
+    transform: translateY(5px);
 }
 
 /* --- Responsive Design --- */
 
-/* For medium screens (tablets) */
+/* For medium screens (tablets) and smaller desktops */
+@media (max-width: 1200px) {
+    .content-left-red {
+        width: 500px; /* ปรับขนาดเล็กน้อย */
+        min-height: 450px;
+    }
+    h2 {
+        font-size: 3.5em;
+    }
+    .social-vertical {
+        right: -40px; /* ปรับตำแหน่ง */
+        font-size: 1em;
+    }
+}
+
 @media (max-width: 1024px) {
     .top-bar, .bottom-bar {
         padding: 15px 25px;
@@ -295,13 +325,14 @@ h2 {
     }
 
     .content-left-red {
-        flex: 0 0 55%; /* Adjust width slightly */
+        width: 450px; /* ปรับขนาดสำหรับแท็บเล็ต */
+        min-height: 400px;
         padding: 30px;
     }
 
     .text-block {
         margin-left: 30px;
-        max-width: 350px; /* Make text block more compact */
+        max-width: 350px;
     }
 
     h2 {
@@ -309,163 +340,178 @@ h2 {
     }
 
     .profile-image-in-red {
-        right: -5%; /* Adjust overlap */
-        max-width: 65%; /* Adjust max width for tablet */
+        right: -5%;
+        max-width: 65%;
     }
 
     .social-vertical {
-        right: 20px; /* Adjust position for tablets */
-        font-size: 1em; /* Slightly smaller font */
-        gap: 20px; /* Reduce gap */
+        right: -30px; /* Adjust position for tablets */
+        font-size: 0.9em;
+        gap: 15px;
     }
 }
 
 /* For small screens (mobile) */
 @media (max-width: 768px) {
     .top-bar {
-        flex-direction: row; /* Keep items in a row on mobile */
-        justify-content: space-between; /* Space out logo and menu icon */
+        flex-direction: row;
+        justify-content: space-between;
         align-items: center;
         padding: 15px 20px;
     }
 
     .top-bar-right {
-        flex-direction: row; /* Keep items in a row */
+        flex-direction: row;
         align-items: center;
-        gap: 0; /* Remove gap */
-        width: auto; /* Auto width */
-        position: static; /* Remove absolute positioning */
+        gap: 0;
+        width: auto;
+        position: static;
     }
 
-    /* Hide contact info on small screens to save space */
     .top-bar-right .contact-info {
-         display: none; /* Hide contact info on mobile */
+         display: none;
     }
 
     .menu-icon {
-        display: block; /* Show menu icon on mobile */
-        position: static; /* Remove absolute positioning */
+        display: block;
+        position: static;
         top: auto;
         right: auto;
     }
 
     /* Adjust dropdown menu position and size for mobile */
     .dropdown-menu {
-        position: absolute; /* Change to absolute position on mobile */
-        top: 60px; /* Position below top-bar */
-        right: 20px; /* Align to the right edge */
-        left: auto; /* Remove left value */
-        background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background */
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        left: auto;
+        background-color: rgba(0, 0, 0, 0.9);
         border-radius: 8px;
         padding: 15px 20px;
         display: none; /* Hidden by default, toggled by JS */
-        flex-direction: column; /* Stack vertically on mobile */
+        flex-direction: column;
         gap: 10px;
         z-index: 100;
-        min-width: 180px; /* Minimum width for the dropdown */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+        min-width: 180px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         transform-origin: top right;
-        transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition */
-        transform: scaleY(0); /* Start hidden */
-        opacity: 0; /* Start invisible */
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        transform: scaleY(0);
+        opacity: 0;
     }
 
     .dropdown-menu.is-open {
-        display: flex; /* Show when open */
-        transform: scaleY(1); /* Scale to full size */
-        opacity: 1; /* Fade in */
+        display: flex;
+        transform: scaleY(1);
+        opacity: 1;
     }
 
     .dropdown-menu a {
-        padding: 8px 10px; /* Padding for mobile links */
+        padding: 8px 10px;
         border-radius: 4px;
         transition: background-color 0.3s ease;
     }
 
     .dropdown-menu a:hover {
-        background-color: rgba(255, 255, 255, 0.1); /* Background change on hover for mobile */
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .content-center-wrapper {
+        padding: 10px; /* ลด padding บนมือถือ */
     }
 
     .about-main-content {
-        flex-direction: column; /* Stack sections vertically */
-        height: auto; /* Auto height to fit content */
-        justify-content: center; /* Center content vertically */
-        align-items: center; /* Center content horizontally */
+        flex-direction: column; /* Stack sections vertically on mobile */
+        height: auto;
+        width: 100%; /* ใช้ความกว้างเต็มที่ */
+        max-width: 95%; /* จำกัดความกว้างสูงสุด */
+        max-height: none; /* ไม่จำกัดความสูง */
+        align-items: center; /* จัดกึ่งกลางเนื้อหาภายใน */
+        justify-content: flex-start;
     }
 
     .content-left-red {
-        flex: none; /* Remove flex-basis */
-        width: 100%; /* Full width */
-        min-height: 40vh; /* Minimum height for red section */
-        padding: 30px 20px;
-        justify-content: center; /* Center text block horizontally */
-        align-items: center; /* Center text block vertically */
-        position: relative; /* Ensure relative positioning for image if inside */
-        order: 2; /* Text below image on mobile */
+        width: 100%; /* เต็มความกว้างของ about-main-content */
+        min-height: 350px; /* ลดความสูงขั้นต่ำ */
+        padding: 20px;
+        margin: 0; /* ลบ margin เดิม */
+        justify-content: center;
+        align-items: center;
+        order: 1; /* ให้ content-left-red อยู่ด้านบนสุด */
     }
 
     .text-block {
-        padding-right: 0;
-        max-width: 100%;
-        text-align: center; /* Center text on mobile */
-        margin-left: 0; /* Remove left margin */
+        margin-left: 0;
+        text-align: center;
+        max-width: 90%; /* ปรับให้พอดีกับหน้าจอเล็ก */
     }
 
     h2 {
-        font-size: 2.5em; /* Smaller H2 on mobile */
-        margin-bottom: 15px;
+        font-size: 2em;
+        margin-bottom: 10px;
     }
 
     .stats-grid {
-        flex-direction: column; /* Stack stats vertically */
-        align-items: center; /* Center stats */
-        gap: 10px; /* Smaller gap on mobile */
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 15px;
     }
 
     .stat-item {
-        padding: 6px 12px; /* Smaller padding on mobile */
+        padding: 5px 10px;
     }
 
     .stat-item .number {
-        font-size: 1.5em; /* Smaller number on mobile */
+        font-size: 1.3em;
     }
 
     .stat-item .label {
-        font-size: 0.6em; /* Smaller label on mobile */
+        font-size: 0.55em;
     }
 
     .watch-resume {
-        justify-content: center;
-        margin-top: 20px; /* Smaller margin on mobile */
+        margin-top: 15px;
     }
     .watch-resume hr {
-        max-width: 40px; /* Shorter line on mobile */
+        max-width: 30px;
     }
     .watch-resume span {
-        font-size: 0.9em; /* Smaller font on mobile */
+        font-size: 0.8em;
     }
 
     .profile-image-in-red {
-        position: relative; /* Change to relative for normal flow on mobile */
-        width: 70%; /* Make image fit better on mobile */
+        position: relative; /* เปลี่ยนเป็น relative เพื่อให้อยู่ใน flow ปกติ */
+        width: 70%; /* ปรับขนาดรูปภาพให้เหมาะสมกับมือถือ */
         height: auto;
         bottom: auto;
-        left: auto;
-        right: auto; /* Remove right value */
-        transform: none; /* Remove transform */
-        max-width: 70%; /* Keep max width */
-        max-height: 45vh; /* Limit height for smaller screens */
-        object-fit: contain; /* Ensure full image is visible */
-        margin-bottom: 15px; /* Add some space below image */
-        order: 1; /* Image above text on mobile (within .about-main-content) */
+        right: auto;
+        margin-top: 15px; /* เพิ่มระยะห่างด้านบน */
+        max-height: 40vh; /* จำกัดความสูงของรูปภาพ */
+        object-fit: contain;
     }
 
     .social-vertical {
-        display: none; /* Hide social vertical links on mobile */
+        position: relative; /* เปลี่ยนเป็น relative บนมือถือ */
+        top: auto;
+        right: auto;
+        transform: none; /* ยกเลิกการหมุน */
+        flex-direction: row; /* จัดเรียงแนวนอน */
+        justify-content: center; /* จัดกึ่งกลางแนวนอน */
+        margin-top: 20px; /* เพิ่มระยะห่างด้านบน */
+        width: 100%; /* ใช้ความกว้างเต็มที่ */
+        gap: 20px; /* ปรับระยะห่าง */
+        order: 2; /* วางไว้ใต้ content-left-red */
+    }
+
+    .social-vertical .social-link {
+        writing-mode: horizontal-tb; /* กลับเป็นแนวนอนปกติ */
+        text-orientation: unset;
+        transform: none; /* ยกเลิกการหมุน */
     }
 
     .bottom-bar {
-        flex-direction: column-reverse; /* Swap copyright and arrow */
+        flex-direction: column-reverse;
         gap: 10px;
         padding: 10px 20px;
     }
@@ -474,16 +520,23 @@ h2 {
 /* For very small screens */
 @media (max-width: 480px) {
     h2 {
-        font-size: 2em; /* Smaller H2 */
+        font-size: 1.8em;
     }
     .top-bar-left .logo {
-        font-size: 1.3em; /* Smaller logo */
+        font-size: 1.2em;
     }
     .profile-image-in-red {
-        max-height: 35vh; /* Further limit image height */
+        max-height: 30vh;
     }
     .dropdown-menu {
-        max-width: 180px; /* Even smaller dropdown */
-        width: 90%;
+        max-width: 160px;
+        width: 95%;
+    }
+    .content-left-red {
+        min-height: 300px;
+    }
+    .social-vertical {
+        gap: 15px;
+        font-size: 0.9em;
     }
 }

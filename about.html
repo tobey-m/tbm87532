@@ -18,8 +18,8 @@
     <script src="vh-fix.js" defer></script>
 </head>
 <body>
-    <!-- Navbar from other pages (hidden on this page by CSS) -->
-    <!-- If you don't want this navbar at all on this page, you can remove this div -->
+    <!-- Navbar เดิมที่ใช้กับหน้าอื่น ๆ (ถูกซ่อนในหน้านี้ด้วย CSS) -->
+    <!-- หากไม่ต้องการให้มี Navbar ชุดนี้ในหน้านี้เลย สามารถลบ div นี้ได้ -->
     <div class="navbar main-site-navbar">
         <a href="javascript:void(0);" onclick="fadeOutAndRedirect('index.html')">gallery</a>
         <a href="javascript:void(0);" onclick="fadeOutAndRedirect('social.html')">social</a>
@@ -41,7 +41,7 @@
                 <span class="contact-info">
                     <i class="fas fa-envelope"></i> thisisforanywork@gmail.com
                 </span>
-                <!-- Menu Icon for dropdown (visible on mobile and desktop) -->
+                <!-- Menu Icon for dropdown (visible on mobile) -->
                 <button class="menu-icon" aria-label="Menu" id="menu-toggle">&#9776;</button>
 
                 <!-- Dropdown Menu (initially hidden, toggled by JS) -->
@@ -54,9 +54,9 @@
             </div>
         </div>
 
-        <!-- Main Content Area (Red Background with Text, and Image overlapping) -->
+        <!-- Main Content Area (Red Background with Text and Image) -->
         <div class="about-main-content">
-            <!-- Left Section: Red Background and Text -->
+            <!-- Left Section: Red Background, Text, and Profile Image -->
             <div class="content-left-red">
                 <div class="text-block">
                     <span class="small-text">JATUPORN KULCHINGCHAI</span>
@@ -76,17 +76,15 @@
                         <span>Watch JobResume</span>
                     </div>
                 </div>
+                <!-- Profile Image inside the red section -->
+                <img src="images/tobey.r.png" alt="JATUPORN KULCHINGCHAI" class="profile-image-in-red">
             </div>
-            <!-- Right Section: Contains the profile image (social icons removed) -->
-            <div class="content-right-image">
-                <img src="images/tobey.r.png" alt="JATUPORN KULCHINGCHAI" class="profile-image">
-                <!-- Social Media Icons (Vertical) - REMOVED AS PER REQUEST -->
-            </div>
+            <!-- The content-right-image div has been removed -->
         </div>
 
         <!-- Bottom Bar (Copyright / Scroll Down Arrow) -->
         <div class="bottom-bar">
-            <span class="copyright">© มีซิกคาริทเน้อ</span>
+            <span class="copyright">© 2020 COPYRIGHT. ALL RIGHTS RESERVED.</span>
             <div class="scroll-arrow">
                 <i class="fas fa-chevron-down"></i> <!-- Font Awesome down arrow icon -->
             </div>

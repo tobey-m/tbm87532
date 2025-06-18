@@ -69,7 +69,7 @@ body {
     color: white;
     cursor: pointer;
     padding: 0 10px;
-    /* Removed display: none; so it's visible on desktop too */
+    /* This rule makes it visible on desktop. No specific "display: block;" needed here */
 }
 
 /* Dropdown Menu Styles */
@@ -121,7 +121,7 @@ body {
 
 .content-left-red {
     background-color: #E22B29; /* Red background as per image */
-    flex: 0 0 65%; /* Make this take about 65% width to leave space for image overlap */
+    flex: 0 0 60%; /* Make this take about 60% width to leave space for image overlap */
     display: flex;
     justify-content: flex-start; /* Align text to the start (left) */
     align-items: center;
@@ -132,7 +132,7 @@ body {
 }
 
 .text-block {
-    max-width: 500px; /* Max width for text block */
+    max-width: 450px; /* Max width for text block to leave space for image */
     color: white;
     text-align: left;
     margin-left: 50px; /* Push text from the left edge */
@@ -148,37 +148,37 @@ body {
 }
 
 h2 {
-    font-size: 4.5em; /* Larger font size */
+    font-size: 4em; /* Slightly smaller for compactness */
     font-weight: bold;
     color: white;
     margin-top: 0;
-    margin-bottom: 30px;
+    margin-bottom: 25px; /* Reduced margin for compactness */
     line-height: 1.1; /* Adjust line-height */
 }
 
 .stats-grid {
     display: flex;
-    gap: 40px;
-    margin-bottom: 30px;
+    gap: 30px; /* Reduced gap for compactness */
+    margin-bottom: 25px; /* Reduced margin for compactness */
 }
 
 .stat-item {
     text-align: center;
     background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent black background */
-    padding: 10px 20px;
+    padding: 8px 15px; /* Reduced padding for compactness */
     border-radius: 5px;
     white-space: nowrap; /* Prevent text wrapping */
 }
 
 .stat-item .number {
-    font-size: 2em;
+    font-size: 1.8em; /* Slightly smaller for compactness */
     font-weight: bold;
     color: white;
     display: block;
 }
 
 .stat-item .label {
-    font-size: 0.7em;
+    font-size: 0.65em; /* Slightly smaller for compactness */
     color: rgba(255, 255, 255, 0.7);
     text-transform: uppercase;
     white-space: nowrap;
@@ -188,7 +188,7 @@ h2 {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-top: 40px;
+    margin-top: 30px; /* Reduced margin for compactness */
     color: white;
     font-weight: bold;
     cursor: pointer;
@@ -198,12 +198,12 @@ h2 {
     flex-grow: 1;
     border: none;
     border-top: 2px solid white; /* Thicker line */
-    max-width: 80px; /* Longer line */
+    max-width: 60px; /* Shorter line for compactness */
     margin: 0;
 }
 
 .watch-resume span {
-    font-size: 1.1em;
+    font-size: 1em; /* Slightly smaller for compactness */
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -212,14 +212,14 @@ h2 {
     color: rgba(255, 255, 255, 0.7);
 }
 
-/* Right Section: Contains the profile image and social icons */
+/* Right Section: Contains the profile image (social icons removed) */
 .content-right-image {
     flex: 1; /* Takes the remaining space */
     background-color: black; /* Solid black background for this section */
     display: flex;
     justify-content: flex-end; /* Align content to the right */
     align-items: flex-end; /* Align content to the bottom */
-    position: relative; /* For positioning profile image and social icons */
+    position: relative; /* For positioning profile image */
     overflow: hidden; /* Hide image overflow */
 }
 
@@ -227,38 +227,16 @@ h2 {
 .profile-image {
     position: absolute; /* Position absolutely within content-right-image */
     bottom: 0; /* Align to bottom */
-    /* Adjust 'left' or 'transform' to make it overlap the red section */
-    left: -15%; /* Move it left by 15% of its parent's width */
+    left: -8%; /* Adjust overlap, slightly less than -15% for compactness */
     height: 100%; /* Make image fill the height of its parent */
     width: auto; /* Maintain aspect ratio */
     object-fit: cover; /* Cover the area, cropping if needed */
     z-index: 3; /* Place above the red section */
-    max-height: 95%; /* Prevent image from pushing too far down */
+    max-height: 90%; /* Further limit height for compactness */
 }
 
-/* Social Media Icons Vertical */
-.social-vertical {
-    position: absolute;
-    right: 0; /* Align to the right edge of content-right-image */
-    top: 50%;
-    transform: translateY(-50%) rotate(90deg); /* Rotate and center vertically */
-    transform-origin: right center; /* Set rotation origin */
-    white-space: nowrap;
-    color: #BBBBBB;
-    font-size: 0.9em;
-    letter-spacing: 5px; /* Add letter spacing */
-    z-index: 4; /* Place above the profile image */
-    display: flex; /* Arrange icons horizontally after rotation */
-    gap: 15px; /* Spacing between icons */
-}
-.social-vertical a {
-    color: inherit; /* Inherit color from parent */
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-.social-vertical a:hover {
-    color: white;
-}
+/* Social Media Icons Vertical - REMOVED AS PER REQUEST */
+/* .social-vertical styles removed */
 
 
 /* --- Bottom Bar --- */
@@ -302,29 +280,25 @@ h2 {
     }
 
     .content-left-red {
-        flex: 0 0 60%; /* Adjust width slightly */
+        flex: 0 0 55%; /* Adjust width slightly */
         padding: 30px;
     }
 
     .text-block {
         margin-left: 30px;
-        max-width: 380px; /* Make text block more compact */
+        max-width: 350px; /* Make text block more compact */
     }
 
     h2 {
-        font-size: 3.5em;
+        font-size: 3em;
     }
 
     .profile-image {
-        left: -10%; /* Adjust overlap */
-        max-width: 60%; /* Adjust max width for tablet */
+        left: -5%; /* Adjust overlap */
+        max-width: 65%; /* Adjust max width for tablet */
     }
 
-    .social-vertical {
-        font-size: 0.8em;
-        letter-spacing: 3px;
-        gap: 10px;
-    }
+    /* social-vertical styles removed */
 }
 
 /* For small screens (mobile) */
@@ -362,15 +336,15 @@ h2 {
         left: auto; /* Remove left value */
         transform: translateX(50%) scaleY(0); /* Center and scale from center */
         transform-origin: top center; /* Change transform origin */
-        max-width: 250px; /* Make it smaller */
-        width: 80%; /* Max 80% width */
-        padding: 10px 15px;
+        max-width: 200px; /* Smaller max-width for mobile */
+        width: 70%; /* Smaller percentage width */
+        padding: 10px 15px; /* Smaller padding */
     }
     .dropdown-menu.is-open {
         transform: translateX(50%) scaleY(1); /* Show and scale */
     }
     .dropdown-menu a {
-        font-size: 1em;
+        font-size: 0.95em; /* Slightly smaller font for compactness */
     }
 
     .about-main-content {
@@ -399,33 +373,44 @@ h2 {
     }
 
     h2 {
-        font-size: 2.8em;
-        margin-bottom: 20px;
+        font-size: 2.5em; /* Smaller H2 on mobile */
+        margin-bottom: 15px;
     }
 
     .stats-grid {
         flex-direction: column; /* Stack stats vertically */
         align-items: center; /* Center stats */
-        gap: 15px;
+        gap: 10px; /* Smaller gap on mobile */
     }
 
     .stat-item {
-        padding: 8px 15px;
+        padding: 6px 12px; /* Smaller padding on mobile */
     }
 
     .stat-item .number {
-        font-size: 1.8em;
+        font-size: 1.5em; /* Smaller number on mobile */
+    }
+
+    .stat-item .label {
+        font-size: 0.6em; /* Smaller label on mobile */
     }
 
     .watch-resume {
         justify-content: center;
-        margin-top: 30px;
+        margin-top: 20px; /* Smaller margin on mobile */
     }
+    .watch-resume hr {
+        max-width: 40px; /* Shorter line on mobile */
+    }
+    .watch-resume span {
+        font-size: 0.9em; /* Smaller font on mobile */
+    }
+
 
     .content-right-image {
         flex: none; /* Remove flex-basis */
         width: 100%; /* Full width */
-        min-height: 60vh; /* Minimum height for image section */
+        min-height: 50vh; /* Minimum height for image section */
         display: flex;
         justify-content: center; /* Center image horizontally */
         align-items: flex-end; /* Align image to bottom */
@@ -435,30 +420,18 @@ h2 {
 
     .profile-image {
         position: relative; /* Change to relative for normal flow on mobile */
-        width: 80%; /* Make image fit better on mobile */
+        width: 70%; /* Make image fit better on mobile */
         height: auto;
         bottom: auto;
         left: auto;
         transform: none; /* Remove transform */
-        max-width: 80%; /* Keep max width */
-        max-height: 50vh; /* Limit height for smaller screens */
+        max-width: 70%; /* Keep max width */
+        max-height: 45vh; /* Limit height for smaller screens */
         object-fit: contain; /* Ensure full image is visible */
-        margin-bottom: 20px; /* Add some space below image */
+        margin-bottom: 15px; /* Add some space below image */
     }
 
-    .social-vertical {
-        transform: none; /* Remove rotation */
-        position: relative; /* Change to relative for normal flow on mobile */
-        display: flex; /* Keep as flex */
-        gap: 10px; /* Spacing between icons */
-        font-size: 1em;
-        letter-spacing: normal;
-        flex-wrap: wrap; /* Allow wrapping */
-        justify-content: center;
-        width: 100%;
-        margin-top: 0; /* Remove top margin */
-        padding-bottom: 15px; /* Add padding below social icons */
-    }
+    /* social-vertical styles removed */
 
     .bottom-bar {
         flex-direction: column-reverse; /* Swap copyright and arrow */
@@ -470,12 +443,16 @@ h2 {
 /* For very small screens */
 @media (max-width: 480px) {
     h2 {
-        font-size: 2.2em;
+        font-size: 2em; /* Smaller H2 */
     }
     .top-bar-left .logo {
-        font-size: 1.5em; /* Smaller logo */
+        font-size: 1.3em; /* Smaller logo */
     }
     .profile-image {
-        max-height: 40vh; /* Further limit image height */
+        max-height: 35vh; /* Further limit image height */
+    }
+    .dropdown-menu {
+        max-width: 180px; /* Even smaller dropdown */
+        width: 90%;
     }
 }

@@ -336,15 +336,15 @@ h2 {
         left: auto; /* Remove left value */
         transform: translateX(50%) scaleY(0); /* Center and scale from center */
         transform-origin: top center; /* Change transform origin */
-        max-width: 200px; /* Smaller max-width for mobile */
-        width: 70%; /* Smaller percentage width */
+        max-width: 150px; /* Smaller max-width for mobile */
+        width: 60%; /* Smaller percentage width */
         padding: 10px 15px; /* Smaller padding */
     }
     .dropdown-menu.is-open {
         transform: translateX(50%) scaleY(1); /* Show and scale */
     }
     .dropdown-menu a {
-        font-size: 0.95em; /* Slightly smaller font for compactness */
+        font-size: 0.9em; /* Slightly smaller font for compactness */
     }
 
     .about-main-content {

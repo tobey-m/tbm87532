@@ -12,28 +12,33 @@ function fadeOutAndRedirect(url) {
 const menuToggle = document.getElementById('menu-toggle');
 const navDropdown = document.getElementById('nav-dropdown');
 
-// Add event listener to toggle the dropdown menu visibility
 if (menuToggle && navDropdown) {
     menuToggle.addEventListener('click', function(event) {
-        // Stop event propagation to prevent immediate closing from document click
         event.stopPropagation();
-        navDropdown.classList.toggle('is-open'); // Toggle the 'is-open' class
+        // Check if on mobile before toggling dropdown
+        if (window.innerWidth <= 768) {
+            navDropdown.classList.toggle('is-open');
+        }
     });
 
-    // Close dropdown if clicked outside
     document.addEventListener('click', function(event) {
-        if (!menuToggle.contains(event.target) && !navDropdown.contains(event.target)) {
-            if (navDropdown.classList.contains('is-open')) {
-                navDropdown.classList.remove('is-open');
+        // Only close dropdown on mobile (or smaller screens) if it's open
+        if (window.innerWidth <= 768) {
+            if (!menuToggle.contains(event.target) && !navDropdown.contains(event.target)) {
+                if (navDropdown.classList.contains('is-open')) {
+                    navDropdown.classList.remove('is-open');
+                }
             }
         }
     });
 
-    // Close dropdown if a link inside it is clicked
     navDropdown.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', function() {
-            if (navDropdown.classList.contains('is-open')) {
-                navDropdown.classList.remove('is-open');
+            // Only close dropdown on mobile after clicking a link
+            if (window.innerWidth <= 768) {
+                if (navDropdown.classList.contains('is-open')) {
+                    navDropdown.classList.remove('is-open');
+                }
             }
         });
     });

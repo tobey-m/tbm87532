@@ -62,7 +62,7 @@ body {
     gap: 5px;
 }
 
-/* Menu Icon: แสดงผลเสมอ (บน Desktop และ Mobile) */
+/* Menu Icon: ซ่อนบน Desktop, แสดงบน Mobile เท่านั้น (กลับไปเป็นแบบเดิมของคุณ) */
 .menu-icon {
     font-size: 1.8em;
     background: none;
@@ -70,49 +70,40 @@ body {
     color: white;
     cursor: pointer;
     padding: 0 10px;
-    display: block; /* ทำให้ไอคอนเมนูแสดงผลเสมอ */
+    display: none; /* ซ่อนโดยค่าเริ่มต้นสำหรับ Desktop */
 }
 
-/* Dropdown Menu Styles: ซ่อนไว้ก่อนและมีสไตล์เหมือนมือถือ */
+/* Dropdown Menu Styles: แสดงผลเป็นแนวนอนบน Desktop, แต่ซ่อนใน Mobile */
 .dropdown-menu {
-    display: none; /* ซ่อนไว้ในตอนแรก */
-    position: absolute; /* วางตำแหน่งแบบ absolute */
-    top: 60px; /* ตำแหน่งใต้ top-bar */
-    right: 40px; /* ชิดขอบขวา (ตาม padding ของ top-bar) */
-    left: auto;
-    background-color: rgba(0, 0, 0, 0.9); /* พื้นหลังดำกึ่งโปร่งใส */
-    border-radius: 8px;
-    padding: 15px 20px;
-    flex-direction: column; /* จัดเรียงแนวตั้ง */
-    gap: 10px; /* ช่องว่างระหว่างลิงก์ */
+    display: flex; /* Default: flex สำหรับ Desktop เพื่อแสดงลิงก์แนวนอน */
+    flex-direction: row; /* จัดเรียงแนวนอนบน Desktop */
+    gap: 20px;
+    position: static; /* ให้มันไหลตามปกติบน Desktop */
+    top: auto;
+    right: auto;
+    background-color: transparent; /* ไม่มีพื้นหลังบน Desktop */
+    border-radius: 0;
+    padding: 0;
     z-index: 100;
-    min-width: 180px; /* ความกว้างขั้นต่ำ */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* เงา */
-    transform-origin: top right;
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* แอนิเมชันตอนเปิด-ปิด */
-    transform: scaleY(0); /* ซ่อนเริ่มต้นด้วยการ scale เป็น 0 */
-    opacity: 0; /* ซ่อนเริ่มต้นด้วย opacity เป็น 0 */
-}
-
-/* เมื่อมี class is-open (จะถูกเพิ่มโดย JavaScript) */
-.dropdown-menu.is-open {
-    display: flex; /* แสดงผลเมื่อมี class is-open */
-    transform: scaleY(1); /* ขยายเต็มขนาด */
-    opacity: 1; /* แสดงผลแบบเต็ม */
+    min-width: auto;
+    box-shadow: none;
+    transform: none;
+    opacity: 1; /* แสดงผลเสมอสำหรับ Desktop */
+    transition: none; /* ไม่มี Transitions บน Desktop */
 }
 
 .dropdown-menu a {
     color: white;
     text-decoration: none;
     font-size: 1.1em;
-    padding: 8px 10px; /* Padding สำหรับลิงก์ */
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
+    padding: 0;
+    border-radius: 0;
+    transition: color 0.3s ease;
 }
 
 .dropdown-menu a:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* เปลี่ยนสีพื้นหลังเมื่อ hover */
-    color: white;
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 
@@ -385,12 +376,49 @@ h2 {
         display: none; /* Hide contact info on mobile */
     }
 
-    /* .menu-icon: ยังคงแสดงผล block ตาม default แล้ว ไม่ต้องเปลี่ยนอีก */
+    .menu-icon {
+        display: block; /* แสดง menu icon บน Mobile */
+        position: static;
+        top: auto;
+        right: auto;
+    }
 
-    /* .dropdown-menu: ตอนนี้สไตล์ dropdown menu ถูกกำหนดไว้ที่ global แล้ว
-       ดังนั้นจึงไม่จำเป็นต้องมีส่วนนี้อีก เว้นแต่คุณต้องการปรับแต่งเพิ่มเติมสำหรับ mobile
-       แต่จากความต้องการของคุณคือ "เหมือนเดิม" และเราได้ยกสไตล์ mobile ขึ้นไปเป็น global แล้ว
-       ดังนั้นจึงลบโค้ดซ้ำซ้อนนี้ออก */
+    /* Dropdown Menu Styles for Mobile: ซ่อนบน Mobile และแสดงเมื่อถูก toggle */
+    .dropdown-menu {
+        display: none; /* ซ่อนโดยค่าเริ่มต้นบน Mobile, จะถูก toggle โดย JS */
+        position: absolute; /* Absolute position for dropdown */
+        top: 60px; /* Position below top-bar */
+        right: 20px; /* Align to the right edge */
+        left: auto;
+        background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background */
+        border-radius: 8px;
+        padding: 15px 20px;
+        flex-direction: column; /* Stack vertically on mobile */
+        gap: 10px;
+        z-index: 100;
+        min-width: 180px; /* Minimum width for the dropdown */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+        transform-origin: top right;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition */
+        transform: scaleY(0); /* Start hidden */
+        opacity: 0; /* Start invisible */
+    }
+
+    .dropdown-menu.is-open {
+        display: flex; /* Show when open */
+        transform: scaleY(1); /* Scale to full size */
+        opacity: 1; /* Fade in */
+    }
+
+    .dropdown-menu a {
+        padding: 8px 10px; /* Padding for mobile links */
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+    .dropdown-menu a:hover {
+        background-color: rgba(255, 255, 255, 0.1); /* Background change on hover for mobile */
+    }
 
     .content-center-wrapper {
         padding: 10px; /* Reduce padding on mobile */

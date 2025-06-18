@@ -62,7 +62,7 @@ body {
     gap: 5px;
 }
 
-/* Menu Icon: Now shown by default on all screens */
+/* Menu Icon: แสดงผลเสมอ (บน Desktop และ Mobile) */
 .menu-icon {
     font-size: 1.8em;
     background: none;
@@ -70,48 +70,49 @@ body {
     color: white;
     cursor: pointer;
     padding: 0 10px;
-    display: block; /* Show by default on all screens for dropdown functionality */
+    display: block; /* ทำให้ไอคอนเมนูแสดงผลเสมอ */
 }
 
-/* Dropdown Menu Styles: Hidden by default, toggled by JS */
+/* Dropdown Menu Styles: ซ่อนไว้ก่อนและมีสไตล์เหมือนมือถือ */
 .dropdown-menu {
-    display: none; /* Hidden by default, will be toggled by JS */
-    position: absolute; /* Absolute position for dropdown */
-    top: 60px; /* Position below top-bar (adjust as needed) */
-    right: 40px; /* Align to the right edge (match top-bar padding) */
+    display: none; /* ซ่อนไว้ในตอนแรก */
+    position: absolute; /* วางตำแหน่งแบบ absolute */
+    top: 60px; /* ตำแหน่งใต้ top-bar */
+    right: 40px; /* ชิดขอบขวา (ตาม padding ของ top-bar) */
     left: auto;
-    background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.9); /* พื้นหลังดำกึ่งโปร่งใส */
     border-radius: 8px;
     padding: 15px 20px;
-    flex-direction: column; /* Stack vertically */
-    gap: 10px;
+    flex-direction: column; /* จัดเรียงแนวตั้ง */
+    gap: 10px; /* ช่องว่างระหว่างลิงก์ */
     z-index: 100;
-    min-width: 180px; /* Minimum width for the dropdown */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+    min-width: 180px; /* ความกว้างขั้นต่ำ */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* เงา */
     transform-origin: top right;
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition */
-    transform: scaleY(0); /* Start hidden */
-    opacity: 0; /* Start invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* แอนิเมชันตอนเปิด-ปิด */
+    transform: scaleY(0); /* ซ่อนเริ่มต้นด้วยการ scale เป็น 0 */
+    opacity: 0; /* ซ่อนเริ่มต้นด้วย opacity เป็น 0 */
 }
 
+/* เมื่อมี class is-open (จะถูกเพิ่มโดย JavaScript) */
 .dropdown-menu.is-open {
-    display: flex; /* Show when open (JS will add this class) */
-    transform: scaleY(1); /* Scale to full size */
-    opacity: 1; /* Fade in */
+    display: flex; /* แสดงผลเมื่อมี class is-open */
+    transform: scaleY(1); /* ขยายเต็มขนาด */
+    opacity: 1; /* แสดงผลแบบเต็ม */
 }
 
 .dropdown-menu a {
     color: white;
     text-decoration: none;
     font-size: 1.1em;
-    padding: 8px 10px; /* Padding for links */
+    padding: 8px 10px; /* Padding สำหรับลิงก์ */
     border-radius: 4px;
     transition: background-color 0.3s ease;
 }
 
 .dropdown-menu a:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Background change on hover */
-    color: white; /* Ensure text color remains white or slightly lighter */
+    background-color: rgba(255, 255, 255, 0.1); /* เปลี่ยนสีพื้นหลังเมื่อ hover */
+    color: white;
 }
 
 
@@ -363,7 +364,7 @@ h2 {
     }
 }
 
-/* For small screens (mobile) and all screens now for dropdown behavior */
+/* For small screens (mobile) */
 @media (max-width: 768px) {
     .top-bar {
         flex-direction: row;
@@ -384,13 +385,12 @@ h2 {
         display: none; /* Hide contact info on mobile */
     }
 
-    /* .menu-icon is already display: block; from general styles now */
+    /* .menu-icon: ยังคงแสดงผล block ตาม default แล้ว ไม่ต้องเปลี่ยนอีก */
 
-    /* Dropdown Menu Styles for Mobile - these are now the default for all screens */
-    /* .dropdown-menu is already defined with these properties globally,
-       so no specific mobile adjustments are strictly needed here unless you
-       want slightly different values for small screens.
-       I'll keep the top/right relative to the screen size in the global class. */
+    /* .dropdown-menu: ตอนนี้สไตล์ dropdown menu ถูกกำหนดไว้ที่ global แล้ว
+       ดังนั้นจึงไม่จำเป็นต้องมีส่วนนี้อีก เว้นแต่คุณต้องการปรับแต่งเพิ่มเติมสำหรับ mobile
+       แต่จากความต้องการของคุณคือ "เหมือนเดิม" และเราได้ยกสไตล์ mobile ขึ้นไปเป็น global แล้ว
+       ดังนั้นจึงลบโค้ดซ้ำซ้อนนี้ออก */
 
     .content-center-wrapper {
         padding: 10px; /* Reduce padding on mobile */

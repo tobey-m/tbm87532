@@ -146,23 +146,31 @@ body {
     min-height: 500px; /* กำหนดความสูงคงที่สำหรับ Desktop */
     display: flex;
     /* เปลี่ยนจาก justify-content: space-between; เป็น flex-start เพื่อให้ text-block อยู่ซ้ายสุด */
-    justify-content: flex-start;
+    /* ปรับเป็น space-between อีกครั้งเพื่อดันรูปไปขวา แต่มี padding ซ้าย */
+    justify-content: space-between;
     align-items: center;
-    /* ปรับ padding ขวาเป็น 0 หรือค่าที่น้อยลง เพื่อให้รูปมีพื้นที่ไปทางขวา */
-    padding: 40px 0 40px 40px; /* top right bottom left padding */
+    /* ปรับ padding ขวาให้มีค่าเพื่อให้ข้อความไม่ชนขอบ และรูปไม่ทับข้อความ */
+    padding: 40px 10% 40px 40px; /* เพิ่ม padding ขวา เพื่อให้รูปยื่นออกมาโดยไม่ทับข้อความ */
     box-sizing: border-box;
     position: relative;
     z-index: 2;
-    overflow: visible; /* อนุญาตให้รูปภาพยื่นออกไปนอกกรอบได้ */
+    /* overflow: visible;  อันนี้ยังคงอยู่ เพื่อให้รูปภาพยื่นออกไปนอกกรอบได้ */
+    overflow: hidden; /* **ลองเปลี่ยนเป็น hidden เพื่อดูว่าช่วยให้ข้อความไม่หายไหม** */
 }
 
 .text-block {
-    max-width: 450px;
+    /* MAX-WIDTH นี้อาจทำให้ข้อความถูกดันออกไป ถ้าพื้นที่ไม่พอ */
+    /* ลองลบ max-width ออก หรือปรับให้น้อยลง */
+    max-width: 450px; /* หากข้อความยังหายไป ลองลดค่านี้ลง เช่น 300px */
     color: white;
     text-align: left;
     /* margin-left: 50px; ไม่จำเป็นแล้วเพราะ justify-content: space-between */
     z-index: 5; /* Ensure text is above the image if needed */
     position: relative;
+    /* เพิ่ม flex-shrink เพื่อให้ข้อความสามารถหดตัวได้หากพื้นที่ไม่พอ */
+    flex-shrink: 1;
+    /* เพิ่ม margin-right เพื่อให้มีช่องว่างระหว่าง text block กับรูปภาพ */
+    margin-right: 20px;
 }
 
 .small-text {
@@ -315,7 +323,8 @@ h2 {
     .content-left-red {
         width: 600px;
         min-height: 450px;
-        padding: 30px 0 30px 30px; /* Adjust padding, remove right padding */
+        /* ปรับ padding ขวาสำหรับรูปภาพที่ยื่นออกมา */
+        padding: 30px 10% 30px 30px;
     }
     h2 {
         font-size: 3.5em;
@@ -342,7 +351,8 @@ h2 {
     .content-left-red {
         width: 500px;
         min-height: 400px;
-        padding: 25px 0 25px 25px; /* Adjust padding, remove right padding */
+        /* ปรับ padding ขวาสำหรับรูปภาพที่ยื่นออกมา */
+        padding: 25px 5% 25px 25px;
     }
 
     .text-block {
@@ -392,41 +402,10 @@ h2 {
         right: auto;
     }
 
-    /* Dropdown Menu Styles for Mobile */
+    /* Dropdown Menu Styles for Mobile - สไตล์นี้เหมือนกับ Global แล้ว */
+    /* ลบโค้ดซ้ำซ้อนจากตรงนี้ออกได้เลย */
     .dropdown-menu {
-        display: none; /* Hidden by default, toggled by JS */
-        position: absolute; /* Absolute position for dropdown */
-        top: 60px; /* Position below top-bar */
-        right: 20px; /* Align to the right edge */
-        left: auto;
-        background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background */
-        border-radius: 8px;
-        padding: 15px 20px;
-        flex-direction: column; /* Stack vertically on mobile */
-        gap: 10px;
-        z-index: 100;
-        min-width: 180px; /* Minimum width for the dropdown */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
-        transform-origin: top right;
-        transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition */
-        transform: scaleY(0); /* Start hidden */
-        opacity: 0; /* Start invisible */
-    }
-
-    .dropdown-menu.is-open {
-        display: flex; /* Show when open */
-        transform: scaleY(1); /* Scale to full size */
-        opacity: 1; /* Fade in */
-    }
-
-    .dropdown-menu a {
-        padding: 8px 10px; /* Padding for mobile links */
-        border-radius: 4px;
-        transition: background-color 0.3s ease;
-    }
-
-    .dropdown-menu a:hover {
-        background-color: rgba(255, 255, 255, 0.1); /* Background change on hover for mobile */
+        right: 20px; /* ปรับให้ชิดขอบจอมากขึ้นบนมือถือ */
     }
 
     .content-center-wrapper {
@@ -452,7 +431,8 @@ h2 {
         flex-direction: column; /* Text and image stack vertically */
         align-items: center; /* Center horizontally */
         order: 1; /* Keep it at the top */
-        padding-right: 20px; /* Revert to standard padding */
+        padding-right: 20px; /* Revert to standard padding on mobile */
+        overflow: hidden; /* รักษา overflow: hidden ไว้สำหรับ mobile */
     }
 
     .text-block {
@@ -460,6 +440,7 @@ h2 {
         text-align: center;
         max-width: 90%;
         order: 1; /* Text first */
+        margin-right: 0; /* ลบ margin-right บนมือถือ */
     }
 
     h2 {

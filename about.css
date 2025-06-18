@@ -6,13 +6,14 @@ body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: white;
-    overflow: hidden;
+    overflow: hidden; /* Prevent unwanted scrollbars from initial layout */
     min-height: var(--app-height, 100vh);
     display: flex;
     flex-direction: column;
 }
 
-/* Hide the old main site navbar if it's not part of this page's design */
+/* Hide the old main site navbar IF IT'S NOT DESIRED ON THIS PAGE */
+/* If you want the old navbar visible, remove this block */
 .main-site-navbar {
     display: none;
 }
@@ -72,24 +73,23 @@ body {
     display: none; /* Hide by default on larger screens (desktop) */
 }
 
-/* Dropdown Menu Styles for Desktop (visible by default) */
+/* Dropdown Menu Styles: Hidden by default (for mobile), shown on desktop if no menu-icon */
 .dropdown-menu {
-    position: static;
+    display: flex; /* Default: flex for horizontal links on desktop */
+    flex-direction: row;
+    gap: 20px;
+    position: static; /* Let it flow normally on desktop */
     top: auto;
     right: auto;
     background-color: transparent;
     border-radius: 0;
     padding: 0;
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
     z-index: 100;
     min-width: auto;
     box-shadow: none;
-    transform-origin: center;
-    transition: none;
     transform: none;
-    opacity: 1;
+    opacity: 1; /* Always visible on desktop */
+    transition: none; /* No transitions on desktop */
 }
 
 .dropdown-menu a {
@@ -106,15 +106,15 @@ body {
     color: rgba(255, 255, 255, 0.7);
 }
 
+
 /* --- Content Center Wrapper --- */
-/* ทำหน้าที่จัด about-main-content ให้อยู่กึ่งกลางหน้าจอในแนวตั้งและแนวนอน */
 .content-center-wrapper {
-    flex-grow: 1; /* ให้ใช้พื้นที่ที่เหลือทั้งหมด */
+    flex-grow: 1;
     display: flex;
-    justify-content: center; /* จัดกึ่งกลางแนวนอน */
-    align-items: center; /* จัดกึ่งกลางแนวตั้ง */
-    overflow: hidden; /* ป้องกันการล้นของเนื้อหา */
-    padding: 20px; /* เพิ่ม padding เล็กน้อยเพื่อป้องกันเนื้อหาชนขอบ */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Hide overflow from image sticking out */
+    padding: 20px;
     box-sizing: border-box;
 }
 
@@ -122,36 +122,34 @@ body {
 .about-main-content {
     display: flex; /* ใช้ Flexbox เพื่อจัดเรียง content-left-red และ social-vertical */
     position: relative; /* สำหรับ absolute positioning ของ social-vertical */
-    background-color: black; /* กำหนดพื้นหลังหลักของกลุ่มนี้เป็นสีดำ (ถ้ามีช่องว่างนอก content-left-red) */
+    /* background-color: black; ถ้าต้องการพื้นหลังดำรอบๆ content-left-red */
     width: fit-content; /* ให้ div นี้มีขนาดพอดีกับเนื้อหา */
     max-width: 90%; /* จำกัดความกว้างสูงสุด */
     max-height: 80vh; /* จำกัดความสูงสูงสุด */
     box-sizing: border-box;
 }
 
-
+/* --- Content Left Red (Text and Profile Image) --- */
 .content-left-red {
     background-color: #E22B29;
     flex-shrink: 0;
-    /* เพิ่มความกว้าง */
-    width: 700px; /* ปรับค่าตามต้องการ */
-    min-height: 500px; /* ความสูงเท่าเดิม */
+    width: 700px; /* กำหนดความกว้างคงที่สำหรับ Desktop */
+    min-height: 500px; /* กำหนดความสูงคงที่สำหรับ Desktop */
     display: flex;
-    justify-content: space-between; /* ชิดซ้ายและขวา */
+    justify-content: space-between; /* เพื่อผลัก text-block ไปซ้ายสุด และ profile-image ไปขวาสุด */
     align-items: center;
-    padding: 40px;
+    padding: 40px 60px 40px 40px; /* top right bottom left padding */
     box-sizing: border-box;
-    position: relative;
+    position: relative; /* สำหรับให้รูปภาพอ้างอิงตำแหน่งได้ */
     z-index: 2;
-    padding-right: 60px; /* เพิ่ม padding ขวาเพื่อให้มีที่ว่างสำหรับรูป */
 }
 
 .text-block {
     max-width: 450px;
     color: white;
     text-align: left;
-    margin-left: 50px;
-    z-index: 5;
+    /* margin-left: 50px; ไม่จำเป็นแล้วเพราะ justify-content: space-between */
+    z-index: 5; /* Ensure text is above the image if needed */
     position: relative;
 }
 
@@ -228,32 +226,30 @@ h2 {
 }
 
 .profile-image-in-red {
-    position: relative; /* เปลี่ยนเป็น relative เพื่อให้ไหลตาม layout */
-    bottom: auto; /* ยกเลิก bottom */
-    right: auto; /* ยกเลิก right */
-    height: auto; /* ให้ปรับตามขนาด content-left-red */
-    width: auto; /* ให้ปรับตามสัดส่วน */
-    max-height: 100%; /* ไม่เกินความสูงของ content-left-red */
-    max-width: 45%; /* กำหนดความกว้างสูงสุดของรูป (ปรับตามต้องการ) */
-    object-fit: contain; /* แสดงรูปทั้งหมดโดยคงสัดส่วน */
+    position: absolute; /* ยังคงเป็น absolute เพื่อวางตำแหน่งรูปได้อิสระ */
+    bottom: 0;
+    right: 0; /* ชิดขวาของ content-left-red */
+    height: 100%; /* สูงเต็ม content-left-red */
+    width: auto;
+    object-fit: contain; /* ให้รูปแสดงเต็มโดยคงสัดส่วน */
+    z-index: 3;
+    max-height: 90%; /* สามารถปรับได้หากต้องการให้รูปไม่ชนขอบบน */
 }
 
-/* Social Media Icons Vertical */
+
+/* --- Social Media Icons Vertical --- */
 .social-vertical {
-    position: absolute;
-    top: 50%;
-    /* จัดกึ่งกลางแนวตั้งของ social-vertical เทียบกับ content-left-red */
-    transform: translateY(-50%);
-    right: -50px; /* ตำแหน่งจากขอบขวาของ content-left-red */
-    /* เนื่องจากมันถูกหมุนไปแล้ว, right: -50px หมายถึงเลื่อนออกไปทางขวา 50px */
+    position: relative; /* ให้มันอยู่ติดกับ about-main-content ใน flow ปกติ */
     display: flex;
     flex-direction: column; /* จัดเรียงแนวตั้ง */
+    justify-content: center; /* จัดกึ่งกลางแนวตั้ง */
     gap: 15px; /* ระยะห่างระหว่างลิงก์ */
     color: #BBBBBB;
     font-size: 1.1em;
     font-weight: bold;
     z-index: 4;
     white-space: nowrap;
+    margin-left: 50px; /* ระยะห่างจาก content-left-red */
 }
 
 .social-vertical .social-link {
@@ -262,11 +258,11 @@ h2 {
     display: flex;
     align-items: center;
     transition: color 0.3s ease;
+    /* Rotation for vertical text */
     writing-mode: vertical-lr; /* ทำให้ข้อความตั้งตรงจากบนลงล่าง */
     text-orientation: mixed; /* ผสมผสานทิศทางการเขียน (สำหรับภาษาอังกฤษ) */
     transform: rotate(180deg); /* หมุน 180 องศาเพื่อให้ข้อความอ่านได้จากล่างขึ้นบน */
 }
-
 
 .social-vertical .social-link:hover {
     color: white;
@@ -302,4 +298,248 @@ h2 {
 
 /* --- Responsive Design --- */
 
-/*
+/* For medium screens (tablets) and smaller desktops */
+@media (max-width: 1200px) {
+    .content-left-red {
+        width: 600px;
+        min-height: 450px;
+        padding: 30px 50px 30px 30px; /* Adjust padding */
+    }
+    h2 {
+        font-size: 3.5em;
+    }
+    .social-vertical {
+        margin-left: 40px; /* Adjust margin */
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 1024px) {
+    .top-bar, .bottom-bar {
+        padding: 15px 25px;
+    }
+
+    .top-bar-right .contact-info {
+        font-size: 0.8em;
+    }
+
+    .content-left-red {
+        width: 500px;
+        min-height: 400px;
+        padding: 25px 40px 25px 25px; /* Adjust padding */
+    }
+
+    .text-block {
+        /* max-width: 350px; อาจไม่จำเป็นต้องมี max-width หากเนื้อหาน้อย */
+        margin-left: 0; /* Align text to left within its padding */
+    }
+
+    h2 {
+        font-size: 3em;
+    }
+
+    /* .profile-image-in-red {
+        max-width: 65%;
+    } */ /* ไม่ต้องเปลี่ยน ถ้าใช้ height: 100% และ object-fit: contain */
+
+    .social-vertical {
+        margin-left: 30px; /* Adjust margin */
+        font-size: 0.9em;
+        gap: 15px;
+    }
+}
+
+/* For small screens (mobile) */
+@media (max-width: 768px) {
+    .top-bar {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+    }
+
+    .top-bar-right {
+        flex-direction: row;
+        align-items: center;
+        gap: 0;
+        width: auto;
+        position: static;
+    }
+
+    .top-bar-right .contact-info {
+         display: none; /* Hide contact info on mobile */
+    }
+
+    .menu-icon {
+        display: block; /* Show menu icon on mobile */
+        position: static;
+        top: auto;
+        right: auto;
+    }
+
+    /* Dropdown Menu Styles for Mobile */
+    .dropdown-menu {
+        display: none; /* Hidden by default, toggled by JS */
+        position: absolute; /* Absolute position for dropdown */
+        top: 60px; /* Position below top-bar */
+        right: 20px; /* Align to the right edge */
+        left: auto;
+        background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background */
+        border-radius: 8px;
+        padding: 15px 20px;
+        flex-direction: column; /* Stack vertically on mobile */
+        gap: 10px;
+        z-index: 100;
+        min-width: 180px; /* Minimum width for the dropdown */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+        transform-origin: top right;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition */
+        transform: scaleY(0); /* Start hidden */
+        opacity: 0; /* Start invisible */
+    }
+
+    .dropdown-menu.is-open {
+        display: flex; /* Show when open */
+        transform: scaleY(1); /* Scale to full size */
+        opacity: 1; /* Fade in */
+    }
+
+    .dropdown-menu a {
+        padding: 8px 10px; /* Padding for mobile links */
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+    .dropdown-menu a:hover {
+        background-color: rgba(255, 255, 255, 0.1); /* Background change on hover for mobile */
+    }
+
+    .content-center-wrapper {
+        padding: 10px; /* Reduce padding on mobile */
+    }
+
+    .about-main-content {
+        flex-direction: column; /* Stack sections vertically on mobile */
+        height: auto;
+        width: 100%; /* Full width */
+        max-width: 95%; /* Limit max width */
+        max-height: none; /* No max-height */
+        align-items: center; /* Center content horizontally */
+        justify-content: flex-start;
+    }
+
+    .content-left-red {
+        width: 100%; /* Full width of about-main-content */
+        min-height: auto; /* Auto height on mobile */
+        padding: 20px;
+        margin: 0;
+        display: flex;
+        flex-direction: column; /* Text and image stack vertically */
+        align-items: center; /* Center horizontally */
+        order: 1; /* Keep it at the top */
+        padding-right: 20px; /* Revert to standard padding */
+    }
+
+    .text-block {
+        margin-left: 0;
+        text-align: center;
+        max-width: 90%;
+        order: 1; /* Text first */
+    }
+
+    h2 {
+        font-size: 2em;
+        margin-bottom: 10px;
+    }
+
+    .stats-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+
+    .stat-item {
+        padding: 5px 10px;
+    }
+
+    .stat-item .number {
+        font-size: 1.3em;
+    }
+
+    .stat-item .label {
+        font-size: 0.55em;
+    }
+
+    .watch-resume {
+        margin-top: 15px;
+    }
+    .watch-resume hr {
+        max-width: 30px;
+    }
+    .watch-resume span {
+        font-size: 0.8em;
+    }
+
+    .profile-image-in-red {
+        position: relative; /* Relative on mobile */
+        width: 60%; /* Adjust size */
+        height: auto;
+        bottom: auto;
+        right: auto;
+        max-height: none;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        order: 2; /* Image below text on mobile */
+    }
+
+    .social-vertical {
+        position: relative; /* Relative on mobile */
+        top: auto;
+        right: auto;
+        transform: none; /* No rotation on mobile */
+        flex-direction: row; /* Horizontal on mobile */
+        justify-content: center; /* Center horizontally */
+        margin-top: 20px;
+        width: 100%;
+        gap: 20px;
+        order: 2; /* Below content-left-red (if content-left-red has content inside) */
+        margin-left: 0; /* Remove left margin */
+    }
+
+    .social-vertical .social-link {
+        writing-mode: horizontal-tb; /* Normal horizontal text */
+        text-orientation: unset;
+        transform: none; /* No rotation */
+    }
+
+    .bottom-bar {
+        flex-direction: column-reverse;
+        gap: 10px;
+        padding: 10px 20px;
+    }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.8em;
+    }
+    .top-bar-left .logo {
+        font-size: 1.2em;
+    }
+    .profile-image-in-red {
+        max-height: 30vh;
+    }
+    .dropdown-menu {
+        max-width: 160px;
+        width: 95%;
+    }
+    .content-left-red {
+        min-height: 300px;
+    }
+    .social-vertical {
+        gap: 15px;
+        font-size: 0.9em;
+    }
+}

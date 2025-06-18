@@ -61,7 +61,7 @@ body {
     gap: 5px;
 }
 
-/* Menu Icon (visible only on mobile) */
+/* Menu Icon (visible on desktop and mobile) */
 .menu-icon {
     font-size: 1.8em;
     background: none;
@@ -69,7 +69,7 @@ body {
     color: white;
     cursor: pointer;
     padding: 0 10px;
-    display: none; /* Hidden by default on desktop */
+    /* Removed display: none; so it's visible on desktop too */
 }
 
 /* Dropdown Menu Styles */
@@ -111,7 +111,7 @@ body {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* --- Main Content Area (Red Background with Text and Image) --- */
+/* --- Main Content Area (Red Background with Text, and Image overlapping) --- */
 .about-main-content {
     display: flex;
     flex-grow: 1; /* Allow to grow and fill remaining vertical space */
@@ -121,18 +121,18 @@ body {
 
 .content-left-red {
     background-color: #E22B29; /* Red background as per image */
-    flex: 1; /* Take up all available horizontal space */
+    flex: 0 0 65%; /* Make this take about 65% width to leave space for image overlap */
     display: flex;
-    justify-content: flex-start; /* Align content to the start (left) */
+    justify-content: flex-start; /* Align text to the start (left) */
     align-items: center;
     padding: 40px;
     box-sizing: border-box;
-    position: relative; /* Essential for positioning the image inside */
-    overflow: hidden; /* Hide image overflow from this container */
+    position: relative; /* Essential for text-block z-index */
+    z-index: 2; /* Ensures red section is above potential shared background */
 }
 
 .text-block {
-    max-width: 450px; /* Max width for text block to leave space for image */
+    max-width: 500px; /* Max width for text block */
     color: white;
     text-align: left;
     margin-left: 50px; /* Push text from the left edge */
@@ -212,17 +212,52 @@ h2 {
     color: rgba(255, 255, 255, 0.7);
 }
 
-/* Profile Image positioned within the red section */
-.profile-image-in-red {
-    position: absolute; /* Position absolutely within content-left-red */
-    right: 0; /* Align to the right edge of content-left-red */
-    bottom: 0; /* Align to the bottom edge of content-left-red */
+/* Right Section: Contains the profile image and social icons */
+.content-right-image {
+    flex: 1; /* Takes the remaining space */
+    background-color: black; /* Solid black background for this section */
+    display: flex;
+    justify-content: flex-end; /* Align content to the right */
+    align-items: flex-end; /* Align content to the bottom */
+    position: relative; /* For positioning profile image and social icons */
+    overflow: hidden; /* Hide image overflow */
+}
+
+/* Profile Image positioned within the right section, overlapping left */
+.profile-image {
+    position: absolute; /* Position absolutely within content-right-image */
+    bottom: 0; /* Align to bottom */
+    /* Adjust 'left' or 'transform' to make it overlap the red section */
+    left: -15%; /* Move it left by 15% of its parent's width */
     height: 100%; /* Make image fill the height of its parent */
     width: auto; /* Maintain aspect ratio */
     object-fit: cover; /* Cover the area, cropping if needed */
-    z-index: 1; /* Place behind text-block */
-    /* Adjust width/height as needed for proportion based on actual image */
-    /* transform: translateX(10%); /* Optional: push slightly outside if needed */
+    z-index: 3; /* Place above the red section */
+    max-height: 95%; /* Prevent image from pushing too far down */
+}
+
+/* Social Media Icons Vertical */
+.social-vertical {
+    position: absolute;
+    right: 0; /* Align to the right edge of content-right-image */
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg); /* Rotate and center vertically */
+    transform-origin: right center; /* Set rotation origin */
+    white-space: nowrap;
+    color: #BBBBBB;
+    font-size: 0.9em;
+    letter-spacing: 5px; /* Add letter spacing */
+    z-index: 4; /* Place above the profile image */
+    display: flex; /* Arrange icons horizontally after rotation */
+    gap: 15px; /* Spacing between icons */
+}
+.social-vertical a {
+    color: inherit; /* Inherit color from parent */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.social-vertical a:hover {
+    color: white;
 }
 
 
@@ -267,26 +302,28 @@ h2 {
     }
 
     .content-left-red {
+        flex: 0 0 60%; /* Adjust width slightly */
         padding: 30px;
     }
 
     .text-block {
         margin-left: 30px;
-        max-width: 400px;
+        max-width: 380px; /* Make text block more compact */
     }
 
     h2 {
         font-size: 3.5em;
     }
 
-    .profile-image-in-red {
-        max-width: 50%; /* Adjust size for smaller screens */
-        height: auto;
+    .profile-image {
+        left: -10%; /* Adjust overlap */
+        max-width: 60%; /* Adjust max width for tablet */
     }
 
-    /* Adjust dropdown position for tablets if needed */
-    .dropdown-menu {
-        right: 15px; /* Adjust dropdown position to align with top-bar-right */
+    .social-vertical {
+        font-size: 0.8em;
+        letter-spacing: 3px;
+        gap: 10px;
     }
 }
 
@@ -312,38 +349,46 @@ h2 {
     }
 
     .menu-icon {
-        display: block; /* Show menu icon on mobile */
+        display: block; /* Ensure menu icon is visible on mobile */
         position: absolute; /* Position absolute within top-bar-right */
         top: 10px;
         right: 10px;
     }
 
-    /* Adjust dropdown menu position for mobile */
+    /* Adjust dropdown menu position and size for mobile */
     .dropdown-menu {
         top: 60px; /* Position below top-bar */
-        right: 10px;
-        left: 10px; /* Make it wider */
-        width: auto; /* Auto width */
-        padding: 10px 15px;
+        right: 50%; /* Align to center */
+        left: auto; /* Remove left value */
+        transform: translateX(50%) scaleY(0); /* Center and scale from center */
         transform-origin: top center; /* Change transform origin */
+        max-width: 250px; /* Make it smaller */
+        width: 80%; /* Max 80% width */
+        padding: 10px 15px;
+    }
+    .dropdown-menu.is-open {
+        transform: translateX(50%) scaleY(1); /* Show and scale */
     }
     .dropdown-menu a {
         font-size: 1em;
     }
 
     .about-main-content {
-        flex-direction: column; /* Stack red section vertically */
+        flex-direction: column; /* Stack sections vertically */
         height: auto; /* Auto height to fit content */
+        justify-content: center; /* Center content vertically */
+        align-items: center; /* Center content horizontally */
     }
 
     .content-left-red {
         flex: none; /* Remove flex-basis */
         width: 100%; /* Full width */
-        min-height: 50vh; /* Minimum height for red section */
+        min-height: 40vh; /* Minimum height for red section */
         padding: 30px 20px;
-        justify-content: center; /* Center text block */
-        align-items: flex-start; /* Align items to top for relative positioning */
-        position: relative; /* Ensure relative positioning for image */
+        justify-content: center; /* Center text block horizontally */
+        align-items: center; /* Center text block vertically */
+        position: relative; /* Ensure relative positioning for image if inside */
+        order: 2; /* Text below image on mobile */
     }
 
     .text-block {
@@ -351,7 +396,6 @@ h2 {
         max-width: 100%;
         text-align: center; /* Center text on mobile */
         margin-left: 0; /* Remove left margin */
-        order: 2; /* Put text below image on mobile */
     }
 
     h2 {
@@ -378,20 +422,43 @@ h2 {
         margin-top: 30px;
     }
 
-    .profile-image-in-red {
-        position: relative; /* Change to relative for normal flow on mobile */
-        width: 70%; /* Make image fit better on mobile */
-        height: auto;
-        bottom: auto;
-        right: auto;
-        transform: none; /* Remove transform */
-        margin: 0 auto 20px auto; /* Center image horizontally and add bottom margin */
-        order: 1; /* Put image above text on mobile */
-        display: block;
-        max-height: 40vh; /* Limit height for smaller screens */
-        object-fit: contain; /* Ensure full image is visible */
+    .content-right-image {
+        flex: none; /* Remove flex-basis */
+        width: 100%; /* Full width */
+        min-height: 60vh; /* Minimum height for image section */
+        display: flex;
+        justify-content: center; /* Center image horizontally */
+        align-items: flex-end; /* Align image to bottom */
+        order: 1; /* Image above text on mobile */
+        padding-bottom: 0; /* Remove padding */
     }
 
+    .profile-image {
+        position: relative; /* Change to relative for normal flow on mobile */
+        width: 80%; /* Make image fit better on mobile */
+        height: auto;
+        bottom: auto;
+        left: auto;
+        transform: none; /* Remove transform */
+        max-width: 80%; /* Keep max width */
+        max-height: 50vh; /* Limit height for smaller screens */
+        object-fit: contain; /* Ensure full image is visible */
+        margin-bottom: 20px; /* Add some space below image */
+    }
+
+    .social-vertical {
+        transform: none; /* Remove rotation */
+        position: relative; /* Change to relative for normal flow on mobile */
+        display: flex; /* Keep as flex */
+        gap: 10px; /* Spacing between icons */
+        font-size: 1em;
+        letter-spacing: normal;
+        flex-wrap: wrap; /* Allow wrapping */
+        justify-content: center;
+        width: 100%;
+        margin-top: 0; /* Remove top margin */
+        padding-bottom: 15px; /* Add padding below social icons */
+    }
 
     .bottom-bar {
         flex-direction: column-reverse; /* Swap copyright and arrow */
@@ -407,5 +474,8 @@ h2 {
     }
     .top-bar-left .logo {
         font-size: 1.5em; /* Smaller logo */
+    }
+    .profile-image {
+        max-height: 40vh; /* Further limit image height */
     }
 }

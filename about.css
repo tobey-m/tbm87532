@@ -62,7 +62,6 @@ body {
 }
 
 /* Menu Icon: Initially hidden on desktop, shown on mobile. */
-/* On desktop, we'll hide it. We'll explicitly show it on smaller screens. */
 .menu-icon {
     font-size: 1.8em;
     background: none;
@@ -73,44 +72,40 @@ body {
     display: none; /* Hide by default on larger screens (desktop) */
 }
 
-/* Dropdown Menu Styles */
+/* Dropdown Menu Styles for Desktop (visible by default) */
 .dropdown-menu {
-    position: absolute;
-    top: calc(100% + 10px); /* Position 10px below top-bar */
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background */
-    border-radius: 8px;
-    padding: 15px 20px;
-    display: none; /* Hidden by default, toggled by JS */
-    flex-direction: column;
-    gap: 10px;
-    z-index: 100; /* Ensure it's above other elements */
-    min-width: 180px; /* Minimum width for the dropdown */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
-    transform-origin: top right;
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition */
-    transform: scaleY(0); /* Start hidden */
-    opacity: 0; /* Start invisible */
-}
-
-.dropdown-menu.is-open {
-    display: flex; /* Show when open */
-    transform: scaleY(1); /* Scale to full size */
-    opacity: 1; /* Fade in */
+    position: static; /* Let it flow with the document on desktop */
+    top: auto;
+    right: auto;
+    background-color: transparent; /* Transparent background */
+    border-radius: 0;
+    padding: 0;
+    display: flex; /* Always display on desktop */
+    flex-direction: row; /* Arrange links horizontally */
+    gap: 20px; /* Space between links */
+    z-index: 100;
+    min-width: auto;
+    box-shadow: none; /* No shadow on desktop */
+    transform-origin: center;
+    transition: none; /* No transitions on desktop */
+    transform: none; /* No transformation */
+    opacity: 1; /* Always visible */
 }
 
 .dropdown-menu a {
     color: white;
     text-decoration: none;
     font-size: 1.1em;
-    padding: 8px 10px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
+    padding: 0; /* No padding */
+    border-radius: 0;
+    transition: color 0.3s ease; /* Only color transition */
 }
 
 .dropdown-menu a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: transparent; /* No background change on hover */
+    color: rgba(255, 255, 255, 0.7); /* Subtle color change on hover */
 }
+
 
 /* --- Main Content Area (Red Background with Text, and Image overlapping) --- */
 .about-main-content {
@@ -213,22 +208,10 @@ h2 {
     color: rgba(255, 255, 255, 0.7);
 }
 
-/* Right Section: Contains the profile image (social icons removed) */
-.content-right-image {
-    flex: 1; /* Takes the remaining space */
-    background-color: black; /* Solid black background for this section */
-    display: flex;
-    justify-content: flex-end; /* Align content to the right */
-    align-items: flex-end; /* Align content to the bottom */
-    position: relative; /* For positioning profile image */
-    overflow: hidden; /* Hide image overflow */
-}
-
-/* Profile Image positioned within the right section, overlapping left */
-.profile-image-in-red { /* Changed from .profile-image to match your HTML */
+/* Profile Image positioned within the red section, overlapping */
+.profile-image-in-red {
     position: absolute;
     bottom: 0;
-    /* This value might need tweaking based on your image and desired overlap */
     right: -10%; /* Adjust this to control how much the image overlaps */
     height: 100%;
     width: auto;
@@ -292,7 +275,7 @@ h2 {
         font-size: 3em;
     }
 
-    .profile-image-in-red { /* Changed from .profile-image to match your HTML */
+    .profile-image-in-red {
         right: -5%; /* Adjust overlap */
         max-width: 65%; /* Adjust max width for tablet */
     }
@@ -329,20 +312,39 @@ h2 {
 
     /* Adjust dropdown menu position and size for mobile */
     .dropdown-menu {
+        position: absolute; /* Change to absolute position on mobile */
         top: 60px; /* Position below top-bar */
         right: 20px; /* Align to the right edge */
         left: auto; /* Remove left value */
+        background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background */
+        border-radius: 8px;
+        padding: 15px 20px;
+        display: none; /* Hidden by default, toggled by JS */
+        flex-direction: column; /* Stack vertically on mobile */
+        gap: 10px;
+        z-index: 100;
+        min-width: 180px; /* Minimum width for the dropdown */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+        transform-origin: top right;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition */
         transform: scaleY(0); /* Start hidden */
-        transform-origin: top right; /* Origin from top right */
-        max-width: 200px; /* Smaller max-width for mobile */
-        width: auto; /* Let content define width */
-        padding: 10px 15px; /* Smaller padding */
+        opacity: 0; /* Start invisible */
     }
+
     .dropdown-menu.is-open {
-        transform: scaleY(1); /* Show and scale */
+        display: flex; /* Show when open */
+        transform: scaleY(1); /* Scale to full size */
+        opacity: 1; /* Fade in */
     }
+
     .dropdown-menu a {
-        font-size: 0.95em; /* Slightly smaller font for compactness */
+        padding: 8px 10px; /* Padding for mobile links */
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+    .dropdown-menu a:hover {
+        background-color: rgba(255, 255, 255, 0.1); /* Background change on hover for mobile */
     }
 
     .about-main-content {
@@ -404,7 +406,6 @@ h2 {
         font-size: 0.9em; /* Smaller font on mobile */
     }
 
-    /* Change .profile-image to .profile-image-in-red to match HTML */
     .profile-image-in-red {
         position: relative; /* Change to relative for normal flow on mobile */
         width: 70%; /* Make image fit better on mobile */
@@ -435,7 +436,7 @@ h2 {
     .top-bar-left .logo {
         font-size: 1.3em; /* Smaller logo */
     }
-    .profile-image-in-red { /* Changed from .profile-image to match your HTML */
+    .profile-image-in-red {
         max-height: 35vh; /* Further limit image height */
     }
     .dropdown-menu {

@@ -136,12 +136,15 @@ body {
     width: 700px; /* กำหนดความกว้างคงที่สำหรับ Desktop */
     min-height: 500px; /* กำหนดความสูงคงที่สำหรับ Desktop */
     display: flex;
-    justify-content: space-between; /* เพื่อผลัก text-block ไปซ้ายสุด และ profile-image ไปขวาสุด */
+    /* เปลี่ยนจาก justify-content: space-between; เป็น flex-start เพื่อให้ text-block อยู่ซ้ายสุด */
+    justify-content: flex-start;
     align-items: center;
-    padding: 40px 60px 40px 40px; /* top right bottom left padding */
+    /* ปรับ padding ขวาเป็น 0 หรือค่าที่น้อยลง เพื่อให้รูปมีพื้นที่ไปทางขวา */
+    padding: 40px 0 40px 40px; /* top right bottom left padding */
     box-sizing: border-box;
-    position: relative; /* สำหรับให้รูปภาพอ้างอิงตำแหน่งได้ */
+    position: relative;
     z-index: 2;
+    overflow: visible; /* อนุญาตให้รูปภาพยื่นออกไปนอกกรอบได้ */
 }
 
 .text-block {
@@ -228,7 +231,7 @@ h2 {
 .profile-image-in-red {
     position: absolute; /* ยังคงเป็น absolute เพื่อวางตำแหน่งรูปได้อิสระ */
     bottom: 0;
-    right: 0; /* ชิดขวาของ content-left-red */
+    right: -10%; /* ชิดขวาของ content-left-red และยื่นออกมาเล็กน้อย */
     height: 100%; /* สูงเต็ม content-left-red */
     width: auto;
     object-fit: contain; /* ให้รูปแสดงเต็มโดยคงสัดส่วน */
@@ -243,13 +246,13 @@ h2 {
     display: flex;
     flex-direction: column; /* จัดเรียงแนวตั้ง */
     justify-content: center; /* จัดกึ่งกลางแนวตั้ง */
-    gap: 15px; /* ระยะห่างระหว่างลิงก์ */
+    gap: 10px; /* ลดระยะห่างระหว่างลิงก์ */
     color: #BBBBBB;
-    font-size: 1.1em;
-    font-weight: bold;
+    font-size: 0.9em; /* ทำให้ตัวหนังสือเล็กลง */
+    font-weight: normal; /* ทำให้ตัวหนังสือไม่หนา */
     z-index: 4;
     white-space: nowrap;
-    margin-left: 50px; /* ระยะห่างจาก content-left-red */
+    margin-left: 20px; /* ขยับมาใกล้กรอบสีแดงกว่าเดิม */
 }
 
 .social-vertical .social-link {
@@ -303,14 +306,18 @@ h2 {
     .content-left-red {
         width: 600px;
         min-height: 450px;
-        padding: 30px 50px 30px 30px; /* Adjust padding */
+        padding: 30px 0 30px 30px; /* Adjust padding, remove right padding */
     }
     h2 {
         font-size: 3.5em;
     }
     .social-vertical {
-        margin-left: 40px; /* Adjust margin */
-        font-size: 1em;
+        margin-left: 30px; /* Adjust margin */
+        font-size: 0.9em;
+    }
+    .profile-image-in-red {
+        right: -10%; /* Keep it somewhat outside */
+        max-height: 90%;
     }
 }
 
@@ -326,7 +333,7 @@ h2 {
     .content-left-red {
         width: 500px;
         min-height: 400px;
-        padding: 25px 40px 25px 25px; /* Adjust padding */
+        padding: 25px 0 25px 25px; /* Adjust padding, remove right padding */
     }
 
     .text-block {
@@ -338,14 +345,13 @@ h2 {
         font-size: 3em;
     }
 
-    /* .profile-image-in-red {
-        max-width: 65%;
-    } */ /* ไม่ต้องเปลี่ยน ถ้าใช้ height: 100% และ object-fit: contain */
-
     .social-vertical {
-        margin-left: 30px; /* Adjust margin */
-        font-size: 0.9em;
-        gap: 15px;
+        margin-left: 20px; /* Adjust margin */
+        font-size: 0.8em; /* Make it even smaller on smaller screens */
+        gap: 10px;
+    }
+    .profile-image-in-red {
+        right: -5%; /* Adjust for smaller screens */
     }
 }
 

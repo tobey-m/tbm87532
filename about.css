@@ -1,0 +1,204 @@
+/* about.css */
+
+body {
+    background-color: black; /* ตั้งค่าพื้นหลังเป็นสีดำตามรูป */
+    /* ไม่ต้องกำหนด height: 100vh; ที่นี่ เพราะ global.css จัดการแล้ว */
+    display: flex; /* ใช้ flexbox เพื่อจัดตำแหน่ง content-container */
+    flex-direction: column; /* ให้เนื้อหาหลักเรียงลงมา */
+    justify-content: flex-start; /* จัดเนื้อหาหลักจากด้านบน */
+    align-items: center; /* จัดเนื้อหาหลักแนวนอนกึ่งกลาง */
+    min-height: var(--app-height, 100vh); /* ใช้ min-height เพื่อให้เนื้อหายาวได้ */
+    padding-top: 60px; /* เพิ่ม padding ด้านบน เพื่อไม่ให้ทับ Navbar */
+    box-sizing: border-box; /* ให้ padding นับรวมในขนาดองค์ประกอบ */
+}
+
+.about-container {
+    display: flex;
+    align-items: center; /* จัดแนวตั้งกึ่งกลาง */
+    justify-content: center; /* จัดแนวนอนกึ่งกลาง */
+    width: 100%;
+    max-width: 1200px; /* กำหนดความกว้างสูงสุด */
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 50px; /* ระยะห่างระหว่างฝั่งซ้ายกับขวา */
+    flex-wrap: wrap; /* ให้ขึ้นบรรทัดใหม่เมื่อหน้าจอเล็ก */
+    position: relative; /* เพื่อให้สามารถจัดตำแหน่งองค์ประกอบภายในได้ */
+    z-index: 1; /* ให้เนื้อหาอยู่ด้านบน Navbar ที่เป็น absolute (ถ้ามี) */
+}
+
+.content-left {
+    flex: 1; /* ให้ใช้พื้นที่ที่เหลือ */
+    min-width: 300px; /* ความกว้างขั้นต่ำ */
+    color: white;
+    text-align: left;
+    padding-left: 20px; /* เพิ่มระยะห่างจากขอบซ้าย */
+}
+
+.content-right {
+    flex: 1; /* ให้ใช้พื้นที่ที่เหลือ */
+    display: flex;
+    justify-content: center; /* จัดรูปภาพกึ่งกลาง */
+    align-items: center;
+    min-width: 300px; /* ความกว้างขั้นต่ำ */
+}
+
+.profile-image {
+    max-width: 100%; /* ทำให้รูปภาพไม่ล้นขอบ */
+    height: auto;
+    max-height: 80vh; /* จำกัดความสูงของรูปภาพ */
+    object-fit: contain; /* ปรับขนาดรูปให้พอดีโดยรักษาสัดส่วน */
+}
+
+.small-text {
+    font-size: 0.9em;
+    color: #BBBBBB;
+    margin-bottom: 5px;
+    display: block; /* ทำให้เป็นบล็อกเพื่อขึ้นบรรทัดใหม่ */
+}
+
+h2 {
+    font-size: 3.5em;
+    font-weight: bold;
+    color: white;
+    margin-top: 0;
+    margin-bottom: 30px;
+    line-height: 1.2;
+}
+
+.stats-grid {
+    display: flex;
+    gap: 40px; /* ระยะห่างระหว่างตัวเลขสถิติ */
+    margin-bottom: 30px;
+}
+
+.stat-item {
+    text-align: left;
+}
+
+.stat-item .number {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: white;
+    display: block; /* ทำให้เป็นบล็อกเพื่อขึ้นบรรทัดใหม่ */
+}
+
+.stat-item .label {
+    font-size: 0.8em;
+    color: #BBBBBB;
+    text-transform: uppercase;
+    white-space: nowrap; /* ป้องกันการขึ้นบรรทัดใหม่ */
+}
+
+.watch-resume {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.watch-resume hr {
+    flex-grow: 1; /* ทำให้เส้นขยายเต็มพื้นที่ */
+    border: none;
+    border-top: 1px solid white;
+    max-width: 50px; /* จำกัดความยาวของเส้น */
+    margin: 0;
+}
+
+.watch-resume span {
+    font-size: 1.1em;
+    color: white;
+    text-decoration: none; /* ไม่มีขีดเส้นใต้ */
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.watch-resume span:hover {
+    color: #BBBBBB;
+}
+
+/* Responsive Design สำหรับหน้า About */
+
+/* สำหรับหน้าจอขนาดแท็บเล็ตและเล็กกว่า */
+@media (max-width: 992px) {
+    .about-container {
+        flex-direction: column; /* เปลี่ยนเป็นเรียงแนวตั้ง */
+        text-align: center; /* จัดข้อความกึ่งกลาง */
+        gap: 30px;
+        padding-top: 80px; /* เพิ่ม padding-top เพื่อ Navbar */
+    }
+
+    .content-left {
+        padding-left: 0; /* ลบ padding-left เมื่อเรียงแนวตั้ง */
+        text-align: center; /* จัดข้อความซ้ายกึ่งกลาง */
+    }
+
+    h2 {
+        font-size: 2.8em;
+        margin-bottom: 20px;
+    }
+
+    .stats-grid {
+        justify-content: center; /* จัดสถิติให้อยู่กึ่งกลาง */
+        margin-bottom: 20px;
+    }
+
+    .stat-item .number {
+        font-size: 2em;
+    }
+
+    .stat-item .label {
+        font-size: 0.7em;
+    }
+
+    .watch-resume {
+        justify-content: center; /* จัดลิงก์ให้อยู่กึ่งกลาง */
+        margin-top: 20px;
+    }
+
+    .profile-image {
+        max-height: 60vh; /* ลดขนาดรูปภาพลง */
+    }
+}
+
+/* สำหรับหน้าจอขนาดโทรศัพท์มือถือที่เล็กกว่า */
+@media (max-width: 576px) {
+    .about-container {
+        padding-top: 70px;
+        gap: 20px;
+    }
+    h2 {
+        font-size: 2em;
+        margin-bottom: 15px;
+    }
+
+    .stats-grid {
+        flex-direction: column; /* เรียงสถิติเป็นคอลัมน์ */
+        gap: 15px;
+    }
+
+    .stat-item .number {
+        font-size: 1.8em;
+    }
+
+    .stat-item .label {
+        font-size: 0.6em;
+    }
+
+    .profile-image {
+        max-height: 50vh; /* ลดขนาดรูปภาพลงอีก */
+        width: 90%; /* ให้รูปกว้างขึ้น */
+    }
+}
+
+/* ถ้ายังมีปัญหาบน iPhone ที่เล็กมากๆ */
+@media (max-width: 375px) {
+    .about-container {
+        padding-top: 60px;
+    }
+    h2 {
+        font-size: 1.8em;
+    }
+    .profile-image {
+        max-height: 40vh;
+    }
+}

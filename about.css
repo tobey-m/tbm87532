@@ -1,92 +1,143 @@
 /* about.css */
 
+/* สไตล์พื้นฐานของ body */
 body {
-    background-color: black; /* ตั้งค่าพื้นหลังเป็นสีดำตามรูป */
-    /* ไม่ต้องกำหนด height: 100vh; ที่นี่ เพราะ global.css จัดการแล้ว */
-    display: flex; /* ใช้ flexbox เพื่อจัดตำแหน่ง content-container */
-    flex-direction: column; /* ให้เนื้อหาหลักเรียงลงมา */
-    justify-content: flex-start; /* จัดเนื้อหาหลักจากด้านบน */
-    align-items: center; /* จัดเนื้อหาหลักแนวนอนกึ่งกลาง */
-    min-height: var(--app-height, 100vh); /* ใช้ min-height เพื่อให้เนื้อหายาวได้ */
-    padding-top: 60px; /* เพิ่ม padding ด้านบน เพื่อไม่ให้ทับ Navbar */
-    box-sizing: border-box; /* ให้ padding นับรวมในขนาดองค์ประกอบ */
-}
-
-.about-container {
+    background-color: black; /* พื้นหลังสีดำสนิทของหน้าทั้งหมด */
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white; /* สีข้อความพื้นฐานสำหรับหน้านี้ */
+    overflow: hidden; /* ป้องกัน scrollbar หากมีเนื้อหาล้น */
+    min-height: var(--app-height, 100vh); /* ใช้ความสูงจริงของ viewport */
     display: flex;
-    align-items: center; /* จัดแนวตั้งกึ่งกลาง */
-    justify-content: center; /* จัดแนวนอนกึ่งกลาง */
-    width: 100%;
-    max-width: 1200px; /* กำหนดความกว้างสูงสุด */
-    padding: 20px;
-    box-sizing: border-box;
-    gap: 50px; /* ระยะห่างระหว่างฝั่งซ้ายกับขวา */
-    flex-wrap: wrap; /* ให้ขึ้นบรรทัดใหม่เมื่อหน้าจอเล็ก */
-    position: relative; /* เพื่อให้สามารถจัดตำแหน่งองค์ประกอบภายในได้ */
-    z-index: 1; /* ให้เนื้อหาอยู่ด้านบน Navbar ที่เป็น absolute (ถ้ามี) */
+    flex-direction: column;
 }
 
-.content-left {
-    flex: 1; /* ให้ใช้พื้นที่ที่เหลือ */
-    min-width: 300px; /* ความกว้างขั้นต่ำ */
+/* ซ่อน Navbar เดิมถ้าต้องการใช้ Layout เหมือนในรูปตัวอย่างเป๊ะๆ */
+.main-site-navbar {
+    display: none; /* ซ่อน Navbar เดิม */
+    /* หรือถ้าต้องการให้แสดงอยู่ แต่ปรับตำแหน่งให้เหมาะสมกับดีไซน์ใหม่ */
+    /* position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; */
+    /* background-color: rgba(0,0,0,0.5); */
+    /* padding-top: 10px; */
+}
+
+
+/* Wrapper หลักของหน้า About เพื่อให้เต็มจอและจัด Layout */
+.about-page-wrapper {
+    display: flex;
+    flex-direction: column; /* จัดองค์ประกอบย่อย (top-bar, main-content, bottom-bar) ในแนวตั้ง */
+    height: var(--app-height, 100vh); /* ทำให้ wrapper นี้เต็มความสูงจอ */
+    width: 100vw; /* ทำให้ wrapper นี้เต็มความกว้างจอ */
+    overflow: hidden; /* ซ่อนสิ่งที่ล้นออกไป */
+    position: relative; /* เพื่อให้องค์ประกอบ absolute ภายในทำงานได้ */
+}
+
+/* --- Top Bar --- */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px; /* Padding ด้านข้าง */
+    color: #BBBBBB; /* สีของข้อมูลติดต่อ */
+    z-index: 10; /* ให้อยู่เหนือเนื้อหาหลัก */
+    flex-shrink: 0; /* ป้องกันไม่ให้ top-bar ย่อขนาดเมื่อพื้นที่น้อย */
+}
+
+.top-bar-left .logo {
+    font-size: 2em;
+    font-weight: bold;
+    color: white; /* สีโลโก้ */
+}
+
+.top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.top-bar-right .contact-info {
+    font-size: 0.9em;
+    white-space: nowrap; /* ป้องกันการขึ้นบรรทัดใหม่ */
+}
+
+.top-bar-right .menu-icon {
+    font-size: 1.8em;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+/* --- Main Content Area (Red Background & Image) --- */
+.about-main-content {
+    display: flex;
+    flex-grow: 1; /* ให้ใช้พื้นที่ที่เหลือทั้งหมด */
+    position: relative; /* สำคัญสำหรับการจัดวางรูปภาพแบบ absolute/relative */
+    overflow: hidden; /* ป้องกันเนื้อหาล้น */
+}
+
+.content-left-red {
+    background-color: #E22B29; /* สีแดงตามรูปตัวอย่าง */
+    flex: 0 0 60%; /* ให้ส่วนนี้ใช้ 60% ของความกว้าง (ปรับได้ตามรูป) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    box-sizing: border-box;
+    position: relative; /* เพื่อให้ text-block สามารถจัดตำแหน่งได้ */
+    z-index: 2; /* ให้อยู่เหนือพื้นหลังทั่วไป */
+}
+
+.text-block {
+    max-width: 500px; /* จำกัดความกว้างของข้อความ */
     color: white;
     text-align: left;
-    padding-left: 20px; /* เพิ่มระยะห่างจากขอบซ้าย */
-}
-
-.content-right {
-    flex: 1; /* ให้ใช้พื้นที่ที่เหลือ */
-    display: flex;
-    justify-content: center; /* จัดรูปภาพกึ่งกลาง */
-    align-items: center;
-    min-width: 300px; /* ความกว้างขั้นต่ำ */
-}
-
-.profile-image {
-    max-width: 100%; /* ทำให้รูปภาพไม่ล้นขอบ */
-    height: auto;
-    max-height: 80vh; /* จำกัดความสูงของรูปภาพ */
-    object-fit: contain; /* ปรับขนาดรูปให้พอดีโดยรักษาสัดส่วน */
+    padding-right: 50px; /* เพิ่ม padding ด้านขวา (ในพื้นที่สีแดง) */
 }
 
 .small-text {
-    font-size: 0.9em;
-    color: #BBBBBB;
+    font-size: 1.1em;
+    color: rgba(255, 255, 255, 0.8);
     margin-bottom: 5px;
-    display: block; /* ทำให้เป็นบล็อกเพื่อขึ้นบรรทัดใหม่ */
+    display: block;
 }
 
 h2 {
-    font-size: 3.5em;
+    font-size: 4.5em; /* ขนาดใหญ่ขึ้นตามรูป */
     font-weight: bold;
     color: white;
     margin-top: 0;
     margin-bottom: 30px;
-    line-height: 1.2;
+    line-height: 1.1; /* ปรับ line-height */
 }
 
 .stats-grid {
     display: flex;
-    gap: 40px; /* ระยะห่างระหว่างตัวเลขสถิติ */
+    gap: 40px;
     margin-bottom: 30px;
 }
 
 .stat-item {
-    text-align: left;
+    text-align: center; /* เปลี่ยนเป็น center ตามรูป */
+    background-color: rgba(0, 0, 0, 0.2); /* พื้นหลังดำโปร่งแสง */
+    padding: 10px 20px;
+    border-radius: 5px;
+    white-space: nowrap; /* ป้องกันการขึ้นบรรทัดใหม่ */
 }
 
 .stat-item .number {
-    font-size: 2.5em;
+    font-size: 2em;
     font-weight: bold;
     color: white;
-    display: block; /* ทำให้เป็นบล็อกเพื่อขึ้นบรรทัดใหม่ */
+    display: block;
 }
 
 .stat-item .label {
-    font-size: 0.8em;
-    color: #BBBBBB;
+    font-size: 0.7em;
+    color: rgba(255, 255, 255, 0.7);
     text-transform: uppercase;
-    white-space: nowrap; /* ป้องกันการขึ้นบรรทัดใหม่ */
+    white-space: nowrap;
 }
 
 .watch-resume {
@@ -94,42 +145,159 @@ h2 {
     align-items: center;
     gap: 15px;
     margin-top: 40px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .watch-resume hr {
-    flex-grow: 1; /* ทำให้เส้นขยายเต็มพื้นที่ */
+    flex-grow: 1;
     border: none;
-    border-top: 1px solid white;
-    max-width: 50px; /* จำกัดความยาวของเส้น */
+    border-top: 2px solid white; /* เส้นหนาขึ้น */
+    max-width: 80px; /* ยาวขึ้น */
     margin: 0;
 }
 
 .watch-resume span {
     font-size: 1.1em;
-    color: white;
-    text-decoration: none; /* ไม่มีขีดเส้นใต้ */
-    cursor: pointer;
+    text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .watch-resume span:hover {
-    color: #BBBBBB;
+    color: rgba(255, 255, 255, 0.7);
 }
 
-/* Responsive Design สำหรับหน้า About */
 
-/* สำหรับหน้าจอขนาดแท็บเล็ตและเล็กกว่า */
-@media (max-width: 992px) {
-    .about-container {
-        flex-direction: column; /* เปลี่ยนเป็นเรียงแนวตั้ง */
-        text-align: center; /* จัดข้อความกึ่งกลาง */
-        gap: 30px;
-        padding-top: 80px; /* เพิ่ม padding-top เพื่อ Navbar */
+.content-right-image {
+    flex: 1; /* ให้ใช้พื้นที่ที่เหลือ */
+    background-color: black; /* พื้นหลังสีดำด้านขวา (ที่รูปไม่ได้ครอบคลุม) */
+    display: flex;
+    justify-content: flex-end; /* จัดรูปภาพไปทางขวา */
+    align-items: flex-end; /* จัดรูปภาพไปทางด้านล่างของพื้นที่นี้ */
+    position: relative; /* สำคัญสำหรับรูปภาพและ social vertical */
+    overflow: hidden; /* ซ่อนส่วนที่ล้น */
+    padding-bottom: 40px; /* ให้รูปภาพลอยขึ้นมาเล็กน้อย */
+}
+
+.profile-image {
+    position: absolute; /* วางรูปภาพแบบ absolute เพื่อให้ลอยเหนือพื้นหลัง */
+    bottom: 0; /* จัดให้อยู่ด้านล่างสุดของ content-right-image */
+    right: 0; /* จัดให้อยู่ด้านขวาสุด */
+    max-width: 80%; /* ขนาดรูปภาพสัมพัทธ์ (ปรับตามสัดส่วนของรูปคุณ) */
+    height: auto;
+    object-fit: contain;
+    z-index: 3; /* ให้อยู่เหนือ content-left-red เล็กน้อย */
+    transform: translateX(15%); /* เลื่อนรูปภาพออกไปทางขวาเล็กน้อย (ปรับได้) */
+    max-height: 90%; /* จำกัดความสูงไม่ให้ล้น */
+}
+
+.social-vertical {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg); /* หมุนและจัดกึ่งกลาง */
+    transform-origin: right top; /* จุดหมุนอยู่ขวาบน */
+    white-space: nowrap;
+    color: #BBBBBB;
+    font-size: 0.9em;
+    letter-spacing: 5px; /* เพิ่มระยะห่างตัวอักษร */
+    z-index: 4; /* ให้อยู่เหนือรูปภาพ */
+}
+
+
+/* --- Bottom Bar --- */
+.bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    color: #BBBBBB;
+    font-size: 0.8em;
+    flex-shrink: 0; /* ป้องกันไม่ให้ bottom-bar ย่อขนาด */
+    z-index: 10; /* ให้อยู่เหนือเนื้อหาหลัก */
+}
+
+.scroll-arrow {
+    cursor: pointer;
+}
+
+.scroll-arrow img {
+    width: 30px; /* ขนาดลูกศร */
+    height: auto;
+    filter: invert(100%); /* ทำให้ลูกศรเป็นสีขาวถ้าเป็นรูปสีดำ */
+}
+
+
+/* Responsive Design */
+
+/* สำหรับหน้าจอขนาดกลาง (แท็บเล็ต) */
+@media (max-width: 1024px) {
+    .top-bar, .bottom-bar {
+        padding: 15px 25px;
     }
 
-    .content-left {
-        padding-left: 0; /* ลบ padding-left เมื่อเรียงแนวตั้ง */
-        text-align: center; /* จัดข้อความซ้ายกึ่งกลาง */
+    .top-bar-right .contact-info {
+        font-size: 0.8em;
+    }
+
+    h2 {
+        font-size: 3.5em;
+    }
+
+    .content-left-red {
+        flex: 0 0 55%; /* ลดสัดส่วนลงเล็กน้อย */
+    }
+
+    .profile-image {
+        max-width: 90%; /* ทำให้รูปใหญ่ขึ้นบนหน้าจอเล็กลง */
+        transform: translateX(10%); /* ปรับการเลื่อน */
+    }
+
+    .social-vertical {
+        font-size: 0.8em;
+        letter-spacing: 3px;
+    }
+}
+
+/* สำหรับหน้าจอขนาดเล็ก (มือถือ) */
+@media (max-width: 768px) {
+    .top-bar {
+        flex-direction: column; /* เรียงเป็นคอลัมน์ */
+        align-items: flex-start; /* จัดชิดซ้าย */
+        gap: 10px;
+        padding: 15px 20px;
+    }
+
+    .top-bar-right {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        width: 100%;
+    }
+
+    .top-bar-right .menu-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    .about-main-content {
+        flex-direction: column; /* เรียงส่วนสีแดงกับรูปภาพเป็นคอลัมน์ */
+        height: auto; /* ให้ความสูงปรับตามเนื้อหา */
+    }
+
+    .content-left-red {
+        flex: none; /* ยกเลิก flex-basis */
+        width: 100%; /* เต็มความกว้าง */
+        min-height: 50vh; /* กำหนดความสูงขั้นต่ำ */
+        padding: 30px 20px;
+    }
+
+    .text-block {
+        padding-right: 0;
+        max-width: 100%;
+        text-align: center; /* จัดข้อความกึ่งกลางบนมือถือ */
     }
 
     h2 {
@@ -138,67 +306,66 @@ h2 {
     }
 
     .stats-grid {
-        justify-content: center; /* จัดสถิติให้อยู่กึ่งกลาง */
-        margin-bottom: 20px;
-    }
-
-    .stat-item .number {
-        font-size: 2em;
-    }
-
-    .stat-item .label {
-        font-size: 0.7em;
-    }
-
-    .watch-resume {
-        justify-content: center; /* จัดลิงก์ให้อยู่กึ่งกลาง */
-        margin-top: 20px;
-    }
-
-    .profile-image {
-        max-height: 60vh; /* ลดขนาดรูปภาพลง */
-    }
-}
-
-/* สำหรับหน้าจอขนาดโทรศัพท์มือถือที่เล็กกว่า */
-@media (max-width: 576px) {
-    .about-container {
-        padding-top: 70px;
-        gap: 20px;
-    }
-    h2 {
-        font-size: 2em;
-        margin-bottom: 15px;
-    }
-
-    .stats-grid {
         flex-direction: column; /* เรียงสถิติเป็นคอลัมน์ */
+        align-items: center; /* จัดกึ่งกลาง */
         gap: 15px;
     }
 
+    .stat-item {
+        padding: 8px 15px;
+    }
+
     .stat-item .number {
         font-size: 1.8em;
     }
 
-    .stat-item .label {
-        font-size: 0.6em;
+    .watch-resume {
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    .content-right-image {
+        flex: none;
+        width: 100%;
+        min-height: 50vh; /* กำหนดความสูงขั้นต่ำ */
+        justify-content: center; /* จัดรูปภาพกึ่งกลาง */
+        align-items: center; /* จัดรูปภาพกึ่งกลาง */
+        padding-bottom: 20px; /* ลด padding ลง */
     }
 
     .profile-image {
-        max-height: 50vh; /* ลดขนาดรูปภาพลงอีก */
-        width: 90%; /* ให้รูปกว้างขึ้น */
+        position: relative; /* กลับไปเป็น relative เพื่อจัดกลางได้ง่าย */
+        transform: none; /* ยกเลิกการเลื่อน */
+        max-width: 80%; /* ปรับขนาด */
+        max-height: 40vh; /* จำกัดความสูง */
+    }
+
+    .social-vertical {
+        transform: none; /* ยกเลิกการหมุน */
+        position: relative; /* กลับไปเป็น relative */
+        margin-top: 20px; /* เพิ่มระยะห่างจากรูป */
+        display: flex; /* จัดเรียงแนวนอน */
+        gap: 10px;
+        font-size: 1em;
+        letter-spacing: normal;
+        flex-wrap: wrap; /* ให้ขึ้นบรรทัดใหม่ได้ */
+        justify-content: center;
+        width: 100%;
+    }
+
+    .bottom-bar {
+        flex-direction: column-reverse; /* สลับตำแหน่ง copyright กับ arrow */
+        gap: 10px;
+        padding: 10px 20px;
     }
 }
 
-/* ถ้ายังมีปัญหาบน iPhone ที่เล็กมากๆ */
-@media (max-width: 375px) {
-    .about-container {
-        padding-top: 60px;
-    }
+/* สำหรับหน้าจอที่เล็กกว่า 480px (มือถือเล็ก) */
+@media (max-width: 480px) {
     h2 {
-        font-size: 1.8em;
+        font-size: 2.2em;
     }
     .profile-image {
-        max-height: 40vh;
+        max-width: 90%;
     }
 }

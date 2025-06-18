@@ -1,34 +1,8 @@
 /* about.css */
 
-/* Base styles for body */
-body {
-    background-color: black; /* Solid black background for the entire page */
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white; /* Default text color for this page */
-    overflow: hidden; /* Prevent unwanted scrollbars */
-    min-height: var(--app-height, 100vh); /* Ensure body takes at least full viewport height */
-    display: flex; /* Make body a flex container to center about-page-wrapper */
-    flex-direction: column; /* Stack about-page-wrapper vertically */
-}
+/* ... (โค้ด CSS เดิมของคุณ) ... */
 
-/* Hide the old main site navbar if it's not part of this page's design */
-.main-site-navbar {
-    display: none;
-}
-
-/* Main Wrapper for the About Page */
-.about-page-wrapper {
-    display: flex;
-    flex-direction: column; /* Arrange top-bar, main-content, bottom-bar vertically */
-    height: var(--app-height, 100vh); /* Make this wrapper take full viewport height */
-    width: 100vw; /* Make this wrapper take full viewport width */
-    overflow: hidden; /* Hide overflowing content */
-    position: relative; /* For absolute positioning of internal elements */
-    box-sizing: border-box; /* Include padding/border in element's total width and height */
-}
-
-/* --- Top Bar --- */
+/* Top Bar (Logo / Contact Info / Menu Icon) */
 .top-bar {
     display: flex;
     justify-content: space-between;
@@ -41,371 +15,99 @@ body {
     position: relative; /* For dropdown positioning */
 }
 
-.top-bar-left .logo {
-    font-size: 2em;
-    font-weight: bold;
-    color: white; /* Logo color */
-}
-
 .top-bar-right {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.top-bar-right .contact-info {
-    font-size: 0.9em;
-    white-space: nowrap; /* Prevent text wrapping */
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-/* Menu Icon (visible only on mobile) */
+/* Hide menu icon on desktop */
 .menu-icon {
-    font-size: 1.8em;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    padding: 0 10px;
-    display: none; /* Hidden by default on desktop */
+    display: none; /* Hide the menu icon by default on larger screens */
 }
 
-/* Dropdown Menu Styles */
+/* Dropdown Menu Styles (for desktop) */
+/* This will make the dropdown menu always visible on desktop */
 .dropdown-menu {
-    position: absolute;
-    top: calc(100% + 10px); /* Position 10px below top-bar */
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background */
-    border-radius: 8px;
-    padding: 15px 20px;
-    display: none; /* Hidden by default, toggled by JS */
-    flex-direction: column;
-    gap: 10px;
-    z-index: 100; /* Ensure it's above other elements */
-    min-width: 180px; /* Minimum width for the dropdown */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
-    transform-origin: top right;
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition */
-    transform: scaleY(0); /* Start hidden */
-    opacity: 0; /* Start invisible */
-}
-
-.dropdown-menu.is-open {
-    display: flex; /* Show when open */
-    transform: scaleY(1); /* Scale to full size */
-    opacity: 1; /* Fade in */
+    position: static; /* Change to static for normal flow */
+    display: flex; /* Always display as flex on desktop */
+    flex-direction: row; /* Display links in a row on desktop */
+    gap: 20px; /* Space out menu items */
+    background-color: transparent; /* Transparent background */
+    border-radius: 0;
+    padding: 0;
+    z-index: auto;
+    box-shadow: none;
+    transform: none; /* Remove any transforms */
+    opacity: 1; /* Always visible */
+    transition: none; /* Remove transitions */
 }
 
 .dropdown-menu a {
     color: white;
     text-decoration: none;
     font-size: 1.1em;
-    padding: 8px 10px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
+    padding: 0; /* Remove padding */
+    border-radius: 0;
+    transition: color 0.3s ease; /* Transition only color on hover */
 }
 
 .dropdown-menu a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: transparent; /* No background change on hover */
+    color: rgba(255, 255, 255, 0.7); /* Change text color on hover */
 }
 
-/* --- Main Content Area (Red Background with Text and Image) --- */
-.about-main-content {
-    display: flex;
-    flex-grow: 1; /* Allow to grow and fill remaining vertical space */
-    position: relative; /* For image positioning */
-    overflow: hidden; /* Hide any overflowing content */
-}
+/* ... (โค้ด CSS เดิมของคุณ) ... */
 
-.content-left-red {
-    background-color: #E22B29; /* Red background as per image */
-    flex: 1; /* Take up all available horizontal space */
-    display: flex;
-    justify-content: flex-start; /* Align content to the start (left) */
-    align-items: center;
-    padding: 40px;
-    box-sizing: border-box;
-    position: relative; /* Essential for positioning the image inside */
-    overflow: hidden; /* Hide image overflow from this container */
-}
-
-.text-block {
-    max-width: 450px; /* Max width for text block to leave space for image */
-    color: white;
-    text-align: left;
-    margin-left: 50px; /* Push text from the left edge */
-    z-index: 5; /* Ensure text is above the image */
-    position: relative; /* Make sure z-index works */
-}
-
-.small-text {
-    font-size: 1.1em;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 5px;
-    display: block;
-}
-
-h2 {
-    font-size: 4.5em; /* Larger font size */
-    font-weight: bold;
-    color: white;
-    margin-top: 0;
-    margin-bottom: 30px;
-    line-height: 1.1; /* Adjust line-height */
-}
-
-.stats-grid {
-    display: flex;
-    gap: 40px;
-    margin-bottom: 30px;
-}
-
-.stat-item {
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent black background */
-    padding: 10px 20px;
-    border-radius: 5px;
-    white-space: nowrap; /* Prevent text wrapping */
-}
-
-.stat-item .number {
-    font-size: 2em;
-    font-weight: bold;
-    color: white;
-    display: block;
-}
-
-.stat-item .label {
-    font-size: 0.7em;
-    color: rgba(255, 255, 255, 0.7);
-    text-transform: uppercase;
-    white-space: nowrap;
-}
-
-.watch-resume {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-top: 40px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.watch-resume hr {
-    flex-grow: 1;
-    border: none;
-    border-top: 2px solid white; /* Thicker line */
-    max-width: 80px; /* Longer line */
-    margin: 0;
-}
-
-.watch-resume span {
-    font-size: 1.1em;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.watch-resume span:hover {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-/* Profile Image positioned within the red section */
-.profile-image-in-red {
-    position: absolute; /* Position absolutely within content-left-red */
-    right: 0; /* Align to the right edge of content-left-red */
-    bottom: 0; /* Align to the bottom edge of content-left-red */
-    height: 100%; /* Make image fill the height of its parent */
-    width: auto; /* Maintain aspect ratio */
-    object-fit: cover; /* Cover the area, cropping if needed */
-    z-index: 1; /* Place behind text-block */
-    /* Adjust width/height as needed for proportion based on actual image */
-    /* transform: translateX(10%); /* Optional: push slightly outside if needed */
-}
-
-
-/* --- Bottom Bar --- */
-.bottom-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    color: #BBBBBB;
-    font-size: 0.8em;
-    flex-shrink: 0; /* Prevent shrinking */
-    z-index: 10; /* Ensure it's above main content */
-    background-color: transparent; /* Transparent background */
-}
-
-.copyright {
-    /* Style for copyright text */
-}
-
-.scroll-arrow {
-    cursor: pointer;
-    font-size: 1.5em; /* Size of the arrow icon */
-    color: white; /* Color of the arrow */
-    transition: transform 0.3s ease;
-}
-
-.scroll-arrow:hover {
-    transform: translateY(5px); /* Small hover effect */
-}
-
-/* --- Responsive Design --- */
-
-/* For medium screens (tablets) */
-@media (max-width: 1024px) {
-    .top-bar, .bottom-bar {
-        padding: 15px 25px;
-    }
-
-    .top-bar-right .contact-info {
-        font-size: 0.8em;
-    }
-
-    .content-left-red {
-        padding: 30px;
-    }
-
-    .text-block {
-        margin-left: 30px;
-        max-width: 400px;
-    }
-
-    h2 {
-        font-size: 3.5em;
-    }
-
-    .profile-image-in-red {
-        max-width: 50%; /* Adjust size for smaller screens */
-        height: auto;
-    }
-
-    /* Adjust dropdown position for tablets if needed */
-    .dropdown-menu {
-        right: 15px; /* Adjust dropdown position to align with top-bar-right */
-    }
-}
+/* Responsive Design */
 
 /* For small screens (mobile) */
 @media (max-width: 768px) {
-    .top-bar {
-        flex-direction: column; /* Stack top-bar items vertically */
-        align-items: flex-start; /* Align to the left */
-        gap: 10px;
-        padding: 15px 20px;
-    }
+    /* ... (โค้ด CSS เดิมของคุณสำหรับมือถือ) ... */
 
-    .top-bar-right {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-        width: 100%; /* Make it full width */
-        position: relative; /* For menu icon positioning */
-    }
-    /* Hide contact info on small screens to save space */
     .top-bar-right .contact-info {
-         display: none;
+         display: none; /* Hide contact info on small screens to save space */
     }
 
     .menu-icon {
-        display: block; /* Show menu icon on mobile */
+        display: block; /* Show the menu icon on mobile */
         position: absolute; /* Position absolute within top-bar-right */
         top: 10px;
         right: 10px;
     }
 
-    /* Adjust dropdown menu position for mobile */
+    /* Adjust dropdown menu position and size for mobile */
     .dropdown-menu {
+        position: absolute; /* Revert to absolute for mobile dropdown */
         top: 60px; /* Position below top-bar */
-        right: 10px;
-        left: 10px; /* Make it wider */
-        width: auto; /* Auto width */
-        padding: 10px 15px;
+        right: 50%; /* Align to center */
+        left: auto; /* Remove left value */
+        transform: translateX(50%) scaleY(0); /* Center and scale from center */
         transform-origin: top center; /* Change transform origin */
+        max-width: 200px; /* Smaller max-width for mobile */
+        width: 70%; /* Smaller percentage width */
+        padding: 10px 15px; /* Smaller padding */
+        background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background for mobile */
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        flex-direction: column; /* Stack links vertically on mobile */
+        gap: 10px;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition */
+        opacity: 0; /* Start invisible */
+        display: none; /* Hidden by default on mobile, toggled by JS */
+    }
+    .dropdown-menu.is-open {
+        display: flex; /* Show when open on mobile */
+        transform: translateX(50%) scaleY(1); /* Show and scale */
+        opacity: 1; /* Fade in */
     }
     .dropdown-menu a {
-        font-size: 1em;
+        font-size: 0.95em; /* Slightly smaller font for compactness */
+        padding: 8px 10px; /* Add padding back for mobile */
     }
-
-    .about-main-content {
-        flex-direction: column; /* Stack red section vertically */
-        height: auto; /* Auto height to fit content */
-    }
-
-    .content-left-red {
-        flex: none; /* Remove flex-basis */
-        width: 100%; /* Full width */
-        min-height: 50vh; /* Minimum height for red section */
-        padding: 30px 20px;
-        justify-content: center; /* Center text block */
-        align-items: flex-start; /* Align items to top for relative positioning */
-        position: relative; /* Ensure relative positioning for image */
-    }
-
-    .text-block {
-        padding-right: 0;
-        max-width: 100%;
-        text-align: center; /* Center text on mobile */
-        margin-left: 0; /* Remove left margin */
-        order: 2; /* Put text below image on mobile */
-    }
-
-    h2 {
-        font-size: 2.8em;
-        margin-bottom: 20px;
-    }
-
-    .stats-grid {
-        flex-direction: column; /* Stack stats vertically */
-        align-items: center; /* Center stats */
-        gap: 15px;
-    }
-
-    .stat-item {
-        padding: 8px 15px;
-    }
-
-    .stat-item .number {
-        font-size: 1.8em;
-    }
-
-    .watch-resume {
-        justify-content: center;
-        margin-top: 30px;
-    }
-
-    .profile-image-in-red {
-        position: relative; /* Change to relative for normal flow on mobile */
-        width: 70%; /* Make image fit better on mobile */
-        height: auto;
-        bottom: auto;
-        right: auto;
-        transform: none; /* Remove transform */
-        margin: 0 auto 20px auto; /* Center image horizontally and add bottom margin */
-        order: 1; /* Put image above text on mobile */
-        display: block;
-        max-height: 40vh; /* Limit height for smaller screens */
-        object-fit: contain; /* Ensure full image is visible */
-    }
-
-
-    .bottom-bar {
-        flex-direction: column-reverse; /* Swap copyright and arrow */
-        gap: 10px;
-        padding: 10px 20px;
+    .dropdown-menu a:hover {
+        background-color: rgba(255, 255, 255, 0.1); /* Background change on hover for mobile */
     }
 }
 
-/* For very small screens */
-@media (max-width: 480px) {
-    h2 {
-        font-size: 2.2em;
-    }
-    .top-bar-left .logo {
-        font-size: 1.5em; /* Smaller logo */
-    }
-}
+/* ... (โค้ด CSS เดิมของคุณสำหรับจอเล็กมากๆ) ... */

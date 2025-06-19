@@ -1,13 +1,65 @@
 /* css/global.css */
 
+/* กำหนดฟอนต์ Anakotmai โดยใช้ @font-face */
+
+/* Anakotmai Light */
+@font-face {
+    font-family: 'Anakotmai';
+    src: url('../fonts/anakotmai-light.woff2') format('woff2'),
+         url('../fonts/anakotmai-light.woff') format('woff'),
+         url('../fonts/anakotmai-light.eot') format('embedded-opentype'),
+         url('../fonts/anakotmai-light.ttf') format('truetype');
+    font-weight: 300; /* กำหนดน้ำหนักฟอนต์เป็น Light */
+    font-style: normal;
+    font-display: swap; /* ช่วยในการแสดงผลฟอนต์ระหว่างโหลด */
+}
+
+/* Anakotmai Medium */
+@font-face {
+    font-family: 'Anakotmai';
+    src: url('../fonts/anakotmai-medium.woff2') format('woff2'),
+         url('../fonts/anakotmai-medium.woff') format('woff'),
+         url('../fonts/anakotmai-medium.eot') format('embedded-opentype'),
+         url('../fonts/anakotmai-medium.ttf') format('truetype'); /* แก้ไขตรงนี้แล้วครับ! */
+    font-weight: 500; /* กำหนดน้ำหนักฟอนต์เป็น Medium */
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Anakotmai Bold */
+@font-face {
+    font-family: 'Anakotmai';
+    src: url('../fonts/anakotmai-bold.woff2') format('woff2'),
+         url('../fonts/anakotmai-bold.woff') format('woff'),
+         url('../fonts/anakotmai-bold.eot') format('embedded-opentype'),
+         url('../fonts/anakotmai-bold.ttf') format('truetype');
+    font-weight: bold; /* กำหนดน้ำหนักฟอนต์เป็น Bold */
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ถ้ามี Anakotmai Regular (normal font-weight) ด้วย ให้เพิ่ม @font-face ของมันเช่นกัน ถ้าไม่มีก็ไม่ต้องเพิ่ม */
+/* @font-face {
+    font-family: 'Anakotmai';
+    src: url('../fonts/anakotmai-regular.woff2') format('woff2'),
+         url('../fonts/anakotmai-regular.woff') format('woff'),
+         url('../fonts/anakotmai-regular.eot') format('embedded-opentype'),
+         url('../fonts/anakotmai-regular.ttf') format('truetype');
+    font-weight: normal; // หรือ 400
+    font-style: normal;
+    font-display: swap;
+} */
+
+
 /* สไตล์พื้นฐานของ body ที่ใช้กับทุกหน้า (เช่น font-family, สีข้อความทั่วไป) */
 body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* เปลี่ยน font-family เป็น Anakotmai */
+    font-family: 'Anakotmai', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #E0E0E0; /* สีข้อความพื้นฐาน */
     line-height: 1.6; /* เพื่อให้อ่านง่ายขึ้น */
     transition: opacity 0.5s ease-out; /* สำหรับ fade out effect */
-    /* ไม่มี background, display, height 100vh ที่นี่ */
+    /* ไม่มี background, display, height 100vh ที่นี่ เพราะแต่ละหน้าจะกำหนดเอง */
 }
 
 /* สไตล์สำหรับ Navbar (เหมือนกันทุกหน้า) */

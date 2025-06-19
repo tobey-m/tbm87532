@@ -106,7 +106,6 @@ body {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-
 .content-center-wrapper {
     flex-grow: 1; /* ทำให้ content-center-wrapper กินพื้นที่ที่เหลือทั้งหมด */
     display: flex;
@@ -115,25 +114,45 @@ body {
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
+    position: relative; /* สำหรับจัดตำแหน่ง about-text-top */
+}
+
+.about-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 900px; /* กำหนดความกว้างรวมของเนื้อหาหลัก */
+    max-width: 90%;
+}
+
+.about-text-top {
+    position: absolute;
+    top: -50px; /* ปรับตำแหน่งให้อยู่เหนือ about-main-content */
+    left: 0;
+    width: 100%;
+    text-align: left;
+    color: white;
+    font-size: 1.5em; /* ปรับขนาดตัวอักษร */
+    font-weight: bold;
+    z-index: 5; /* ให้อยู่ด้านบนสุด */
 }
 
 .about-main-content {
     display: flex;
     flex-direction: row; /* จัดเรียงแนวนอนบนเดสก์ท็อป */
     height: 600px; /* ความสูงคงที่สำหรับเดสก์ท็อปตาม ref */
-    width: 900px; /* ความกว้างคงที่สำหรับเดสก์ท็อปตาม ref */
-    max-width: 90%; /* เพื่อความยืดหยุ่น */
-    max-height: 80vh; /* เพื่อไม่ให้สูงเกินไปบนจอใหญ่มากๆ */
+    width: 100%; /* ให้เต็มความกว้างของ about-container */
     background-color: black; /* พื้นหลังสีดำของ content-main */
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     position: relative; /* สำคัญสำหรับ social-vertical และรูปภาพ */
-    gap: 0; /* ไม่มี gap ตรงนี้ ถ้า social-vertical เป็น absolute */
+    overflow: hidden; /* เพื่อซ่อนส่วนเกินของรูปภาพ */
 }
 
 .content-left-red {
     background-color: #E60023; /* สีแดง */
-    flex: 1; /* กินพื้นที่ที่เหลือ */
+    flex: 0 0 60%; /* กินพื้นที่ 60% ของ about-main-content */
     padding: 40px;
     display: flex;
     flex-direction: column;
@@ -150,41 +169,68 @@ body {
     max-width: 100%;
     z-index: 3;
     position: relative;
+    color: white; /* ให้ข้อความเป็นสีขาว */
 }
+
+.small-text {
+    color: white;
+}
+
+h2 {
+    color: white;
+}
+
+.stats-grid {
+    color: white;
+}
+
+.stat-item .number, .stat-item .label {
+    color: white;
+}
+
+.watch-resume {
+    color: white;
+}
+
+.watch-resume hr {
+    background-color: white;
+    border-color: white;
+}
+
 
 .profile-image-in-red {
     position: absolute;
     bottom: 0;
-    right: 0; /* รูปภาพชิดขวาของกรอบแดง */
-    width: 60%; /* ปรับขนาดรูปภาพตามต้องการบนเดสก์ท็อป */
+    right: 50%; /* จัดให้อยู่กึ่งกลางของกรอบแดงในแนวนอน */
+    transform: translateX(50%); /* ชดเชยให้กึ่งกลางจริง */
+    width: 70%; /* ปรับขนาดรูปภาพตามต้องการบนเดสก์ท็อป */
     height: auto;
     object-fit: contain;
     z-index: 2; /* ให้อยู่เหนือพื้นหลัง */
 }
 
-.social-vertical {
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
+.content-right-black {
+    flex: 0 0 40%; /* กินพื้นที่ 40% ที่เหลือของ about-main-content */
+    background-color: black; /* พื้นหลังสีดำ */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    z-index: 10;
-    color: white;
+    justify-content: center; /* จัดกลางในแนวตั้ง */
+    align-items: center; /* จัดกลางในแนวนอน */
+    color: white; /* สีข้อความ */
+    font-size: 2em; /* ขนาดฟอนต์ */
+    font-weight: bold;
+    gap: 40px; /* ระยะห่างระหว่าง runner กับ engineer */
 }
 
-.social-vertical .social-link {
-    writing-mode: vertical-lr;
-    text-orientation: mixed;
-    transform: rotate(180deg);
-    text-decoration: none;
-    color: white;
-    font-size: 0.9em;
-    font-weight: bold;
-    white-space: nowrap;
+.career-text {
+    text-transform: uppercase; /* ทำให้เป็นตัวพิมพ์ใหญ่ทั้งหมด */
 }
+
+/* ซ่อน social-vertical ถ้าไม่ต้องการให้แสดงในหน้า About ตามดีไซน์ PDF */
+.social-vertical {
+    display: none;
+}
+
 
 .bottom-bar {
     width: 100%;
@@ -198,6 +244,7 @@ body {
     z-index: 1000;
     background-color: rgba(0, 0, 0, 0.7);
     box-sizing: border-box;
+    color: white; /* สีข้อความ */
 }
 
 
@@ -240,6 +287,24 @@ body {
 
     .content-center-wrapper {
         padding: 10px; /* ลด padding บนมือถือ */
+        flex-direction: column; /* จัดเรียงเป็นคอลัมน์บนมือถือ */
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .about-container {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 50px; /* เพิ่มระยะห่างด้านบน */
+    }
+
+    .about-text-top {
+        position: relative; /* เปลี่ยนเป็น relative เพื่อให้จัดวางใน flow */
+        top: auto;
+        left: auto;
+        text-align: center;
+        margin-bottom: 20px; /* เพิ่มระยะห่างด้านล่าง */
+        font-size: 1.2em; /* ปรับขนาดตัวอักษร */
     }
 
     .about-main-content {
@@ -250,7 +315,7 @@ body {
         max-height: none;
         align-items: center;
         justify-content: flex-start;
-        gap: 20px;
+        gap: 0; /* ไม่มี gap */
     }
 
     .content-left-red {
@@ -265,7 +330,7 @@ body {
         order: 1;
         overflow: hidden;
         position: relative;
-        min-height: 400px;
+        min-height: 400px; /* กำหนดความสูงขั้นต่ำ */
     }
 
     .text-block {
@@ -336,27 +401,13 @@ body {
         z-index: 2;
     }
 
-    .social-vertical {
-        position: relative;
-        top: auto;
-        right: auto;
-        transform: none;
-        flex-direction: row;
-        justify-content: center;
-        margin-top: 0;
+    .content-right-black {
         width: 100%;
-        gap: 15px;
-        order: 2;
-        margin-left: 0;
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-
-    .social-vertical .social-link {
-        writing-mode: horizontal-tb;
-        text-orientation: unset;
-        transform: none;
-        font-size: 0.8em;
+        height: 200px; /* กำหนดความสูงสำหรับส่วนดำบนมือถือ */
+        order: 2; /* จัดให้มาอยู่ด้านล่างส่วนแดง */
+        padding: 20px;
+        font-size: 1.5em; /* ปรับขนาดฟอนต์ */
+        gap: 20px;
     }
 
     .bottom-bar {
@@ -394,8 +445,16 @@ body {
     .text-block {
         padding-bottom: 15px;
     }
-    .social-vertical {
+    .social-vertical { /* ถ้ามีการนำกลับมาใช้ */
         gap: 10px;
         font-size: 0.7em;
+    }
+    .content-right-black {
+        height: 150px;
+        font-size: 1.2em;
+        gap: 15px;
+    }
+    .about-text-top {
+        font-size: 1em;
     }
 }

@@ -1,0 +1,64 @@
+/* css/global.css */
+
+/* สไตล์พื้นฐานของ body ที่ใช้กับทุกหน้า (เช่น font-family, สีข้อความทั่วไป) */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #E0E0E0; /* สีข้อความพื้นฐาน */
+    line-height: 1.6; /* เพื่อให้อ่านง่ายขึ้น */
+    transition: opacity 0.5s ease-out; /* สำหรับ fade out effect */
+    /* ไม่มี background, display, height 100vh ที่นี่ */
+}
+
+/* สไตล์สำหรับ Navbar (เหมือนกันทุกหน้า) */
+.navbar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 20px;
+    z-index: 999;
+    flex-wrap: nowrap; /* ป้องกันการขึ้นบรรทัดใหม่ของลิงก์ใน Navbar */
+}
+
+.navbar a {
+    text-decoration: none;
+    font-size: 1.2em;
+    color: white;
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0); /* โปร่งใส */
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap; /* ป้องกันข้อความในลิงก์ไม่ให้ขึ้นบรรทัดใหม่ */
+}
+
+.navbar a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive Design (Navbar) - เหมือนเดิม */
+@media (max-width: 768px) {
+    .navbar {
+        top: 15px;
+        right: 15px;
+        gap: 15px;
+    }
+
+    .navbar a {
+        font-size: 1em;
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        top: 10px;
+        right: 10px;
+        gap: 8px;
+    }
+
+    .navbar a {
+        font-size: 0.8em;
+        padding: 6px 10px;
+    }
+}

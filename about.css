@@ -1,8 +1,6 @@
-/* about.css */
-
 /* ... (โค้ดส่วนบนสุดยังคงเหมือนเดิม) ... */
 
-/* For small screens (mobile) */
+/* สำหรับหน้าจอขนาดเล็ก (มือถือ) */
 @media (max-width: 768px) {
     .top-bar {
         flex-direction: row;
@@ -20,11 +18,11 @@
     }
 
     .top-bar-right .contact-info {
-           display: none; /* Hide contact info on mobile */
+        display: none; /* ซ่อนข้อมูลติดต่อบนมือถือ */
     }
 
     .menu-icon {
-        display: block; /* Show menu icon on mobile */
+        display: block; /* แสดงไอคอนเมนูบนมือถือ */
         position: static;
         top: auto;
         right: auto;
@@ -32,48 +30,54 @@
 
     .dropdown-menu {
         right: 20px; /* ปรับให้ชิดขอบจอมากขึ้นบนมือถือ */
+        /* ตรวจสอบให้แน่ใจว่าเมนูดรอปดาวน์อยู่ในขอบเขตการมองเห็นหากก่อนหน้านี้มีปัญหา */
+        max-width: calc(100% - 40px); /* จำกัดความกว้างเพื่อป้องกันการล้น */
     }
 
     .content-center-wrapper {
-        padding: 10px; /* Reduce padding on mobile */
+        padding: 10px; /* ลด padding บนมือถือ */
     }
 
     .about-main-content {
-        flex-direction: column; /* Stack sections vertically on mobile */
+        flex-direction: column; /* จัดเรียงส่วนต่างๆ ซ้อนกันในแนวตั้งบนมือถือ */
         height: auto; /* ไม่ต้องกำหนด height คงที่ */
-        width: 100%; /* Full width */
-        max-width: 95%; /* Limit max width */
-        max-height: none; /* No max-height */
-        align-items: center; /* Center content horizontally */
+        width: 100%; /* ความกว้างเต็ม */
+        max-width: 95%; /* จำกัดความกว้างสูงสุด */
+        max-height: none; /* ไม่มี max-height */
+        align-items: center; /* จัดเนื้อหาให้อยู่กึ่งกลางแนวนอน */
         justify-content: flex-start;
         /* เพิ่ม gap ระหว่าง content-left-red กับ social-vertical */
         gap: 20px; /* เพิ่มช่องว่างระหว่างกรอบแดงกับ social icon */
     }
 
     .content-left-red {
-        width: 100%; /* Full width of about-main-content */
-        /* min-height: 400px; */ /* **ลบ min-height ออกไป เพื่อให้ความสูงปรับตามเนื้อหาและรูปภาพจริงๆ** */
+        width: 100%; /* ความกว้างเต็มของ about-main-content */
         height: auto; /* **ตั้งเป็น auto เพื่อให้ปรับตามเนื้อหา** */
-        padding: 20px 20px 0 20px; /* **ปรับ padding-bottom เป็น 0 ให้รูปภาพชิดขอบล่างของกรอบแดง** */
+        /* ปรับ padding: bottom padding ควรคำนึงถึงความสูงของรูปภาพเพื่อหลีกเลี่ยงการทับซ้อน */
+        padding: 20px 20px 0 20px; /* **ปรับ padding-bottom สำหรับรูปภาพ** */
         margin: 0;
         display: flex;
-        flex-direction: column; /* Text and image stack vertically */
-        justify-content: flex-start; /* **เปลี่ยนกลับเป็น flex-start ให้ text-block อยู่ด้านบนสุด** */
-        align-items: center; /* Center horizontally */
-        order: 1; /* Keep it at the top */
+        flex-direction: column; /* ข้อความและรูปภาพจัดเรียงในแนวตั้ง */
+        justify-content: flex-start; /* **text-block อยู่ด้านบนสุด** */
+        align-items: center; /* จัดกึ่งกลางแนวนอน */
+        order: 1; /* ให้อยู่ด้านบนสุด */
         overflow: hidden; /* ยังคงเป็น hidden บน mobile เพื่อไม่ให้ scrollbar ขึ้น */
         position: relative; /* ต้องมี position: relative เพื่อให้รูปที่เป็น absolute อ้างอิงได้ */
+        /* เพิ่มความสูงขั้นต่ำหรืออัตราส่วนภาพหากเนื้อหาดันรูปภาพออกไปไกลเกินไป */
+        min-height: 400px; /* กำหนดความสูงขั้นต่ำที่เหมาะสมบนมือถือเพื่อรองรับรูปภาพและข้อความ */
     }
 
     .text-block {
         margin-left: 0;
         text-align: center;
-        max-width: 90%; /* **รักษา max-width ไว้ แต่ต้องแน่ใจว่าข้อความไม่ถูกตัด** */
-        width: 100%; /* **เพิ่ม width: 100% เพื่อให้ใช้พื้นที่เต็มที่** */
-        order: 1; /* Text first */
+        max-width: 90%; /* **รักษากำหนด max-width แต่ต้องแน่ใจว่าข้อความไม่ถูกตัด** */
+        width: 100%; /* **ความกว้างเต็มสำหรับ text-block ภายใน parent ของมัน** */
+        order: 1; /* ข้อความนำ */
         margin-right: 0;
-        padding-bottom: 20px; /* **เพิ่ม padding-bottom เพื่อไม่ให้ข้อความชิดรูปภาพเกินไป** */
+        padding-bottom: 20px; /* **เพิ่ม padding-bottom เพื่อให้ข้อความไม่ชิดรูปภาพเกินไป** */
         box-sizing: border-box; /* **เพิ่ม box-sizing เพื่อให้ padding ไม่ดัน text block ออกไป** */
+        z-index: 3; /* ตรวจสอบให้แน่ใจว่าข้อความอยู่เหนือรูปภาพหากเกิดการทับซ้อน */
+        position: relative; /* จำเป็นสำหรับ z-index เพื่อทำงานกับรูปภาพที่กำหนดตำแหน่งเป็น absolute */
     }
 
     .small-text {
@@ -83,6 +87,7 @@
     h2 {
         font-size: 1.8em; /* **ลดขนาด h2 ลงอีก เพื่อไม่ให้ล้นจอ** */
         margin-bottom: 10px;
+        word-break: break-word; /* ตรวจสอบให้แน่ใจว่าคำยาวๆ ขึ้นบรรทัดใหม่ */
     }
 
     .stats-grid {
@@ -102,6 +107,7 @@
 
     .stat-item .label {
         font-size: 0.55em;
+        text-align: center; /* ตรวจสอบให้แน่ใจว่า label อยู่กึ่งกลางหากมีการขึ้นบรรทัดใหม่ */
     }
 
     .watch-resume {
@@ -116,17 +122,18 @@
 
     .profile-image-in-red {
         position: absolute; /* ยังคงเป็น absolute เพื่อควบคุมตำแหน่งให้ชิดล่าง */
-        width: 70%; /* ปรับขนาดรูปภาพให้เหมาะสมบนมือถือ */
-        height: auto;
+        width: 75%; /* ปรับขนาดรูปภาพให้เหมาะสมบนมือถือ */
+        height: auto; /* ความสูงปรับตามสัดส่วน */
         bottom: 0; /* ตรึงรูปภาพไว้ที่ขอบล่างของ .content-left-red */
         right: 50%; /* จัดกึ่งกลางแนวนอน */
         transform: translateX(50%); /* จัดกึ่งกลางแนวนอน */
-        max-height: 50%; /* **จำกัดความสูงสูงสุดของรูปภาพ เพื่อไม่ให้กินพื้นที่มากเกินไป** */
+        /* ปรับ max-height อย่างระมัดระวัง ไม่ควรตัดรูปภาพแต่ควรให้มันปรับขนาดได้ */
+        max-height: 80%; /* กำหนด max-height ที่เหมาะสมเพื่อให้รูปภาพแสดงผลได้ดี */
         object-fit: contain; /* ให้รูปภาพปรับขนาดแบบ contain */
         margin-top: 0;
         margin-bottom: 0;
         order: unset;
-        z-index: 2;
+        z-index: 2; /* ตรวจสอบให้แน่ใจว่ารูปภาพอยู่ใต้ข้อความแต่อยู่เหนือพื้นหลัง */
     }
 
     .social-vertical {
@@ -134,7 +141,7 @@
         top: auto;
         right: auto;
         transform: none;
-        flex-direction: row; /* Horizontal on mobile */
+        flex-direction: row; /* แนวนอนบนมือถือ */
         justify-content: center;
         margin-top: 0; /* **ลบ margin-top เพราะจะใช้ gap ใน about-main-content แทน** */
         width: 100%;
@@ -146,7 +153,7 @@
     }
 
     .social-vertical .social-link {
-        writing-mode: horizontal-tb; /* Normal horizontal text */
+        writing-mode: horizontal-tb; /* ข้อความแนวนอนปกติ */
         text-orientation: unset;
         transform: none;
         font-size: 0.8em; /* **ลดขนาด font ของ social link เพื่อให้เห็นครบ** */
@@ -159,7 +166,12 @@
     }
 }
 
-/* For very small screens */
+---
+
+## การปรับปรุง CSS สำหรับหน้าจอขนาดเล็กมาก (`@media (max-width: 480px)`)
+
+```css
+/* สำหรับหน้าจอขนาดเล็กมาก */
 @media (max-width: 480px) {
     h2 {
         font-size: 1.6em; /* ลดขนาด h2 ลงอีกสำหรับจอที่เล็กมากๆ */
@@ -172,14 +184,14 @@
     }
     .profile-image-in-red {
         width: 85%; /* อาจต้องปรับให้เล็กลงอีกสำหรับจอเล็กมาก */
-        max-height: 20vh; /* กำหนด max-height ถ้าสูงเกินไป */
+        max-height: 35vh; /* กำหนด max-height เป็นเปอร์เซ็นต์ของ viewport height เพื่อการตอบสนองที่ดีขึ้น */
     }
     .dropdown-menu {
         max-width: 160px;
         width: 95%;
     }
     .content-left-red {
-        min-height: auto; /* ให้ความสูงยืดหยุ่น */
+        min-height: 350px; /* ปรับ min-height สำหรับหน้าจอขนาดเล็กมาก */
         padding-top: 15px; /* ลด padding บน */
         padding-bottom: 0; /* ให้รูปชิดขอบล่าง */
     }

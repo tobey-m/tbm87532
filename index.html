@@ -47,35 +47,43 @@
             <div class="social-vertical-about">
                 <a href="https://strava.app.link/81CwkyQdiUb" target="_blank">strava.</a>
                 <a href="#">tbm.</a>
-                <a href="https://open.spotify.com/user/21ulefyrlqqc7xbzyogjqc6zy?si=QE61qm0SQJ2JDjZZBJvD3w"target="_blank">spotify.</a>
+                <a href="https://open.spotify.com/user/21ulefyrlqqc7xbzyogjqc6zy?si=QE61qm0SQJ2JDjZZBJvD3w" target="_blank">spotify.</a>
             </div>
         </div>
     </section>
 
-    <!-- Gallery -->
+    <!-- Gallery: แสดง cover ของแต่ละ hashtag -->
     <section id="gallery" class="gallery-section">
         <div class="container">
             <p class="section-heading">#journey</p>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="images/S__11395133.jpg" alt="journey">
-                    <div class="caption"><h5>#journey</h5><p>someplace somewhere somehow.</p></div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/S__11395134.jpg" alt="lovethings">
-                    <div class="caption"><h5>#lovethings</h5><p>an extremely tiring activity.</p></div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/S__11395135.jpg" alt="styles">
-                    <div class="caption"><h5>#styles</h5><p>find your outfit and dress it up.</p></div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/S__11395136.jpg" alt="grooves">
-                    <div class="caption"><h5>#grooves</h5><p>the needle drops, the world stops.</p></div>
-                </div>
-            </div>
+            <div id="gallery-grid" class="gallery-grid"></div>
         </div>
     </section>
+
+    <!-- Album view: เปิดเมื่อกด hashtag -->
+    <div id="album-view" class="album-view">
+        <div class="album-header">
+            <button class="album-back" onclick="closeAlbum()">
+                <i class="fas fa-arrow-left"></i> back
+            </button>
+            <span id="album-tag" class="album-tag-title"></span>
+        </div>
+        <div id="album-grid" class="album-grid"></div>
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" onclick="closeLightboxOnBg(event)">
+        <button class="lb-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+        <button class="lb-prev"  onclick="shiftLightbox(-1)"><i class="fas fa-chevron-left"></i></button>
+        <button class="lb-next"  onclick="shiftLightbox(1)"><i class="fas fa-chevron-right"></i></button>
+        <div class="lb-inner">
+            <img id="lb-img" src="" alt="">
+            <div class="lb-caption">
+                <h5 id="lb-title"></h5>
+                <p  id="lb-desc"></p>
+            </div>
+        </div>
+    </div>
 
     <!-- Social -->
     <section id="social" class="social-section">
@@ -85,13 +93,132 @@
                 <img src="images/tobeymanguire_qr.png" alt="Instagram QR" class="qr-code">
                 <p>curious about Tobey, scan me !</p>
                 <div class="btn-group">
-                    <a href="https://www.instagram.com/tobeymanguire/" target="_blank" class="s-btn ig">Instagram</a>
-                    <a href="https://strava.app.link/81CwkyQdiUb" target="_blank" class="s-btn strava">Strava</a>
+                    <a href="https://www.instagram.com/tobeymanguire/" target="_blank" class="s-btn ig">instagram</a>
+                    <a href="https://strava.app.link/81CwkyQdiUb" target="_blank" class="s-btn strava">strava</a>
                 </div>
                 <p class="footer-note">© มีซิคกาลิทเน้ออ</p>
             </div>
         </div>
     </section>
+
+    <script src="data.js"></script>
+    <script>
+    (function () {
+
+        // ===== BUILD MAIN GALLERY (1 cover per hashtag) =====
+        const grid = document.getElementById('gallery-grid');
+
+        GALLERY.forEach((group, groupIdx) => {
+            // ใช้ cover field ถ้ามี ไม่งั้นดึงจาก items[0]
+            const src = group.cover
+                ? group.cover
+                : (group.items.length ? group.folder + group.items[0].file : null);
+
+            if (!src) return; // ข้ามถ้าไม่มีรูปเลย
+
+            const count = group.items.length;
+            const sub   = count > 0 ? `${count} photos` : 'coming soon';
+
+            const div = document.createElement('div');
+            div.className = 'gallery-item';
+            div.innerHTML = `
+                <img src="${src}" alt="${group.tag}" loading="lazy">
+                <div class="caption">
+                    <h5>${group.tag}</h5>
+                    <p>${sub}</p>
+                </div>`;
+            div.addEventListener('click', () => openAlbum(groupIdx));
+            grid.appendChild(div);
+        });
+
+        // ===== ALBUM VIEW =====
+        let currentGroup   = 0;
+        let currentImgIdx  = 0;
+
+        function openAlbum(groupIdx) {
+            currentGroup = groupIdx;
+            const group  = GALLERY[groupIdx];
+            const albumGrid = document.getElementById('album-grid');
+            document.getElementById('album-tag').textContent = group.tag;
+            albumGrid.innerHTML = '';
+
+            group.items.forEach((item, idx) => {
+                const src = group.folder + item.file;
+                const div = document.createElement('div');
+                div.className = 'album-item';
+                div.innerHTML = `
+                    <img src="${src}" alt="${group.tag}" loading="lazy">
+                    <div class="caption">
+                        <p>${item.caption}</p>
+                    </div>`;
+                div.addEventListener('click', () => openLightbox(idx));
+                albumGrid.appendChild(div);
+            });
+
+            const view = document.getElementById('album-view');
+            view.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        window.closeAlbum = function () {
+            document.getElementById('album-view').classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        // ===== LIGHTBOX =====
+        function openLightbox(idx) {
+            currentImgIdx = idx;
+            renderLightbox();
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function renderLightbox() {
+            const group = GALLERY[currentGroup];
+            const item  = group.items[currentImgIdx];
+            document.getElementById('lb-img').src              = group.folder + item.file;
+            document.getElementById('lb-title').textContent    = group.tag;
+            document.getElementById('lb-desc').textContent     = item.caption;
+        }
+
+        window.closeLightbox = function () {
+            document.getElementById('lightbox').classList.remove('active');
+        };
+
+        window.closeLightboxOnBg = function (e) {
+            if (e.target === document.getElementById('lightbox')) window.closeLightbox();
+        };
+
+        window.shiftLightbox = function (dir) {
+            const len = GALLERY[currentGroup].items.length;
+            currentImgIdx = (currentImgIdx + dir + len) % len;
+            renderLightbox();
+        };
+
+        // keyboard
+        document.addEventListener('keydown', e => {
+            const lb = document.getElementById('lightbox');
+            if (lb.classList.contains('active')) {
+                if (e.key === 'ArrowRight') window.shiftLightbox(1);
+                if (e.key === 'ArrowLeft')  window.shiftLightbox(-1);
+                if (e.key === 'Escape')     window.closeLightbox();
+                return;
+            }
+            const av = document.getElementById('album-view');
+            if (av.classList.contains('active') && e.key === 'Escape') window.closeAlbum();
+        });
+
+        // swipe สำหรับ iOS (lightbox)
+        let touchX = 0;
+        document.getElementById('lightbox').addEventListener('touchstart', e => {
+            touchX = e.changedTouches[0].clientX;
+        }, { passive: true });
+        document.getElementById('lightbox').addEventListener('touchend', e => {
+            const diff = touchX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) window.shiftLightbox(diff > 0 ? 1 : -1);
+        }, { passive: true });
+
+    })();
+    </script>
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+// ===== GALLERY DATA =====
 const GALLERY = [
   {
     tag: '#journey',
@@ -7,8 +8,8 @@ const GALLERY = [
       { file: 'japan-01.jpg', caption: 'arashiyama.' },
       { file: 'japan-02.jpg', caption: 'kittykitty.' },
       { file: 'japan-03.jpg', caption: 'wonderful %.' },
-      { file: 'bday.JPG', caption: 'bakery first time.' }, // แก้ .jpg เป็น .JPG ตามไฟล์จริง
-      { file: 'chiangdao on jan-26.JPG', caption: 'chiangdao on jan-26.' }, // แก้ .jpg เป็น .JPG
+      { file: 'bday.JPG', caption: 'bakery first time.' },
+      { file: 'chiangdao on jan-26.JPG', caption: 'chiangdao on jan-26.' },
       { file: 'jeju-01.jpg', caption: 'me and friends' },
       { file: 'jeju-02.jpg', caption: 'jeongbang waterfal' },
       { file: 'jeju-03.jpg', caption: 'utmb jeju at world cup stadium' },
@@ -34,7 +35,6 @@ const GALLERY = [
       { file: 'taiwan-01.jpg', caption: 'keelung' },
       { file: 'taiwan-02.jpg', caption: 'temple' },
       { file: 'taiwan-03.jpg', caption: 'temple' },
-      // { file: 'taiwan-04.jpg', caption: '...' }, <-- ลบออกเพราะไม่มีไฟล์จริงใน GitHub
       { file: 'taiwan-05.jpg', caption: 'taipei main station' },
       { file: 'taiwan-06.jpg', caption: 'so drunk lol' },
     ]
@@ -63,5 +63,25 @@ const GALLERY = [
     cover: 'images/grooves.jpg',
     folder: 'images/grooves/',
     items: []
+  },
+];
+
+// ===== STORIES / BLOG POSTS DATA =====
+const STORIES = [
+  {
+    id: 1,
+    title: "Review: Transjeju 2024 - วิ่งเทรลเกาะเชจูครั้งแรก",
+    date: "2024-10-18",
+    tag: "#journey",
+    summary: "บันทึกการเดินทางไปสัมผัสความโหดและสวยงามของสนาม Transjeju ที่เกาะเชจู ประเทศเกาหลีใต้",
+    content: "เนื้อหาบทความฉบับเต็ม: การเตรียมตัวเดินทาง อากาศที่หนาวเย็น ลมแรงบนภูเขาฮัล라ซาน และบรรยากาศสุดประทับใจตลอดเส้นทาง 50k/77k..."
+  },
+  {
+    id: 2,
+    title: "Life & Code: สมดุลชีวิตคนทำงานสาย Eng กับการซ้อมวิ่ง",
+    date: "2024-08-10",
+    tag: "#lovethings",
+    summary: "แชร์ทริคการบริหารเวลาและพลังงานระหว่างการเขียนโค้ด ทำงานโปรเจกต์ กับการซ้อมวิ่งเทรลในเชียงใหม่",
+    content: "เนื้อหาบทความฉบับเต็ม: การใช้ชีวิตในเชียงใหม่ช่วยให้เราบาลานซ์ระหว่างหน้าจอคอมพิวเตอร์กับธรรมชาติได้ง่ายขึ้น..."
   }
 ];

@@ -41,7 +41,7 @@
                     <a href="link-to-your-resume.pdf" target="_blank" class="btn-resume">watch JobResume</a>
                 </div>
                 <div class="about-image">
-                    <img src="images/tobey.r.png" alt="Profile Image">
+                    <img src="images/tobey.r.png" alt="Profile Image" onerror="this.src='images/tobey.r.png'">
                 </div>
             </div>
             <div class="social-vertical-about">
@@ -90,7 +90,7 @@
         <div class="container">
             <div class="social-card">
                 <h2>let's connect</h2>
-                <img src="images/tobeymanguire_qr.png" alt="Instagram QR" class="qr-code">
+                <img src="images/tobeymanguire_qr.png" alt="Instagram QR" class="qr-code" onerror="this.style.display='none'">
                 <p>curious about Tobey, scan me !</p>
                 <div class="btn-group">
                     <a href="https://www.instagram.com/tobeymanguire/" target="_blank" class="s-btn ig">instagram</a>
@@ -108,52 +108,57 @@
         // ===== BUILD MAIN GALLERY (1 cover per hashtag) =====
         const grid = document.getElementById('gallery-grid');
 
-        GALLERY.forEach((group, groupIdx) => {
-            // ใช้ cover field ถ้ามี ไม่งั้นดึงจาก items[0]
-            const src = group.cover
-                ? group.cover
-                : (group.items.length ? group.folder + group.items[0].file : null);
+        if (typeof GALLERY !== 'undefined') {
+            GALLERY.forEach((group, groupIdx) => {
+                const src = group.cover
+                    ? group.cover
+                    : (group.items.length ? group.folder + group.items[0].file : null);
 
-            if (!src) return; // ข้ามถ้าไม่มีรูปเลย
+                if (!src) return;
 
-            const count = group.items.length;
-            const sub   = count > 0 ? `${count} photos` : 'coming soon';
+                const count = group.items.length;
+                const sub = count > 0 ? `${count} photos` : 'coming soon';
 
-            const div = document.createElement('div');
-            div.className = 'gallery-item';
-            div.innerHTML = `
-                <img src="${src}" alt="${group.tag}" loading="lazy">
-                <div class="caption">
-                    <h5>${group.tag}</h5>
-                    <p>${sub}</p>
-                </div>`;
-            div.addEventListener('click', () => openAlbum(groupIdx));
-            grid.appendChild(div);
-        });
+                const div = document.createElement('div');
+                div.className = 'gallery-item';
+                div.innerHTML = `
+                    <img src="${src}" alt="${group.tag}" loading="lazy" onerror="this.src='images/tobey.r.png'">
+                    <div class="caption">
+                        <h5>${group.tag}</h5>
+                        <p>${sub}</p>
+                    </div>`;
+                div.addEventListener('click', () => openAlbum(groupIdx));
+                grid.appendChild(div);
+            });
+        }
 
         // ===== ALBUM VIEW =====
-        let currentGroup   = 0;
-        let currentImgIdx  = 0;
+        let currentGroup = 0;
+        let currentImgIdx = 0;
 
         function openAlbum(groupIdx) {
             currentGroup = groupIdx;
-            const group  = GALLERY[groupIdx];
+            const group = GALLERY[groupIdx];
             const albumGrid = document.getElementById('album-grid');
             document.getElementById('album-tag').textContent = group.tag;
             albumGrid.innerHTML = '';
 
-            group.items.forEach((item, idx) => {
-                const src = group.folder + item.file;
-                const div = document.createElement('div');
-                div.className = 'album-item';
-                div.innerHTML = `
-                    <img src="${src}" alt="${group.tag}" loading="lazy">
-                    <div class="caption">
-                        <p>${item.caption}</p>
-                    </div>`;
-                div.addEventListener('click', () => openLightbox(idx));
-                albumGrid.appendChild(div);
-            });
+            if (!group.items || group.items.length === 0) {
+                albumGrid.innerHTML = '<p style="grid-column: span 3; text-align:center; padding: 40px; color: #888;">coming soon...</p>';
+            } else {
+                group.items.forEach((item, idx) => {
+                    const src = group.folder + item.file;
+                    const div = document.createElement('div');
+                    div.className = 'album-item';
+                    div.innerHTML = `
+                        <img src="${src}" alt="${group.tag}" loading="lazy" onerror="this.src='images/tobey.r.png'">
+                        <div class="caption">
+                            <p>${item.caption}</p>
+                        </div>`;
+                    div.addEventListener('click', () => openLightbox(idx));
+                    albumGrid.appendChild(div);
+                });
+            }
 
             const view = document.getElementById('album-view');
             view.classList.add('active');
@@ -174,10 +179,12 @@
 
         function renderLightbox() {
             const group = GALLERY[currentGroup];
-            const item  = group.items[currentImgIdx];
-            document.getElementById('lb-img').src              = group.folder + item.file;
-            document.getElementById('lb-title').textContent    = group.tag;
-            document.getElementById('lb-desc').textContent     = item.caption;
+            if (!group || !group.items[currentImgIdx]) return;
+            const item = group.items[currentImgIdx];
+
+            document.getElementById('lb-img').src = group.folder + item.file;
+            document.getElementById('lb-title').textContent = group.tag;
+            document.getElementById('lb-desc').textContent = item.caption;
         }
 
         window.closeLightbox = function () {
@@ -189,12 +196,14 @@
         };
 
         window.shiftLightbox = function (dir) {
-            const len = GALLERY[currentGroup].items.length;
+            const items = GALLERY[currentGroup]?.items;
+            if (!items || items.length === 0) return;
+            const len = items.length;
             currentImgIdx = (currentImgIdx + dir + len) % len;
             renderLightbox();
         };
 
-        // keyboard
+        // Keyboard navigation
         document.addEventListener('keydown', e => {
             const lb = document.getElementById('lightbox');
             if (lb.classList.contains('active')) {
@@ -207,12 +216,14 @@
             if (av.classList.contains('active') && e.key === 'Escape') window.closeAlbum();
         });
 
-        // swipe สำหรับ iOS (lightbox)
+        // Touch swipe for mobile (lightbox)
         let touchX = 0;
-        document.getElementById('lightbox').addEventListener('touchstart', e => {
+        const lightboxEl = document.getElementById('lightbox');
+        lightboxEl.addEventListener('touchstart', e => {
             touchX = e.changedTouches[0].clientX;
         }, { passive: true });
-        document.getElementById('lightbox').addEventListener('touchend', e => {
+
+        lightboxEl.addEventListener('touchend', e => {
             const diff = touchX - e.changedTouches[0].clientX;
             if (Math.abs(diff) > 50) window.shiftLightbox(diff > 0 ? 1 : -1);
         }, { passive: true });

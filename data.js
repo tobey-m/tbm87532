@@ -35,8 +35,8 @@ const GALLERY = [
       { file: 'taiwan-01.jpg', caption: 'keelung' },
       { file: 'taiwan-02.jpg', caption: 'temple' },
       { file: 'taiwan-03.jpg', caption: 'temple' },
-      { file: 'taiwan-05.jpg', caption: 'taipei main station' },
-      { file: 'taiwan-06.jpg', caption: 'so drunk lol' },
+      { file: 'taiwan-04.jpg', caption: 'taipei main station' },
+      { file: 'taiwan-05.jpg', caption: 'so drunk lol' },
     ]
   },
   {
@@ -44,12 +44,12 @@ const GALLERY = [
     cover: 'images/lovethings.jpg',
     folder: 'images/lovethings/',
     items: [
-      { file: 'pagoda50-2022.jpg', caption: 'pagoda50-2022' },
+      { file: 'pagoda50-2022.JPG', caption: 'pagoda50-2022' },
       { file: 'phakan15k-2023-overall.JPG', caption: 'phakan15k-2023-overall' },
       { file: 'dmt40-2023-4th overall.jpg', caption: 'dmt40-2023-4th overall' },
       { file: 'doichang35k-2023.JPG', caption: 'doichang35k-2023' },
       { file: 'transjeju-2024-77th.JPG', caption: 'transjeju-2024-77th' },
-      { file: 'jaehomhalf-2024.JPG', caption: 'jaehomhalf-2024' },
+      { file: 'jaehomhalf-2024.jpg', caption: 'jaehomhalf-2024' },
     ]
   },
   {

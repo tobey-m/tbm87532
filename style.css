@@ -926,3 +926,8 @@ body { overflow-x:hidden; }
 .showcase-arrow::before{content:"";position:absolute;width:19px;height:1.5px;background:currentColor;transform:translate(-2px,4px) rotate(-45deg);transform-origin:center}
 .showcase-project:hover .showcase-arrow::after{transform:translate(0,0)}
 .showcase-project:hover .showcase-arrow::before{transform:translate(1px,1px) rotate(-45deg)}
+
+/* Gallery loading feedback: show stable tiles while photos decode */
+.gallery-item,.album-item{background:#20211f;overflow:hidden}
+.gallery-item img,.album-item img{background:#20211f;transition:opacity .2s ease}
+.album-grid{grid-template-columns:repeat(3,minmax(0,1fr))}

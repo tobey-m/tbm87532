@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta name="theme-color" content="#0b0b0b">
-    <link rel="stylesheet" href="style.css?v=20261105e">
+    <link rel="stylesheet" href="style.css?v=20261105f">
 </head>
 <body>
 
@@ -162,7 +162,7 @@
             img.alt = img.alt || 'Gallery photo';
             img.decoding = 'async';
             img.loading = priority ? 'eager' : 'lazy';
-            if (priority) img.fetchPriority = 'high';
+            img.fetchPriority = priority ? 'high' : 'low';
             let retried = false;
             img.onerror = () => {
                 if (!retried) {
@@ -185,7 +185,7 @@
                 div.className = 'gallery-item';
                 const img = document.createElement('img');
                 img.alt = group.tag;
-                setImage(img, cover, groupIdx < 2);
+                setImage(img, cover, false);
                 const caption = document.createElement('div');
                 caption.className = 'caption';
                 const title = document.createElement('h5');
@@ -227,7 +227,7 @@
                 const img = document.createElement('img');
                 img.alt = item.caption || group.tag;
                 // First six are visible immediately; load the rest as the user scrolls.
-                setImage(img, group.folder + item.file, idx < 6);
+                setImage(img, group.folder + item.file, idx < 3);
                 const caption = document.createElement('div');
                 caption.className = 'caption';
                 const p = document.createElement('p');
@@ -238,6 +238,7 @@
                 fragment.appendChild(div);
             });
             albumGrid.appendChild(fragment);
+            // Keep the first visible row responsive; let Safari fetch the rest lazily.
         }
 
         window.closeAlbum = function () {

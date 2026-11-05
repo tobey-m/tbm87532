@@ -5,6 +5,9 @@ const GALLERY = [
     cover: 'images/journey.jpg',
     folder: 'images/journey/',
     items: [
+      { file: 'doi-chang-2026.jpg', caption: 'doi chang, 2026' },
+      { file: 'chiangrai-city-2026-01.jpg', caption: 'chiangrai city, 2026' },
+      { file: 'chiangrai-city-2026-02.jpg', caption: 'chiangrai city, 2026' },
       { file: 'japan-01.jpg', caption: 'arashiyama.' },
       { file: 'japan-02.jpg', caption: 'kittykitty.' },
       { file: 'japan-03.jpg', caption: 'wonderful %.' },

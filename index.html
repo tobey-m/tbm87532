@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta name="theme-color" content="#0b0b0b">
     <link rel="stylesheet" href="style.css?v=20261105f">
+    <link rel="stylesheet" href="gallery-v2.css?v=20261105-live">
 </head>
 <body>
 
@@ -72,7 +73,7 @@
             </button>
             <span id="album-tag" class="album-tag-title"></span>
         </div>
-        <div id="album-grid" class="album-grid"></div>
+        <div class="v2-toolbar"><div><p class="v2-eyebrow">TOBEYM. / PHOTOGRAPHIC ARCHIVE</p><h2 class="v2-headline">Collected moments.</h2><p class="v2-sub" id="v2-subtitle">A visual diary of places, people and everything between.</p></div><div class="v2-controls"><button id="v2-editorial" class="active" type="button" aria-pressed="true">EDITORIAL</button><button id="v2-contact" type="button" aria-pressed="false">CONTACT SHEET</button></div></div><div class="v2-filterbar" id="v2-filters" aria-label="Filter photographs"></div><div id="album-grid" class="album-grid"></div>
     </div>
 
     <!-- Lightbox -->
@@ -206,6 +207,11 @@
             const albumGrid = document.getElementById('album-grid');
             document.getElementById('album-tag').textContent = group.tag;
             albumGrid.replaceChildren();
+            document.getElementById('album-view').classList.remove('v2-contact');
+            document.getElementById('v2-editorial').classList.add('active');
+            document.getElementById('v2-editorial').setAttribute('aria-pressed','true');
+            document.getElementById('v2-contact').classList.remove('active');
+            document.getElementById('v2-contact').setAttribute('aria-pressed','false');
             const view = document.getElementById('album-view');
             // Make the album visible BEFORE creating images. Lazy-loaded images
             // inserted into a hidden container can remain unloaded on Safari.
@@ -236,6 +242,34 @@
                 fragment.appendChild(div);
             });
             albumGrid.appendChild(fragment);
+            // Collections are derived from filenames; original photo order is preserved.
+            const collectionFor = (file) => {
+                if (/^(chiangrai|doi-chang|chiangdao)/i.test(file)) return 'NORTHERN THAILAND';
+                if (/^jeju/i.test(file)) return 'JEJU';
+                if (/^seoul/i.test(file)) return 'SEOUL';
+                if (/^japan/i.test(file)) return 'JAPAN';
+                if (/^taiwan/i.test(file)) return 'TAIWAN';
+                return 'OTHER MOMENTS';
+            };
+            const filters = document.getElementById('v2-filters');
+            filters.replaceChildren();
+            const choices = ['ALL', ...new Set(group.items.map(item => collectionFor(item.file)))];
+            choices.forEach(choice => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.textContent = choice;
+                btn.classList.toggle('active', choice === 'ALL');
+                btn.addEventListener('click', () => {
+                    filters.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
+                    [...albumGrid.children].forEach((tile, idx) => {
+                        tile.hidden = choice !== 'ALL' && collectionFor(group.items[idx].file) !== choice;
+                        tile.style.display = tile.hidden ? 'none' : '';
+                    });
+                    document.getElementById('v2-subtitle').textContent = (choice === 'ALL' ? group.items.length : group.items.filter(item => collectionFor(item.file) === choice).length) + ' PHOTOGRAPHS / ' + choice;
+                });
+                filters.appendChild(btn);
+            });
+            document.getElementById('v2-subtitle').textContent = group.items.length + ' PHOTOGRAPHS / ALL';
             // Keep the first visible row responsive; let Safari fetch the rest lazily.
         }
 
@@ -272,6 +306,24 @@
             renderLightbox();
         };
 
+        document.querySelectorAll('#v2-editorial,#v2-contact').forEach(btn => btn.addEventListener('click', () => {
+            const contact = btn.id === 'v2-contact';
+            document.getElementById('album-view').classList.toggle('v2-contact', contact);
+            document.querySelectorAll('#v2-editorial,#v2-contact').forEach(b => {
+                const active = b === btn;
+                b.classList.toggle('active', active);
+                b.setAttribute('aria-pressed', String(active));
+            });
+        }));
+        let touchStartX = null;
+        const lightbox = document.getElementById('lightbox');
+        lightbox.addEventListener('touchstart', e => { touchStartX = e.touches[0]?.clientX ?? null; }, {passive:true});
+        lightbox.addEventListener('touchend', e => {
+            if (touchStartX === null) return;
+            const dx = (e.changedTouches[0]?.clientX ?? touchStartX) - touchStartX;
+            if (Math.abs(dx) > 55) window.shiftLightbox(dx < 0 ? 1 : -1);
+            touchStartX = null;
+        }, {passive:true});
         // Keyboard navigation
         document.addEventListener('keydown', e => {
             const lb = document.getElementById('lightbox');

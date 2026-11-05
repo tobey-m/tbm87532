@@ -132,27 +132,47 @@
     <script>
     (function () {
 
-        // ===== BUILD MAIN GALLERY =====
+        // ===== GALLERY: robust paths, predictable loading and retries =====
         const grid = document.getElementById('gallery-grid');
+        const imageUrl = (path) => encodeURI(path).replace(/#/g, '%23');
+        const placeholder = imageUrl('images/tobey.r.png');
+        const setImage = (img, path, priority = false) => {
+            const src = imageUrl(path);
+            img.alt = img.alt || 'Gallery photo';
+            img.decoding = 'async';
+            img.loading = priority ? 'eager' : 'lazy';
+            if (priority) img.fetchPriority = 'high';
+            let retried = false;
+            img.onerror = () => {
+                if (!retried) {
+                    retried = true;
+                    // Retry once with a cache-busting URL in case of transient CDN errors.
+                    img.src = src + (src.includes('?') ? '&' : '?') + 'retry=1';
+                } else {
+                    img.onerror = null;
+                    img.src = placeholder;
+                }
+            };
+            img.src = src;
+        };
+
         if (typeof GALLERY !== 'undefined') {
             GALLERY.forEach((group, groupIdx) => {
-                const src = group.cover
-                    ? group.cover
-                    : (group.items.length ? group.folder + group.items[0].file : null);
-
-                if (!src) return;
-
-                const count = group.items.length;
-                const sub = count > 0 ? `${count} photos` : 'coming soon';
-
+                const cover = group.cover || (group.items.length ? group.folder + group.items[0].file : null);
+                if (!cover) return;
                 const div = document.createElement('div');
                 div.className = 'gallery-item';
-                div.innerHTML = `
-                    <img src="${src}" alt="${group.tag}" loading="lazy" onerror="this.src='images/tobey.r.png'">
-                    <div class="caption">
-                        <h5>${group.tag}</h5>
-                        <p>${sub}</p>
-                    </div>`;
+                const img = document.createElement('img');
+                img.alt = group.tag;
+                setImage(img, cover, groupIdx < 2);
+                const caption = document.createElement('div');
+                caption.className = 'caption';
+                const title = document.createElement('h5');
+                title.textContent = group.tag;
+                const subtitle = document.createElement('p');
+                subtitle.textContent = group.items.length ? group.items.length + ' photos' : 'coming soon';
+                caption.append(title, subtitle);
+                div.append(img, caption);
                 div.addEventListener('click', () => openAlbum(groupIdx));
                 grid.appendChild(div);
             });
@@ -161,34 +181,42 @@
         // ===== ALBUM VIEW =====
         let currentGroup = 0;
         let currentImgIdx = 0;
-
         function openAlbum(groupIdx) {
             currentGroup = groupIdx;
             const group = GALLERY[groupIdx];
             const albumGrid = document.getElementById('album-grid');
             document.getElementById('album-tag').textContent = group.tag;
-            albumGrid.innerHTML = '';
-
-            if (!group.items || group.items.length === 0) {
-                albumGrid.innerHTML = '<p style="grid-column: span 3; text-align:center; padding: 40px; color: #888;">coming soon...</p>';
-            } else {
-                group.items.forEach((item, idx) => {
-                    const src = group.folder + item.file;
-                    const div = document.createElement('div');
-                    div.className = 'album-item';
-                    div.innerHTML = `
-                        <img src="${src}" alt="${group.tag}" loading="lazy" onerror="this.src='images/tobey.r.png'">
-                        <div class="caption">
-                            <p>${item.caption}</p>
-                        </div>`;
-                    div.addEventListener('click', () => openLightbox(idx));
-                    albumGrid.appendChild(div);
-                });
-            }
-
+            albumGrid.replaceChildren();
             const view = document.getElementById('album-view');
+            // Make the album visible BEFORE creating images. Lazy-loaded images
+            // inserted into a hidden container can remain unloaded on Safari.
             view.classList.add('active');
             document.body.style.overflow = 'hidden';
+            if (!group.items?.length) {
+                const empty = document.createElement('p');
+                empty.textContent = 'coming soon...';
+                empty.style.cssText = 'grid-column:1/-1;text-align:center;padding:40px;color:#888';
+                albumGrid.appendChild(empty);
+                return;
+            }
+            const fragment = document.createDocumentFragment();
+            group.items.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'album-item';
+                const img = document.createElement('img');
+                img.alt = item.caption || group.tag;
+                // First six are visible immediately; load the rest as the user scrolls.
+                setImage(img, group.folder + item.file, idx < 6);
+                const caption = document.createElement('div');
+                caption.className = 'caption';
+                const p = document.createElement('p');
+                p.textContent = item.caption;
+                caption.appendChild(p);
+                div.append(img, caption);
+                div.addEventListener('click', () => openLightbox(idx));
+                fragment.appendChild(div);
+            });
+            albumGrid.appendChild(fragment);
         }
 
         window.closeAlbum = function () {
@@ -199,33 +227,28 @@
         // ===== LIGHTBOX =====
         function openLightbox(idx) {
             currentImgIdx = idx;
-            renderLightbox();
             document.getElementById('lightbox').classList.add('active');
+            renderLightbox();
         }
-
         function renderLightbox() {
             const group = GALLERY[currentGroup];
-            if (!group || !group.items[currentImgIdx]) return;
+            if (!group?.items[currentImgIdx]) return;
             const item = group.items[currentImgIdx];
-
-            document.getElementById('lb-img').src = group.folder + item.file;
+            const img = document.getElementById('lb-img');
+            setImage(img, group.folder + item.file, true);
             document.getElementById('lb-title').textContent = group.tag;
             document.getElementById('lb-desc').textContent = item.caption;
         }
-
         window.closeLightbox = function () {
             document.getElementById('lightbox').classList.remove('active');
         };
-
         window.closeLightboxOnBg = function (e) {
             if (e.target === document.getElementById('lightbox')) window.closeLightbox();
         };
-
         window.shiftLightbox = function (dir) {
             const items = GALLERY[currentGroup]?.items;
-            if (!items || items.length === 0) return;
-            const len = items.length;
-            currentImgIdx = (currentImgIdx + dir + len) % len;
+            if (!items?.length) return;
+            currentImgIdx = (currentImgIdx + dir + items.length) % items.length;
             renderLightbox();
         };
 

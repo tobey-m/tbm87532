@@ -904,3 +904,18 @@ body { overflow-x:hidden; }
 .album-grid { flex: 0 0 auto; align-content: start; grid-auto-rows: max-content; }
 .album-item { width: 100%; min-width: 0; aspect-ratio: 1 / 1; }
 .album-item img { width: 100%; height: 100%; object-fit: cover; }
+
+/* TBM master hub: public project directory, independent apps */
+.hub-toolbar{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin:24px 0 14px}
+.hub-label,.hub-private-mark{font-size:.68rem;letter-spacing:.14em;color:#a5a59e}
+.hub-search-label{display:flex;align-items:center;gap:10px;border:1px solid #44443e;padding:11px 14px;color:#a5a59e;min-width:min(100%,270px)}
+.hub-search-label:focus-within{border-color:#ecebe7}
+.hub-search-label input{font:inherit;font-size:.83rem;color:#ecebe7;background:transparent;border:0;outline:0;width:100%;min-width:0}
+.hub-search-label input::placeholder{color:#85857f}
+.hub-results{font-size:.75rem;color:#a5a59e;margin:0 0 12px}
+.showcase-project[hidden]{display:none!important}
+.hub-private{display:grid;grid-template-columns:75px minmax(0,1fr) 24px;gap:16px;align-items:start;padding:27px 8px;border-bottom:1px solid #3a3a36;color:#aaa}
+.hub-private strong{font-size:clamp(1.35rem,3vw,2.2rem);font-weight:500;color:#ecebe7;letter-spacing:-.05em}
+.hub-private p{font-size:.82rem;margin:8px 0 0;color:#9a9994}
+.hub-private i{font-size:1rem;margin-top:5px}
+@media(max-width:768px){.hub-toolbar{align-items:stretch;gap:12px}.hub-search-label{width:100%}.hub-private{grid-template-columns:46px minmax(0,1fr) 20px;gap:10px;padding:22px 2px}}

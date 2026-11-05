@@ -614,7 +614,9 @@ section {
     grid-template-columns: repeat(3, 1fr);
     gap: 3px;
     padding: 3px;
-    flex: 1;
+    flex: none;
+    align-content: start;
+    grid-auto-rows: max-content;
 }
 
 .album-item {
@@ -897,3 +899,8 @@ body { overflow-x:hidden; }
  .name-title { font-size:clamp(2rem,8vw,3rem); }
  .btn-resume { margin-bottom:8px; }
 }
+
+/* Gallery: prevent CSS Grid from stretching photo rows to viewport height */
+.album-grid { flex: 0 0 auto; align-content: start; grid-auto-rows: max-content; }
+.album-item { width: 100%; min-width: 0; aspect-ratio: 1 / 1; }
+.album-item img { width: 100%; height: 100%; object-fit: cover; }

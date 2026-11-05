@@ -15,3 +15,14 @@
 .trail-note{margin:15px 0 0;font-size:11px;color:#81847e}
 @media(max-width:600px){.trail-section{padding:44px 0 50px}.trail-cards{gap:9px}.trail-card{padding:17px;min-height:175px}.trail-card-label{font-size:10px}.trail-card-score{font-size:46px}.trail-card-status{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.trail-card{transition:none}}
+
+/* V2 compact and aligned running score cards */
+.trail-cards{align-items:stretch}
+.trail-card{display:grid;grid-template-rows:28px 1fr 22px;align-items:center;gap:12px;min-height:190px}
+.trail-card-top{height:28px;min-width:0}
+.trail-card-label{font-size:12px;line-height:1;letter-spacing:.16em;white-space:nowrap}
+.trail-card-arrow{width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;flex:none;color:#c9c8be}
+.trail-card-arrow svg{display:block;width:20px;height:20px}
+.trail-card-score{align-self:center;line-height:1;white-space:nowrap;font-variant-numeric:tabular-nums}
+.trail-card-status{align-self:end;white-space:nowrap;letter-spacing:.02em}
+@media(max-width:600px){.trail-card{grid-template-rows:24px 1fr 20px;min-height:160px;padding:17px 14px;gap:9px}.trail-card-label{font-size:12px}.trail-card-arrow,.trail-card-arrow svg{width:18px;height:18px}.trail-card-score{font-size:clamp(42px,11vw,58px)}.trail-card-status{font-size:10px;letter-spacing:0}.trail-description{margin-bottom:20px}.trail-note{font-size:10px;line-height:1.5}}

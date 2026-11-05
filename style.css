@@ -919,3 +919,10 @@ body { overflow-x:hidden; }
 .hub-private p{font-size:.82rem;margin:8px 0 0;color:#9a9994}
 .hub-private i{font-size:1rem;margin-top:5px}
 @media(max-width:768px){.hub-toolbar{align-items:stretch;gap:12px}.hub-search-label{width:100%}.hub-private{grid-template-columns:46px minmax(0,1fr) 20px;gap:10px;padding:22px 2px}}
+
+/* Project links: understated editorial arrow, never emoji-style glyph */
+.showcase-arrow{font-family:Arial,Helvetica,sans-serif!important;font-variant-emoji:text;font-size:0!important;display:flex;justify-content:flex-end;align-items:center;color:#c9c4b8;line-height:1}
+.showcase-arrow::after{content:"";display:block;width:14px;height:14px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;transform:translate(-3px,3px);transition:transform .2s ease}
+.showcase-arrow::before{content:"";position:absolute;width:19px;height:1.5px;background:currentColor;transform:translate(-2px,4px) rotate(-45deg);transform-origin:center}
+.showcase-project:hover .showcase-arrow::after{transform:translate(0,0)}
+.showcase-project:hover .showcase-arrow::before{transform:translate(1px,1px) rotate(-45deg)}

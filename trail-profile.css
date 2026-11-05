@@ -1,0 +1,17 @@
+/* Trail running profile: links to official profiles; no unverified score values. */
+.trail-section{background:#101110;color:#f0eee7;padding:64px 0 72px}
+.trail-section .container{max-width:1120px;margin:0 auto;padding:0 22px}
+.trail-eyebrow{font-size:11px;letter-spacing:.22em;color:#aaa99f;text-transform:uppercase;margin:0 0 15px}
+.trail-heading{font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,6vw,64px);font-weight:500;letter-spacing:-.06em;line-height:1.05;margin:0 0 12px}
+.trail-description{font-size:13px;color:#aaa99f;line-height:1.7;margin:0 0 27px}
+.trail-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.trail-card{display:flex;flex-direction:column;gap:12px;min-height:190px;border:1px solid #383a36;padding:24px;color:inherit;text-decoration:none;transition:border-color .2s,transform .2s;background:#171917}
+.trail-card:hover{border-color:#bbb8ad;transform:translateY(-2px)}
+.trail-card-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.trail-card-label{font-size:12px;letter-spacing:.17em;color:#c5c4b9}
+.trail-card-arrow{font-size:18px;color:#d5d1c7}
+.trail-card-score{font-size:clamp(40px,6vw,68px);letter-spacing:-.06em;line-height:1;font-weight:500}
+.trail-card-status{font-size:11px;color:#999b94;letter-spacing:.05em}
+.trail-note{margin:15px 0 0;font-size:11px;color:#81847e}
+@media(max-width:600px){.trail-section{padding:44px 0 50px}.trail-cards{gap:9px}.trail-card{padding:17px;min-height:175px}.trail-card-label{font-size:10px}.trail-card-score{font-size:46px}.trail-card-status{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.trail-card{transition:none}}

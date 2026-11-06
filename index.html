@@ -9,6 +9,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta name="theme-color" content="#0b0b0b">
+    <script>
+      // On a fresh visit, always start at Home. Preserve intentional #section links.
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      if (!location.hash) {
+        if (/\/index\.html$/i.test(location.pathname)) {
+          history.replaceState(null, '', location.pathname.replace(/index\.html$/i, '') + location.search);
+        }
+        const startAtHome = () => window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        document.addEventListener('DOMContentLoaded', startAtHome, { once: true });
+        window.addEventListener('load', startAtHome, { once: true });
+        window.addEventListener('pageshow', startAtHome);
+      }
+    </script>
+
     <link rel="stylesheet" href="style.css?v=20261105f">
     <link rel="stylesheet" href="gallery-v2.css?v=20261105-live">
     <link rel="stylesheet" href="trail-profile.css?v=20261105b">
